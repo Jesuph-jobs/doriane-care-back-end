@@ -1,4 +1,4 @@
-import {
+import type {
 	ApplySchemaOptions,
 	FlatRecord,
 	HydratedDocument,
@@ -7,9 +7,9 @@ import {
 	/* QueryWithHelpers, */
 	ResolveSchemaOptions,
 	Types,
-} from 'mongoose';
+} from "mongoose";
 
-export interface UserVirtual {}
+export type UserVirtual = object;
 
 export interface UserInstanceMethods {
 	comparePassword: (this: UserHydratedDocument, password: string) => Promise<boolean>;
@@ -20,7 +20,7 @@ export interface UserInstanceMethods {
 	toNecessaryUser: (this: UserHydratedDocument, replace?: boolean) => NecessaryUserI;
 }
 /* QueryWithHelpers<UserHydratedDocument | null, UserHydratedDocument, UserQueryHelpers, UserDocumentI<ValidationHydratedDocument>,'findOne' >; */
-export interface UserQueryHelpers {}
+export type UserQueryHelpers = object;
 export interface UserDocument
 	extends ApplySchemaOptions<
 		ObtainDocumentType<UserDocument, UserDocumentI, ResolveSchemaOptions<UserSchemaOptions>>,
@@ -36,7 +36,7 @@ export interface UserStaticMethods {
 	registerGoogleUser: (
 		this: UserModel,
 		userId: string | Types.ObjectId,
-		user: UserGoogleRegistrationI
+		user: UserGoogleRegistrationI,
 	) => Promise<UserHydratedDocument>;
 	loginGoogleUser: (this: UserModel, googleId: string) => Promise<UserHydratedDocument>;
 	findByUsername: (this: UserModel, username: string) => Promise<UserHydratedDocument | null>;

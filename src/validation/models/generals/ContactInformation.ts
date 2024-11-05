@@ -1,10 +1,10 @@
-import { MyZodType, z } from '^server/defaultZod';
-import { arraySchema, emailSchema, phoneSchema, urlSchema } from '^server/elements';
+import { type MyZodType, z } from "^server/defaultZod";
+import { arraySchema, emailSchema, phoneSchema, urlSchema } from "^server/elements";
 
 /* Social media  schema */
 export const SocialMediaSchema = (
 	{ facebook, instagram, linkedin, x, youtube }: Partial<Record<keyof SocialMediaUrlsI, ErrorsSchemaMsgI>> = {},
-	DocumentUserMsg: ErrorsSchemaMsgI = {}
+	DocumentUserMsg: ErrorsSchemaMsgI = {},
 ) => {
 	return z
 		.object<MyZodType<SocialMediaUrlsI>>(
@@ -16,17 +16,17 @@ export const SocialMediaSchema = (
 				youtube: z.string(youtube).optional(),
 			},
 			{
-				description: DocumentUserMsg.description || 'Social media document Schema',
-				invalid_type_error: DocumentUserMsg.invalid || 'Invalid Social media Schema',
-				required_error: DocumentUserMsg.required || 'Social media document Schema is required',
-			}
+				description: DocumentUserMsg.description || "Social media document Schema",
+				invalid_type_error: DocumentUserMsg.invalid || "Invalid Social media Schema",
+				required_error: DocumentUserMsg.required || "Social media document Schema is required",
+			},
 		)
-		.openapi('Social_Media_Document', { description: 'Social media document Schema' });
+		.openapi("Social_Media_Document", { description: "Social media document Schema" });
 };
 /* Phone  schema */
 export const PhoneSchema = (
 	{ number, code }: Partial<Record<keyof PhoneI, ErrorsSchemaMsgI>> = {},
-	DocumentUserMsg: ErrorsSchemaMsgI = {}
+	DocumentUserMsg: ErrorsSchemaMsgI = {},
 ) => {
 	return z
 		.object<MyZodType<PhoneI>>(
@@ -35,12 +35,12 @@ export const PhoneSchema = (
 				code: z.string(code).optional(),
 			},
 			{
-				description: DocumentUserMsg.description || 'Phone document Schema',
-				invalid_type_error: DocumentUserMsg.invalid || 'Invalid Phone Schema',
-				required_error: DocumentUserMsg.required || 'Phone document Schema is required',
-			}
+				description: DocumentUserMsg.description || "Phone document Schema",
+				invalid_type_error: DocumentUserMsg.invalid || "Invalid Phone Schema",
+				required_error: DocumentUserMsg.required || "Phone document Schema is required",
+			},
 		)
-		.openapi('Phone_Document', { description: 'Phone document Schema' });
+		.openapi("Phone_Document", { description: "Phone document Schema" });
 };
 /* Personal information schema */
 export const ContactInformationSchema = (
@@ -51,10 +51,10 @@ export const ContactInformationSchema = (
 		socialMediaUrls,
 		validatedEmails,
 		websites,
-	}: Partial<Record<Exclude<keyof ContactInformationI, 'socialMediaUrls'>, ErrorsSchemaMsgI>> & {
+	}: Partial<Record<Exclude<keyof ContactInformationI, "socialMediaUrls">, ErrorsSchemaMsgI>> & {
 		socialMediaUrls?: Partial<Record<keyof SocialMediaUrlsI, ErrorsSchemaMsgI>>;
 	} = {},
-	DocumentUserMsg: ErrorsSchemaMsgI = {}
+	DocumentUserMsg: ErrorsSchemaMsgI = {},
 ) => {
 	return z
 		.object<MyZodType<ContactInformationI>>(
@@ -67,10 +67,10 @@ export const ContactInformationSchema = (
 				socialMediaUrls: SocialMediaSchema(socialMediaUrls).optional(),
 			},
 			{
-				description: DocumentUserMsg.description || 'Contact information document Schema',
-				invalid_type_error: DocumentUserMsg.invalid || 'Invalid Contact information Schema',
-				required_error: DocumentUserMsg.required || 'Contact information document Schema is required',
-			}
+				description: DocumentUserMsg.description || "Contact information document Schema",
+				invalid_type_error: DocumentUserMsg.invalid || "Invalid Contact information Schema",
+				required_error: DocumentUserMsg.required || "Contact information document Schema is required",
+			},
 		)
-		.openapi('Contact_information_Document', { description: 'Contact information document Schema' });
+		.openapi("Contact_information_Document", { description: "Contact information document Schema" });
 };

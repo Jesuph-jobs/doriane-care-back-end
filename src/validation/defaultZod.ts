@@ -1,5 +1,5 @@
-import { extendZodWithOpenApi } from '@asteasolutions/zod-to-openapi';
-import { z, ZodType } from 'zod';
+import { extendZodWithOpenApi } from "@asteasolutions/zod-to-openapi";
+import { type ZodType, z } from "zod";
 
 extendZodWithOpenApi(z);
 

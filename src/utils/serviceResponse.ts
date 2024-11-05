@@ -1,6 +1,6 @@
 export enum ResponseStatus {
-	Success,
-	Failed,
+	Success = 0,
+	Failed = 1,
 }
 
 export class ServiceResponse<T = null> implements ResponseI<T> {

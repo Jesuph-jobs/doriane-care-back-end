@@ -1,4 +1,4 @@
-import {
+import type {
 	ApplySchemaOptions,
 	FlatRecord,
 	HydratedDocument,
@@ -6,15 +6,15 @@ import {
 	ObtainDocumentType,
 	/* QueryWithHelpers, */
 	ResolveSchemaOptions,
-} from 'mongoose';
+} from "mongoose";
 
-export interface SocialMediaUrlsVirtual {}
+export type SocialMediaUrlsVirtual = object;
 
 export interface SocialMediaUrlsInstanceMethods {
 	toOptimizedObject: (this: SocialMediaUrlsHydratedDocument) => SocialMediaUrlsI;
 }
 /* QueryWithHelpers<SocialMediaUrlsHydratedDocument | null, SocialMediaUrlsHydratedDocument, SocialMediaUrlsQueryHelpers, SocialMediaUrlsDocumentI<ValidationHydratedDocument>,'findOne' >; */
-export interface SocialMediaUrlsQueryHelpers {}
+export type SocialMediaUrlsQueryHelpers = object;
 export interface SocialMediaUrlsDocument
 	extends ApplySchemaOptions<
 		ObtainDocumentType<
@@ -31,9 +31,7 @@ export interface SocialMediaUrlsHydratedDocument
 		SocialMediaUrlsQueryHelpers
 	> {}
 
-export interface SocialMediaUrlsStaticMethods {
-	// custom static methods here
-}
+export type SocialMediaUrlsStaticMethods = object;
 export interface SocialMediaUrlsSchemaOptions {
 	timestamps: false;
 	_id: false;

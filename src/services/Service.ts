@@ -1,10 +1,10 @@
-import { cLogger } from '$server/console';
+import { cLogger } from "$server/console";
 
 export default class Service<T> {
 	public id: string;
-	public name: string = 'Service';
-	public category: string = 'Service';
-	public description: string = 'An abstract service to handle connections.';
+	public name = "Service";
+	public category = "Service";
+	public description = "An abstract service to handle connections.";
 
 	public startedAt: Date;
 	public endedAt: Date | null = null;
@@ -21,7 +21,7 @@ export default class Service<T> {
 		this.connection = connection;
 		connection.then(() => {
 			this.endedAt = new Date();
-			cLogger.info(this.toString() + ' - Connection established.');
+			cLogger.info(`${this.toString()} - Connection established.`);
 		});
 	}
 
@@ -39,7 +39,7 @@ export default class Service<T> {
 			? this.endedAt.getTime() - this.startedAt.getTime()
 			: /* istanbul ignore next */ 0;
 		return `${this.id} - ${this.name} - ${this.category} - ${this.description}/ ${
-			initiatedIn ? 'Initiated in ' + initiatedIn + 'ms' : 'Not initiated yet.'
+			initiatedIn ? `Initiated in ${initiatedIn}ms` : "Not initiated yet."
 		}`;
 	}
 }

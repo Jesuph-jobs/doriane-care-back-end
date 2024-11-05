@@ -1,4 +1,4 @@
-import {
+import type {
 	ApplySchemaOptions,
 	FlatRecord,
 	HydratedDocument,
@@ -6,15 +6,15 @@ import {
 	ObtainDocumentType,
 	/* QueryWithHelpers, */
 	ResolveSchemaOptions,
-} from 'mongoose';
+} from "mongoose";
 
-export interface PersonalInformationVirtual {}
+export type PersonalInformationVirtual = object;
 
 export interface PersonalInformationInstanceMethods {
 	toOptimizedObject: (this: PersonalInformationHydratedDocument) => PersonalInformationI;
 }
 /* QueryWithHelpers<PersonalInformationHydratedDocument | null, PersonalInformationHydratedDocument, PersonalInformationQueryHelpers, PersonalInformationDocumentI<ValidationHydratedDocument>,'findOne' >; */
-export interface PersonalInformationQueryHelpers {}
+export type PersonalInformationQueryHelpers = object;
 export interface PersonalInformationDocument
 	extends ApplySchemaOptions<
 		ObtainDocumentType<
@@ -31,9 +31,7 @@ export interface PersonalInformationHydratedDocument
 		PersonalInformationQueryHelpers
 	> {}
 
-export interface PersonalInformationStaticMethods {
-	// custom static methods here
-}
+export type PersonalInformationStaticMethods = object;
 export interface PersonalInformationSchemaOptions {
 	timestamps: false;
 	_id: false;

@@ -1,15 +1,15 @@
-import { ResponseConfig } from '@asteasolutions/zod-to-openapi';
-import { StatusCodes } from 'http-status-codes';
-import { ZodTypeAny } from 'zod';
+import type { ResponseConfig } from "@asteasolutions/zod-to-openapi";
+import { StatusCodes } from "http-status-codes";
+import type { ZodTypeAny } from "zod";
 
-import { ServiceResponseSchema } from '^server/response';
+import { ServiceResponseSchema } from "^server/response";
 
 export function createApiResponse(schema: ZodTypeAny, description: string, statusCode = StatusCodes.OK) {
 	return {
 		[statusCode]: {
 			description,
 			content: {
-				'application/json': {
+				"application/json": {
 					schema: ServiceResponseSchema(schema),
 				},
 			},
@@ -30,7 +30,7 @@ export function createApiResponses(configs: ApiResponseConfig[]) {
 		responses[statusCode] = {
 			description,
 			content: {
-				'application/json': {
+				"application/json": {
 					schema: ServiceResponseSchema(schema),
 				},
 			},

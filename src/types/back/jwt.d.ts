@@ -11,4 +11,3 @@ declare interface APP_JWT_Payload {
 	issBy: string;
 	pk: string;
 }
-

@@ -1,10 +1,10 @@
-import bcrypt from 'bcrypt';
-import { model, Schema } from 'mongoose';
+import bcrypt from "bcrypt";
+import { Schema, model } from "mongoose";
 
-import { generateOTP } from '@server/utils';
-import { APP_EXPIRE_IN_SECONDS } from '&server/env';
+import { APP_EXPIRE_IN_SECONDS } from "&server/env";
+import { generateOTP } from "@server/utils";
 
-import {
+import type {
 	OTPSessionDocumentI,
 	OTPSessionInstanceMethods,
 	OTPSessionKindsI,
@@ -13,13 +13,13 @@ import {
 	OTPSessionSchemaOptions,
 	OTPSessionStaticMethods,
 	OTPSessionVirtual,
-} from '!server/models/OTPSession';
+} from "!server/models/OTPSession";
 
-import userModel from './user';
+import userModel from "./user";
 
 const required = true;
 
-const kindEnum: OTPSessionKindsI[] = ['resetPassword', 'emailVerification', 'phoneVerification'];
+const kindEnum: OTPSessionKindsI[] = ["resetPassword", "emailVerification", "phoneVerification"];
 
 /* --------------------- Schema --------------------- */
 const otpSessionSchema = new Schema<
@@ -32,7 +32,7 @@ const otpSessionSchema = new Schema<
 	OTPSessionSchemaOptions
 >(
 	{
-		userId: { type: Schema.Types.ObjectId, ref: 'User', required },
+		userId: { type: Schema.Types.ObjectId, ref: "User", required },
 		hashedOtp: { type: String, required },
 		kind: {
 			type: String,
@@ -41,16 +41,16 @@ const otpSessionSchema = new Schema<
 		},
 		toValidate: { type: String },
 	},
-	{ timestamps: true }
+	{ timestamps: true },
 );
 /* --------------------- Indexes ---------------------  */
 otpSessionSchema.index({ createdAt: 1 }, { expireAfterSeconds: APP_EXPIRE_IN_SECONDS });
 /* --------------------- Virtual ---------------------  */
 
 /* --------------------- Hooks ---------------------  */
-otpSessionSchema.pre('save', async function (next) {
+otpSessionSchema.pre("save", async function (next) {
 	try {
-		if (this.isNew || this.isModified('hashedOtp')) {
+		if (this.isNew || this.isModified("hashedOtp")) {
 			this.hashedOtp = await bcrypt.hash(this.hashedOtp, 10);
 		}
 		next();
@@ -66,24 +66,24 @@ otpSessionSchema.methods.compareOTP = async function (providedOtp) {
 
 otpSessionSchema.statics.createRecoverySession = async function (email) {
 	const user = await userModel.findByEmail(email);
-	if (!user) throw new Error('User not found');
+	if (!user) throw new Error("User not found");
 	const otp = generateOTP();
 	const otpObject: OTPSessionDocumentI = {
 		userId: user._id,
 		hashedOtp: otp,
-		kind: 'resetPassword',
+		kind: "resetPassword",
 	};
 	const newOTPSession = await this.create(otpObject);
 	return [otp, newOTPSession, user];
 };
 otpSessionSchema.statics.createValidationSession = async function (email) {
 	const user = await userModel.findByEmail(email);
-	if (!user) throw new Error('User not found');
+	if (!user) throw new Error("User not found");
 	const otp = generateOTP();
 	const otpObject: OTPSessionDocumentI = {
 		userId: user._id,
 		hashedOtp: otp,
-		kind: 'emailVerification',
+		kind: "emailVerification",
 		toValidate: email,
 	};
 	const newOTPSession = await this.create(otpObject);
@@ -92,10 +92,10 @@ otpSessionSchema.statics.createValidationSession = async function (email) {
 
 otpSessionSchema.statics.getSession = async function (sessionId, OTPCode) {
 	const session = await this.findById(sessionId);
-	if (!session) throw new Error('Could not find session');
+	if (!session) throw new Error("Could not find session");
 	const user = await userModel.findById(session.userId);
-	if (!user) throw new Error('Could not find user');
-	if (!(await session.compareOTP(OTPCode))) throw new Error('OTP Invalid');
+	if (!user) throw new Error("Could not find user");
+	if (!(await session.compareOTP(OTPCode))) throw new Error("OTP Invalid");
 	return [session, user];
 };
 otpSessionSchema.statics.getNecessarySession = async function (sessionId, OTPCode, replaceUser = true) {
@@ -109,7 +109,7 @@ otpSessionSchema.statics.resetPassword = async function (sessionId, password, OT
 };
 otpSessionSchema.statics.validateEmail = async function (sessionId, OTPCode) {
 	const [session, user] = await this.getSession(sessionId, OTPCode);
-	if (!session.toValidate) throw new Error('No email to validate');
+	if (!session.toValidate) throw new Error("No email to validate");
 	user.contactInformation.validatedEmails.push(session.toValidate);
 	await Promise.all([user.save(), session.deleteOne()]);
 	return user.toOptimizedObject();
@@ -117,7 +117,7 @@ otpSessionSchema.statics.validateEmail = async function (sessionId, OTPCode) {
 
 /* --------------------- Generate Model --------------------- */
 const otpSessionModel = model<OTPSessionDocumentI, OTPSessionModel, OTPSessionQueryHelpers>(
-	'OTPSession',
-	otpSessionSchema
+	"OTPSession",
+	otpSessionSchema,
 );
 export default otpSessionModel;

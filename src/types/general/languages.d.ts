@@ -1,5 +1,5 @@
-type MainLanguagesI = 'FR' | 'AR';
-type SecondaryLanguagesI = 'EN';
+type MainLanguagesI = "FR" | "AR";
+type SecondaryLanguagesI = "EN";
 
 type LanguagesI = MainLanguagesI | SecondaryLanguagesI;
 declare type LanguagesContentI<T = string> = {

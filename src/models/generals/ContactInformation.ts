@@ -1,16 +1,16 @@
-import { /*  model, */ Schema } from 'mongoose';
+import { /*  model, */ Schema } from "mongoose";
 
-import {
+import type {
 	ContactInformationInstanceMethods,
 	ContactInformationModel,
 	ContactInformationQueryHelpers,
 	ContactInformationSchemaOptions,
 	ContactInformationStaticMethods,
 	ContactInformationVirtual,
-} from '!server/models/generals/ContactInformation';
+} from "!server/models/generals/ContactInformation";
 
-import { phoneSchema } from './phone';
-import { socialMediaUrlsSchema } from './SocialMediaUrls';
+import { socialMediaUrlsSchema } from "./SocialMediaUrls";
+import { phoneSchema } from "./phone";
 
 /* --------------------- Schema --------------------- */
 const contactInformationSchema = new Schema<
@@ -45,7 +45,7 @@ const contactInformationSchema = new Schema<
 			type: socialMediaUrlsSchema,
 		},
 	},
-	{ timestamps: false, _id: false }
+	{ timestamps: false, _id: false },
 );
 /* --------------------- Virtual ---------------------  */
 

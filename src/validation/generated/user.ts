@@ -4,7 +4,7 @@ import {
 	UserDocumentSchema,
 	userLoginSchema,
 	userRegisterSchema,
-} from '../models/user';
+} from "../models/user";
 
 export const LoginRequestSchema = userLoginSchema();
 export const RegisterRequestSchema = userRegisterSchema();

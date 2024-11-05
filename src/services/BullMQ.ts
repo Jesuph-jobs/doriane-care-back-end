@@ -1,19 +1,19 @@
-import { Processor, Worker } from 'bullmq';
-import IORedis from 'ioredis';
+import { type Processor, Worker } from "bullmq";
+import type IORedis from "ioredis";
 
-import { cLogger } from '$server/console';
+import { cLogger } from "$server/console";
 
-import { emailsAccounts } from '@server/utils/emailsAccounts';
 // import { fLogger } from '$server/file';
-import { APP_EMAIL_QUEUE_NAME } from '&server/env';
+import { APP_EMAIL_QUEUE_NAME } from "&server/env";
+import { emailsAccounts } from "@server/utils/emailsAccounts";
 
-import Service from './Service';
-import { emailService, templatesManager } from '.';
+import { emailService, templatesManager } from ".";
+import Service from "./Service";
 
-const id = 'BulletMQService';
+const id = "BulletMQService";
 class BullMQService extends Service<Worker<QueuedEmail>> {
-	name = 'Messaging Queue';
-	category = 'Messaging';
+	name = "Messaging Queue";
+	category = "Messaging";
 	description = "Service de file d'attente de messagerie";
 	redisClient: IORedis;
 	constructor(redisClient: IORedis) {
@@ -33,7 +33,7 @@ class BullMQService extends Service<Worker<QueuedEmail>> {
 	}
 	public static onEmailArrive: Processor<QueuedEmail> = async (job) => {
 		cLogger.info(
-			`📧 Email ${job.id || 'unknown'} received for ${job.data.subject} with the template : ${job.data.template}`
+			`📧 Email ${job.id || "unknown"} received for ${job.data.subject} with the template : ${job.data.template}`,
 		);
 		return templatesManager.render(job.data.template, job.data.context).then((html) => {
 			return emailService
@@ -49,18 +49,18 @@ class BullMQService extends Service<Worker<QueuedEmail>> {
 				.then((info) => {
 					if (info) {
 						info.rejected?.forEach((recipient) => {
-							cLogger.error(`📧 Email ${job.id || 'unknown'} à ${recipient} rejetée`);
+							cLogger.error(`📧 Email ${job.id || "unknown"} à ${recipient} rejetée`);
 						});
 						info.accepted.forEach((recipient) => {
-							cLogger.info(`📧 Email ${job.id || 'unknown'} à ${recipient} acceptée`);
+							cLogger.info(`📧 Email ${job.id || "unknown"} à ${recipient} acceptée`);
 						});
 					} else {
-						cLogger.warn(`📧 Email ${job.id || 'unknown'}  ete annule`);
+						cLogger.warn(`📧 Email ${job.id || "unknown"}  ete annule`);
 						// job.moveToDelayed()
 					}
 				})
 				.catch((error) => {
-					cLogger.error(`📧 Email ${job.id || 'unknown'} à ${job.data.to} a échoué avec ${error}`);
+					cLogger.error(`📧 Email ${job.id || "unknown"} à ${job.data.to} a échoué avec ${error}`);
 				});
 		});
 	};

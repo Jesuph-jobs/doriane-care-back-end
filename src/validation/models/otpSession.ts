@@ -1,7 +1,7 @@
-import { MyZodType, z } from '^server/defaultZod';
-import { emailSchema, mongoIDSchema, otpSchema, passwordSchema } from '^server/elements';
+import { type MyZodType, z } from "^server/defaultZod";
+import { emailSchema, mongoIDSchema, otpSchema, passwordSchema } from "^server/elements";
 
-import { NecessaryUserSchema } from './user';
+import { NecessaryUserSchema } from "./user";
 
 export const OTPSessionSchema = ({ email }: Partial<Record<keyof OTPSessionI, ErrorsSchemaMsgI>> = {}) =>
 	z
@@ -10,20 +10,20 @@ export const OTPSessionSchema = ({ email }: Partial<Record<keyof OTPSessionI, Er
 				email: emailSchema(email),
 			},
 			{
-				description: 'Un schéma de session de récupération',
-				invalid_type_error: 'La session de récupération doit être un objet',
-				required_error: 'La session de récupération est requise',
-			}
+				description: "Un schéma de session de récupération",
+				invalid_type_error: "La session de récupération doit être un objet",
+				required_error: "La session de récupération est requise",
+			},
 		)
-		.openapi('Recovery_Session', { description: 'Un schéma de session de récupération' });
+		.openapi("Recovery_Session", { description: "Un schéma de session de récupération" });
 
 export const OTPSessionSendSchema = () =>
 	z
 		.object<MyZodType<OTPSessionSendI>>(
 			{
 				otpCode: otpSchema({
-					description: 'Le code OTP',
-					required: 'Le code OTP est requis',
+					description: "Le code OTP",
+					required: "Le code OTP est requis",
 				}),
 				sessionId: mongoIDSchema({
 					description: "L'identifiant de session",
@@ -34,9 +34,9 @@ export const OTPSessionSendSchema = () =>
 				description: "Un schéma de demande d'envoi de session de récupération",
 				invalid_type_error: "La demande d'envoi de session de récupération doit être un objet",
 				required_error: "La demande d'envoi de session de récupération est requise",
-			}
+			},
 		)
-		.openapi('Recovery_Session_Send', { description: "Un schéma de demande d'envoi de session de récupération" });
+		.openapi("Recovery_Session_Send", { description: "Un schéma de demande d'envoi de session de récupération" });
 
 export const ResetPasswordSchema = ({
 	confirmPassword,
@@ -52,28 +52,28 @@ export const ResetPasswordSchema = ({
 				...(sessionId || null),
 			}),
 			password: passwordSchema({
-				description: 'Le mot de passe',
-				required: 'Le mot de passe est requis',
+				description: "Le mot de passe",
+				required: "Le mot de passe est requis",
 				...(password || null),
 			}),
 			confirmPassword: passwordSchema({
-				description: 'La confirmation du mot de passe',
-				required: 'La confirmation du mot de passe est requise',
+				description: "La confirmation du mot de passe",
+				required: "La confirmation du mot de passe est requise",
 				...(confirmPassword || null),
 			}),
 			otpCode: otpSchema({
-				description: 'Le code OTP',
-				required: 'Le code OTP est requis',
+				description: "Le code OTP",
+				required: "Le code OTP est requis",
 				...(otpCode || null),
 			}),
 		})
-		.openapi('Reset_Password', { description: 'Un schéma de demande de réinitialisation de mot de passe' })
+		.openapi("Reset_Password", { description: "Un schéma de demande de réinitialisation de mot de passe" })
 		.superRefine((data, ctx) => {
 			if (data.password !== data.confirmPassword) {
 				return ctx.addIssue({
-					code: 'custom',
-					message: 'Le mot de passe et la confirmation du mot de passe doivent correspondre',
-					path: ['confirmPassword'],
+					code: "custom",
+					message: "Le mot de passe et la confirmation du mot de passe doivent correspondre",
+					path: ["confirmPassword"],
 				});
 			}
 		});
@@ -90,9 +90,9 @@ export const OTPSessionResponseSchema = () =>
 				user: NecessaryUserSchema(),
 			},
 			{
-				description: 'Un schéma de réponse de session de récupération',
-				invalid_type_error: 'La réponse de session de récupération doit être un objet',
-				required_error: 'La réponse de session de récupération est requise',
-			}
+				description: "Un schéma de réponse de session de récupération",
+				invalid_type_error: "La réponse de session de récupération doit être un objet",
+				required_error: "La réponse de session de récupération est requise",
+			},
 		)
-		.openapi('Recovery_Session_Response', { description: 'Un schéma de réponse de session de récupération' });
+		.openapi("Recovery_Session_Response", { description: "Un schéma de réponse de session de récupération" });

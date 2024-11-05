@@ -1,4 +1,4 @@
-import { AnyZodObject, ZodType } from 'zod';
+import type { AnyZodObject, ZodType } from "zod";
 
 export interface RequestShape {
 	body?: AnyZodObject;

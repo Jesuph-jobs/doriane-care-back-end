@@ -1,34 +1,28 @@
-import nodemailer, { Transporter } from 'nodemailer';
-import Mail from 'nodemailer/lib/mailer';
-import SMTPTransport from 'nodemailer/lib/smtp-transport';
+import nodemailer, { type Transporter } from "nodemailer";
+import type Mail from "nodemailer/lib/mailer";
+import type SMTPTransport from "nodemailer/lib/smtp-transport";
 
-import { cLogger } from '$server/console';
+import { cLogger } from "$server/console";
 
 // import { fLogger } from '$server/file';
-import {
-	APP_EMAIL_HOST,
-	APP_EMAIL_PASSWORD,
-	APP_EMAIL_PORT,
-	APP_EMAIL_SECURE,
-	APP_EMAIL_USERNAME,
-} from '&server/env';
+import { APP_EMAIL_HOST, APP_EMAIL_PASSWORD, APP_EMAIL_PORT, APP_EMAIL_SECURE, APP_EMAIL_USERNAME } from "&server/env";
 
-import Service from './Service';
+import Service from "./Service";
 
 /* service details */
-const id = 'EmailService';
+const id = "EmailService";
 
 class EmailService extends Service<Transporter<SMTPTransport.SentMessageInfo>> {
-	name = 'Email';
-	category = 'Email';
-	description = 'Email Service';
+	name = "Email";
+	category = "Email";
+	description = "Email Service";
 	enabled: boolean;
-	constructor(enabled: boolean = true) {
+	constructor(enabled = true) {
 		super(
 			id,
 			enabled
 				? EmailService.connect()
-				: (Promise.resolve() as unknown as Promise<Transporter<SMTPTransport.SentMessageInfo>>)
+				: (Promise.resolve() as unknown as Promise<Transporter<SMTPTransport.SentMessageInfo>>),
 		);
 		this.enabled = enabled;
 	}
@@ -44,7 +38,7 @@ class EmailService extends Service<Transporter<SMTPTransport.SentMessageInfo>> {
 				},
 				tls: {
 					rejectUnauthorized: false,
-					minVersion: 'TLSv1.2', // Specify the minimum TLS version
+					minVersion: "TLSv1.2", // Specify the minimum TLS version
 				},
 			});
 			transporter

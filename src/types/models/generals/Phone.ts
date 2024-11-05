@@ -1,4 +1,4 @@
-import {
+import type {
 	ApplySchemaOptions,
 	FlatRecord,
 	HydratedDocument,
@@ -6,15 +6,15 @@ import {
 	ObtainDocumentType,
 	/* QueryWithHelpers, */
 	ResolveSchemaOptions,
-} from 'mongoose';
+} from "mongoose";
 
-export interface PhoneVirtual {}
+export type PhoneVirtual = object;
 
 export interface PhoneInstanceMethods {
 	toOptimizedObject: (this: PhoneHydratedDocument) => PhoneI;
 }
 /* QueryWithHelpers<PhoneHydratedDocument | null, PhoneHydratedDocument, PhoneQueryHelpers, PhoneDocumentI<ValidationHydratedDocument>,'findOne' >; */
-export interface PhoneQueryHelpers {}
+export type PhoneQueryHelpers = object;
 export interface PhoneDocument
 	extends ApplySchemaOptions<
 		ObtainDocumentType<PhoneDocument, PhoneI, ResolveSchemaOptions<PhoneSchemaOptions>>,
@@ -23,9 +23,7 @@ export interface PhoneDocument
 export interface PhoneHydratedDocument
 	extends HydratedDocument<FlatRecord<PhoneDocument>, PhoneInstanceMethods & PhoneVirtual, PhoneQueryHelpers> {}
 
-export interface PhoneStaticMethods {
-	// custom static methods here
-}
+export type PhoneStaticMethods = object;
 export interface PhoneSchemaOptions {
 	timestamps: false;
 	_id: false;

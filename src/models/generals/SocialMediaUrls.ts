@@ -1,13 +1,13 @@
-import { /* model, */ Schema } from 'mongoose';
+import { /* model, */ Schema } from "mongoose";
 
-import {
+import type {
 	SocialMediaUrlsInstanceMethods,
 	SocialMediaUrlsModel,
 	SocialMediaUrlsQueryHelpers,
 	SocialMediaUrlsSchemaOptions,
 	SocialMediaUrlsStaticMethods,
 	SocialMediaUrlsVirtual,
-} from '!server/models/generals/SocialMediaUrls';
+} from "!server/models/generals/SocialMediaUrls";
 
 /* --------------------- Schema --------------------- */
 const socialMediaUrlsSchema = new Schema<
@@ -26,7 +26,7 @@ const socialMediaUrlsSchema = new Schema<
 		instagram: { type: String },
 		linkedin: { type: String },
 	},
-	{ timestamps: false, _id: false }
+	{ timestamps: false, _id: false },
 );
 /* --------------------- Virtual ---------------------  */
 

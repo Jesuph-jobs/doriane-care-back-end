@@ -1,13 +1,13 @@
-import { /* model, */ Schema } from 'mongoose';
+import { /* model, */ Schema } from "mongoose";
 
-import {
+import type {
 	AddressInstanceMethods,
 	AddressModel,
 	AddressQueryHelpers,
 	AddressSchemaOptions,
 	AddressStaticMethods,
 	AddressVirtual,
-} from '!server/models/generals/Address';
+} from "!server/models/generals/Address";
 
 const required = true;
 /* --------------------- Schema --------------------- */
@@ -38,11 +38,11 @@ const addressSchema = new Schema<
 			required,
 			validate: {
 				validator: (v: string[]) => v.length > 0,
-				message: 'Address must have at least one element',
+				message: "Address must have at least one element",
 			},
 		},
 	},
-	{ timestamps: false, _id: false }
+	{ timestamps: false, _id: false },
 );
 /* --------------------- Virtual ---------------------  */
 

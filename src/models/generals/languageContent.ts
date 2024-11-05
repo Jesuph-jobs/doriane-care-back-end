@@ -1,4 +1,4 @@
-import { Schema } from 'mongoose';
+import { Schema } from "mongoose";
 
 const required = true;
 /* --------------------- Schema --------------------- */
@@ -15,5 +15,5 @@ export const languageContentSchema = new Schema<LanguagesContentI>(
 			type: String,
 		},
 	},
-	{ _id: false }
+	{ _id: false },
 );

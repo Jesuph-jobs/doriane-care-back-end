@@ -1,5 +1,5 @@
-declare type GendersT = 'M' | 'F';
-declare type GendersNamesT = 'Male' | 'Female';
+declare type GendersT = "M" | "F";
+declare type GendersNamesT = "Male" | "Female";
 declare interface PersonalInformationI {
 	firstName: string;
 	lastName: string;

@@ -1,22 +1,22 @@
-import bcrypt from 'bcrypt';
-import { model, Schema } from 'mongoose';
+import bcrypt from "bcrypt";
+import { Schema, model } from "mongoose";
 
-import { passwordSchema } from '^server/elements';
+import { passwordSchema } from "^server/elements";
 
-import { replaceEmail, replacePhone } from '@server/utils';
-import { Jwt, JwtOAuth } from '&server/jwt';
+import { Jwt, JwtOAuth } from "&server/jwt";
+import { replaceEmail, replacePhone } from "@server/utils";
 
-import {
+import type {
 	UserInstanceMethods,
 	UserModel,
 	UserQueryHelpers,
 	UserSchemaOptions,
 	UserStaticMethods,
 	UserVirtual,
-} from '!server/models/user';
+} from "!server/models/user";
 
-import { contactInformationSchema } from './generals/ContactInformation';
-import { personalInformationSchema } from './generals/PersonalInformation';
+import { contactInformationSchema } from "./generals/ContactInformation";
+import { personalInformationSchema } from "./generals/PersonalInformation";
 
 const required = true;
 const unique = true;
@@ -52,14 +52,14 @@ const userSchema = new Schema<
 			},
 		},
 	},
-	{ timestamps: true }
+	{ timestamps: true },
 );
 /* --------------------- Virtual ---------------------  */
 
 /* --------------------- Hooks ---------------------  */
-userSchema.pre('save', async function (next) {
+userSchema.pre("save", async function (next) {
 	try {
-		if (this.isNew || this.isModified('password')) {
+		if (this.isNew || this.isModified("password")) {
 			passwordSchema().parse(this.password);
 			this.password = await bcrypt.hash(this.password, 10);
 		}
@@ -114,16 +114,16 @@ userSchema.methods.generateAuthToken = async function () {
 	return Jwt.sign({
 		id: this._id.toString(),
 		issAt: nowDate,
-		issBy: 'app',
+		issBy: "app",
 		pk: await this.generatePublicKey(),
 	});
 };
-userSchema.methods.generateOAuthToken = async function (issFor = 'AF') {
+userSchema.methods.generateOAuthToken = async function (issFor = "AF") {
 	const nowDate = Math.floor(Date.now() / 1000);
 	return JwtOAuth.sign({
 		id: this._id.toString(),
 		issAt: nowDate,
-		issBy: 'app',
+		issBy: "app",
 		issFor,
 		pk: await this.generatePublicKey(),
 	});
@@ -153,8 +153,8 @@ userSchema.statics.findUnique = async function (username) {
 		// or between username or email using username variable
 		$or: [{ username }, { email: username }],
 	});
-	if (!user) throw new Error('User not found');
-	if (!user.enabled) throw new Error('User is not enabled');
+	if (!user) throw new Error("User not found");
+	if (!user.enabled) throw new Error("User is not enabled");
 	return user;
 };
 userSchema.statics.createUser = async function (user) {
@@ -164,34 +164,34 @@ userSchema.statics.createUser = async function (user) {
 };
 
 userSchema.statics.loginGoogleUser = async function (googleId) {
-	const user = await this.findOne({ 'apps.google.id': googleId });
-	if (!user) throw new Error('User not found');
-	if (!user.enabled) throw new Error('User is not enabled');
+	const user = await this.findOne({ "apps.google.id": googleId });
+	if (!user) throw new Error("User not found");
+	if (!user.enabled) throw new Error("User is not enabled");
 	return user;
 };
 userSchema.statics.findByCredentials = async function (email, password) {
 	const user = await this.findUnique(email);
 	const isMatch = await user.comparePassword(password);
-	if (!isMatch) throw new Error('Invalid credentials');
+	if (!isMatch) throw new Error("Invalid credentials");
 	return user;
 };
 
 userSchema.statics.registerGoogleUser = async function (userID, user) {
 	const existingUser = await this.findById(userID);
-	if (!existingUser) throw new Error('User not found');
-	if (existingUser.apps.google) throw new Error('Google account already linked');
+	if (!existingUser) throw new Error("User not found");
+	if (existingUser.apps.google) throw new Error("Google account already linked");
 	existingUser.apps.google = user;
 	await existingUser.save();
 	return existingUser;
 };
-userSchema.statics.getUserFromToken = async function (payload) {
+userSchema.statics.getUserFromToken = async (payload) => {
 	const user = await userModel.findById(payload.id);
 	// verify if user exists and the public key is correct
-	if (!user) throw new Error('User not found');
-	if (!(await user.comparePublicKey(payload.pk))) throw new Error('Invalid Public Key');
+	if (!user) throw new Error("User not found");
+	if (!(await user.comparePublicKey(payload.pk))) throw new Error("Invalid Public Key");
 	return user;
 };
 
 /* --------------------- Generate Model --------------------- */
-const userModel = model<UserDocumentI, UserModel, UserQueryHelpers>('User', userSchema);
+const userModel = model<UserDocumentI, UserModel, UserQueryHelpers>("User", userSchema);
 export default userModel;

@@ -1,15 +1,15 @@
-import { /* model, */ Schema } from 'mongoose';
+import { /* model, */ Schema } from "mongoose";
 
-import {
+import type {
 	PersonalInformationInstanceMethods,
 	PersonalInformationModel,
 	PersonalInformationQueryHelpers,
 	PersonalInformationSchemaOptions,
 	PersonalInformationStaticMethods,
 	PersonalInformationVirtual,
-} from '!server/models/generals/PersonalInformation';
+} from "!server/models/generals/PersonalInformation";
 
-import { addressSchema } from './address';
+import { addressSchema } from "./address";
 
 const required = true;
 /* --------------------- Schema --------------------- */
@@ -25,12 +25,12 @@ const personalInformationSchema = new Schema<
 	{
 		firstName: { type: String, required },
 		lastName: { type: String, required },
-		gender: { type: String, required, enum: ['M', 'F'] },
+		gender: { type: String, required, enum: ["M", "F"] },
 		birthday: { type: Date },
 		residence: { type: addressSchema, required },
-		note: { type: String, default: '' },
+		note: { type: String, default: "" },
 	},
-	{ timestamps: false, _id: false }
+	{ timestamps: false, _id: false },
 );
 /* --------------------- Virtual ---------------------  */
 

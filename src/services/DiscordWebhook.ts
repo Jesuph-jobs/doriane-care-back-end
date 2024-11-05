@@ -1,9 +1,9 @@
-import { cLogger } from '$server/console';
+import { cLogger } from "$server/console";
 
-import Service from './Service';
+import Service from "./Service";
 
 /* service details */
-const defaultId = 'DiscordWebhookService';
+const defaultId = "DiscordWebhookService";
 
 interface DiscordUserI {
 	username: string;
@@ -11,9 +11,9 @@ interface DiscordUserI {
 }
 
 export default class DiscordWebhookService extends Service<void> {
-	name = 'Discord Webhook';
-	category = 'Notification';
-	description = 'Handles Discord webhooks';
+	name = "Discord Webhook";
+	category = "Notification";
+	description = "Handles Discord webhooks";
 
 	private webhookUrl: string;
 	private username: string;
@@ -33,13 +33,13 @@ export default class DiscordWebhookService extends Service<void> {
 				username: this.username,
 				avatar_url: this.avatar_url,
 			},
-			timestamp
+			timestamp,
 		);
 		try {
 			const response = await fetch(this.webhookUrl, {
-				method: 'POST',
+				method: "POST",
 				headers: {
-					'Content-Type': 'application/json',
+					"Content-Type": "application/json",
 				},
 				body: JSON.stringify(payload),
 			});
@@ -56,11 +56,11 @@ export default class DiscordWebhookService extends Service<void> {
 			avatar_url: discordUser.avatar_url,
 			embeds: [
 				{
-					title: 'Server State Change',
+					title: "Server State Change",
 					description: `**Content:**\n${content}`,
 					color: 0xff5733, // Customize the color of the embed (in decimal format)
 					author: {
-						name: 'app accounts server', // Customize the author name
+						name: "app accounts server", // Customize the author name
 						icon_url: discordUser.avatar_url, // Customize the author icon URL
 					},
 					timestamp: timestamp ? timestamp.toISOString() : new Date().toISOString(),

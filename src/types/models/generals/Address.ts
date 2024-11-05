@@ -1,4 +1,4 @@
-import {
+import type {
 	ApplySchemaOptions,
 	FlatRecord,
 	HydratedDocument,
@@ -6,15 +6,15 @@ import {
 	ObtainDocumentType,
 	/* QueryWithHelpers, */
 	ResolveSchemaOptions,
-} from 'mongoose';
+} from "mongoose";
 
-export interface AddressVirtual {}
+export type AddressVirtual = object;
 
 export interface AddressInstanceMethods {
 	toOptimizedObject: (this: AddressHydratedDocument) => AddressI;
 }
 /* QueryWithHelpers<AddressHydratedDocument | null, AddressHydratedDocument, AddressQueryHelpers, AddressDocumentI<ValidationHydratedDocument>,'findOne' >; */
-export interface AddressQueryHelpers {}
+export type AddressQueryHelpers = object;
 export interface AddressDocument
 	extends ApplySchemaOptions<
 		ObtainDocumentType<AddressDocument, AddressI, ResolveSchemaOptions<AddressSchemaOptions>>,
@@ -27,9 +27,7 @@ export interface AddressHydratedDocument
 		AddressQueryHelpers
 	> {}
 
-export interface AddressStaticMethods {
-	// custom static methods here
-}
+export type AddressStaticMethods = object;
 export interface AddressSchemaOptions {
 	timestamps: false;
 	_id: false;
