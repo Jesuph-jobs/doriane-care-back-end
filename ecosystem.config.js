@@ -1,7 +1,7 @@
 module.exports = {
 	apps: [
 		{
-			name: "ups-back-end",
+			name: "express-typescript-template",
 			script: "npm run start",
 		},
 	],
