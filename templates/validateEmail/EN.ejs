@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Email Validation</title>
+	</head>
+	<body style="font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0">
+		<div
+			style="
+				max-width: 600px;
+				margin: 0 auto;
+				background-color: #fff;
+				padding: 20px;
+				box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			"
+		>
+			<div style="background-color: #007bff; color: #fff; padding: 10px 20px; text-align: center">
+				<h1>Email Validation</h1>
+			</div>
+			<div style="padding: 20px">
+				<p>Dear <%= name %>,</p>
+				<p>
+					Thank you for signing up with our service. To complete your registration, please click the link
+					below to validate your email address.
+				</p>
+				<p>Here is your validation code: <strong><%= otp %></strong></p>
+				<p>You can validate your email using the following link:</p>
+				<a
+					href="<%= validateUrl %>"
+					style="
+						display: inline-block;
+						padding: 10px 20px;
+						background-color: #007bff;
+						color: #fff;
+						text-decoration: none;
+						border-radius: 5px;
+						margin-top: 20px;
+					"
+					>Validate Email</a
+				>
+				<p>If the link above doesn't work, copy and paste this URL into your browser:</p>
+				<p><%= validateUrl %></p>
+			</div>
+			<div style="text-align: center; padding: 10px; font-size: 14px; color: #777">
+				<p>If you did not sign up for our service, please ignore this email or contact our support team.</p>
+				<p>Thank you,</p>
+				<p>APP Team</p>
+			</div>
+		</div>
+	</body>
+</html>

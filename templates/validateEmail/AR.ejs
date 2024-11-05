@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ar">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>تحقق من البريد الإلكتروني</title>
+	</head>
+	<body style="font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0">
+		<div
+			style="
+				max-width: 600px;
+				margin: 0 auto;
+				background-color: #fff;
+				padding: 20px;
+				box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			"
+		>
+			<div style="background-color: #007bff; color: #fff; padding: 10px 20px; text-align: center">
+				<h1>تحقق من البريد الإلكتروني</h1>
+			</div>
+			<div style="padding: 20px">
+				<p>عزيزي <%= name %>,</p>
+				<p>
+					شكرًا لتسجيلك في خدمتنا. لإكمال عملية التسجيل، يرجى النقر على الرابط أدناه للتحقق من عنوان بريدك
+					الإلكتروني.
+				</p>
+				<p>إليك رمز التحقق الخاص بك: <strong><%= otp %></strong></p>
+				<p>يمكنك التحقق من بريدك الإلكتروني باستخدام الرابط التالي:</p>
+				<a
+					href="<%= validateUrl %>"
+					style="
+						display: inline-block;
+						padding: 10px 20px;
+						background-color: #007bff;
+						color: #fff;
+						text-decoration: none;
+						border-radius: 5px;
+						margin-top: 20px;
+					"
+					>تحقق من البريد الإلكتروني</a
+				>
+				<p>إذا لم يعمل الرابط أعلاه، قم بنسخ هذا الرابط ولصقه في متصفحك:</p>
+				<p><%= validateUrl %></p>
+			</div>
+			<div style="text-align: center; padding: 10px; font-size: 14px; color: #777">
+				<p>إذا لم تقم بالتسجيل في خدمتنا، يرجى تجاهل هذا البريد الإلكتروني أو الاتصال بفريق الدعم الخاص بنا.</p>
+				<p>شكرًا لك،</p>
+				<p>فريق APP</p>
+			</div>
+		</div>
+	</body>
+</html>

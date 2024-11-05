@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ar">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>استعادة كلمة المرور</title>
+	</head>
+	<body style="font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0">
+		<div
+			style="
+				max-width: 600px;
+				margin: 0 auto;
+				background-color: #fff;
+				padding: 20px;
+				box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			"
+		>
+			<div style="background-color: #007bff; color: #fff; padding: 10px 20px; text-align: center">
+				<h1>استعادة كلمة المرور</h1>
+			</div>
+			<div style="padding: 20px">
+				<p>عزيزي <%= name %>,</p>
+				<p>
+					لقد تلقينا طلبًا لإعادة تعيين كلمة المرور الخاصة بك. يمكنك إعادة تعيين كلمة المرور الخاصة بك عن طريق
+					النقر على الرابط أدناه أو باستخدام رمز OTP المقدم.
+				</p>
+				<p>إليك رمز OTP الخاص بك: <strong><%= otp %></strong></p>
+				<p>يمكنك إعادة تعيين كلمة المرور الخاصة بك باستخدام الرابط التالي:</p>
+				<a
+					href="<%= resetUrl %>"
+					style="
+						display: inline-block;
+						padding: 10px 20px;
+						background-color: #007bff;
+						color: #fff;
+						text-decoration: none;
+						border-radius: 5px;
+						margin-top: 20px;
+					"
+					>إعادة تعيين كلمة المرور الخاصة بك</a
+				>
+				<p>إذا لم يعمل الرابط أعلاه، قم بنسخ ولصق هذا الرابط في متصفحك:</p>
+				<p><%= resetUrl %></p>
+			</div>
+			<div style="text-align: center; padding: 10px; font-size: 14px; color: #777">
+				<p>
+					إذا لم تطلب إعادة تعيين كلمة المرور، يرجى تجاهل هذا البريد الإلكتروني أو الاتصال بفريق الدعم الخاص
+					بنا.
+				</p>
+				<p>شكرًا لك،</p>
+				<p>فريق APP</p>
+			</div>
+		</div>
+	</body>
+</html>
