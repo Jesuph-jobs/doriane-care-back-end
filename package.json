@@ -31,7 +31,7 @@
 		"swagger-ui-express": "^5.0.1",
 		"zod": "^3.23.8"
 	},
-	"description": "A backend express with typescript template",
+	"description": "A backend for Doriane Care websites managment that provides api to the admin dashboard of the websites managed by the solution provided by BloomQ and shirogin",
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
 		"@types/bcrypt": "^5.0.2",
@@ -63,9 +63,9 @@
 		]
 	},
 	"main": "index.ts",
-	"name": "express-typescript-template",
+	"name": "doriane-care-back-end",
 	"private": true,
-	"repository": "jesuph-jobs/doriane-care-back-end",
+	"repository": "Jesuph-jobs/doriane-care-back-end",
 	"scripts": {
 		"build": "tsup",
 		"clean": "rimraf dist coverage",
