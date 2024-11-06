@@ -1,12 +1,12 @@
-import type { NextFunction, Request, Response } from "express";
-import { StatusCodes } from "http-status-codes";
-import { MongoError } from "mongodb";
-import type { ZodError, ZodSchema } from "zod";
+import type { NextFunction, Request, Response } from 'express';
+import { StatusCodes } from 'http-status-codes';
+import { MongoError } from 'mongodb';
+import type { ZodError, ZodSchema } from 'zod';
 
-import { ResponseStatus, ServiceResponse } from "@server/utils/serviceResponse";
+import { ResponseStatus, ServiceResponse } from '@server/utils/serviceResponse';
 export function extractDuplicateKey(errorMessage: string): string {
 	const match = errorMessage.match(/index:\s+([^\s]+)/);
-	return match ? match[1] : "unknown";
+	return match ? match[1] : 'unknown';
 }
 export const handleServiceResponse = <T = any>(serviceResponse: ServiceResponse<T>, response: Response) => {
 	return response.status(serviceResponse.statusCode).send(serviceResponse);
@@ -23,13 +23,13 @@ export function handleErrorResponse(code: number, errorMessage: string, error: u
 					error,
 				}
 		: {
-				message: "Unknown error",
-				error: new Error("Unknown error"),
+				message: 'Unknown error',
+				error: new Error('Unknown error'),
 			};
 
 	handleServiceResponse(
 		new ServiceResponse<ErrorResponseI>(ResponseStatus.Failed, errorMessage, response, code),
-		res,
+		res
 	);
 }
 export const validateRequest = (schema: ZodSchema) => (req: Request, res: Response, next: NextFunction) => {
@@ -45,9 +45,9 @@ export const validateRequest = (schema: ZodSchema) => (req: Request, res: Respon
 	} catch (err) {
 		handleErrorResponse(
 			StatusCodes.BAD_REQUEST,
-			`Invalid input: ${(err as ZodError).errors.map((e) => e.message).join(", ")}`,
+			`Invalid input: ${(err as ZodError).errors.map(e => e.message).join(', ')}`,
 			err,
-			res,
+			res
 		);
 	}
 };

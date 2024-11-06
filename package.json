@@ -58,9 +58,7 @@
 	},
 	"license": "MIT",
 	"lint-staged": {
-		"*.{js,ts,cjs,mjs,d.cts,d.mts,json,jsonc}": [
-			"biome check --apply --no-errors-on-unmatched"
-		]
+		"*.{js,ts,cjs,mjs,d.cts,d.mts,json,jsonc}": ["biome check --apply --no-errors-on-unmatched"]
 	},
 	"main": "index.ts",
 	"name": "doriane-care-back-end",
@@ -71,22 +69,18 @@
 		"clean": "rimraf dist coverage",
 		"dev": "chcp 65001 && tsx watch --clear-screen=false src/index.ts | pino-pretty",
 		"dev:linux": "tsx watch --clear-screen=false src/index.ts | pino-pretty",
-		"format": "biome format src/",
-		"format:fix": "biome format --write src/",
-		"lint": "biome check src/",
-		"lint:fix": "biome check src/ --fix",
-		"lint:fix-unsafe": "biome check src/ --fix --unsafe",
+		"format": "biome format src/ common/",
+		"format:fix": "biome format --write src/ common/",
+		"lint": "biome check src/ common/",
+		"lint:fix": "biome check src/ common/ --fix",
+		"lint:fix-unsafe": "biome check src/ common/ --fix --unsafe",
 		"prepare": "husky",
 		"start": "node dist/index.js",
 		"test": "vitest run"
 	},
 	"tsup": {
 		"clean": true,
-		"entry": [
-			"!src/**/*.test.*",
-			"!src/**/__tests__/**",
-			"src"
-		],
+		"entry": ["!src/**/*.test.*", "!src/**/__tests__/**", "src"],
 		"sourcemap": true,
 		"splitting": false
 	},

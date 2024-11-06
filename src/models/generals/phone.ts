@@ -1,4 +1,4 @@
-import { /*  model, */ Schema } from "mongoose";
+import { /*  model, */ Schema } from 'mongoose';
 
 import type {
 	PhoneInstanceMethods,
@@ -7,7 +7,7 @@ import type {
 	PhoneSchemaOptions,
 	PhoneStaticMethods,
 	PhoneVirtual,
-} from "!server/models/generals/Phone";
+} from '!server/models/generals/Phone';
 
 const required = true;
 /* --------------------- Schema --------------------- */
@@ -29,7 +29,7 @@ const phoneSchema = new Schema<
 			type: String,
 		},
 	},
-	{ timestamps: true, _id: false },
+	{ timestamps: true, _id: false }
 );
 /* --------------------- Virtual ---------------------  */
 

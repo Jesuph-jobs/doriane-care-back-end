@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router } from 'express';
 
 import {
 	CheckAuthShapeSchema,
@@ -6,48 +6,48 @@ import {
 	CheckUsernameShapeSchema,
 	LoginRequestShapeSchema,
 	RegisterRequestShapeSchema,
-} from "^server/requests/auth";
+} from '^server/requests/auth';
 
-import { CheckAuth, Login, Logout, Register, checkEmail, checkUsername } from "@server/handlers/auth";
-import { checkLogs, isLoggedIn } from "@server/middleware/auth";
-import { validateRequest } from "@server/utils/httpHandlers";
+import { CheckAuth, Login, Logout, Register, checkEmail, checkUsername } from '@server/handlers/auth';
+import { checkLogs, isLoggedIn } from '@server/middleware/auth';
+import { validateRequest } from '@server/utils/httpHandlers';
 
-import appsRouter from "./apps/router";
-import recoverRouter from "./recover/router";
-import validateRouter from "./validate/router";
+import appsRouter from './apps/router';
+import recoverRouter from './recover/router';
+import validateRouter from './validate/router';
 
 const router = Router();
 // check user is logged in
-router.get("/", validateRequest(CheckAuthShapeSchema), checkLogs, isLoggedIn, CheckAuth);
+router.get('/', validateRequest(CheckAuthShapeSchema), checkLogs, isLoggedIn, CheckAuth);
 
 // logout
 
-router.delete("/", checkLogs, isLoggedIn, Logout);
+router.delete('/', checkLogs, isLoggedIn, Logout);
 
 // login
-router.post("/login", validateRequest(LoginRequestShapeSchema), Login);
+router.post('/login', validateRequest(LoginRequestShapeSchema), Login);
 
 // register
 router.post(
-	"/register",
+	'/register',
 
 	validateRequest(RegisterRequestShapeSchema),
-	Register,
+	Register
 );
 
 // check if username is available
-router.get("/username/:username", validateRequest(CheckUsernameShapeSchema), checkUsername);
+router.get('/username/:username', validateRequest(CheckUsernameShapeSchema), checkUsername);
 
 // check if email is available
-router.get("/email/:email", validateRequest(CheckEmailShapeSchema), checkEmail);
+router.get('/email/:email', validateRequest(CheckEmailShapeSchema), checkEmail);
 
 // validate user email or phone
-router.use("/validate", checkLogs, isLoggedIn, validateRouter);
+router.use('/validate', checkLogs, isLoggedIn, validateRouter);
 
 // add recover router
-router.use("/recover", recoverRouter);
+router.use('/recover', recoverRouter);
 
 // apps auth (google, facebook, etc)
-router.use("/apps", appsRouter);
+router.use('/apps', appsRouter);
 
 export default router;

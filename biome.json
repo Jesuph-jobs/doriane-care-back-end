@@ -24,5 +24,13 @@
 	},
 	"organizeImports": {
 		"enabled": true
+	},
+	"javascript": {
+		"formatter": {
+			"semicolons": "always",
+			"quoteStyle": "single",
+			"trailingCommas": "es5",
+			"arrowParentheses": "asNeeded"
+		}
 	}
 }

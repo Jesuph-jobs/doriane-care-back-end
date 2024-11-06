@@ -1,19 +1,19 @@
-import { type Processor, Worker } from "bullmq";
-import type IORedis from "ioredis";
+import { type Processor, Worker } from 'bullmq';
+import type IORedis from 'ioredis';
 
-import { cLogger } from "$server/console";
+import { cLogger } from '$server/console';
 
 // import { fLogger } from '$server/file';
-import { APP_EMAIL_QUEUE_NAME } from "&server/env";
-import { emailsAccounts } from "@server/utils/emailsAccounts";
+import { APP_EMAIL_QUEUE_NAME } from '&server/env';
+import { emailsAccounts } from '@server/utils/emailsAccounts';
 
-import { emailService, templatesManager } from ".";
-import Service from "./Service";
+import { emailService, templatesManager } from '.';
+import Service from './Service';
 
-const id = "BulletMQService";
+const id = 'BulletMQService';
 class BullMQService extends Service<Worker<QueuedEmail>> {
-	name = "Messaging Queue";
-	category = "Messaging";
+	name = 'Messaging Queue';
+	category = 'Messaging';
 	description = "Service de file d'attente de messagerie";
 	redisClient: IORedis;
 	constructor(redisClient: IORedis) {
@@ -24,18 +24,18 @@ class BullMQService extends Service<Worker<QueuedEmail>> {
 		});
 	}
 	public static async connect(connection: Promise<IORedis>): Promise<Worker<QueuedEmail>> {
-		return connection.then((conn) => {
+		return connection.then(conn => {
 			const worker = new Worker<QueuedEmail>(APP_EMAIL_QUEUE_NAME, BullMQService.onEmailArrive, {
 				connection: conn,
 			});
 			return worker.waitUntilReady().then(() => worker);
 		});
 	}
-	public static onEmailArrive: Processor<QueuedEmail> = async (job) => {
+	public static onEmailArrive: Processor<QueuedEmail> = async job => {
 		cLogger.info(
-			`📧 Email ${job.id || "unknown"} received for ${job.data.subject} with the template : ${job.data.template}`,
+			`📧 Email ${job.id || 'unknown'} received for ${job.data.subject} with the template : ${job.data.template}`
 		);
-		return templatesManager.render(job.data.template, job.data.context).then((html) => {
+		return templatesManager.render(job.data.template, job.data.context).then(html => {
 			return emailService
 				.sendEmail({
 					subject: job.data.subject,
@@ -46,26 +46,26 @@ class BullMQService extends Service<Worker<QueuedEmail>> {
 					date: new Date(job.timestamp),
 					from: emailsAccounts[job.data.from],
 				})
-				.then((info) => {
+				.then(info => {
 					if (info) {
-						info.rejected?.forEach((recipient) => {
-							cLogger.error(`📧 Email ${job.id || "unknown"} à ${recipient} rejetée`);
+						info.rejected?.forEach(recipient => {
+							cLogger.error(`📧 Email ${job.id || 'unknown'} à ${recipient} rejetée`);
 						});
-						info.accepted.forEach((recipient) => {
-							cLogger.info(`📧 Email ${job.id || "unknown"} à ${recipient} acceptée`);
+						info.accepted.forEach(recipient => {
+							cLogger.info(`📧 Email ${job.id || 'unknown'} à ${recipient} acceptée`);
 						});
 					} else {
-						cLogger.warn(`📧 Email ${job.id || "unknown"}  ete annule`);
+						cLogger.warn(`📧 Email ${job.id || 'unknown'}  ete annule`);
 						// job.moveToDelayed()
 					}
 				})
-				.catch((error) => {
-					cLogger.error(`📧 Email ${job.id || "unknown"} à ${job.data.to} a échoué avec ${error}`);
+				.catch(error => {
+					cLogger.error(`📧 Email ${job.id || 'unknown'} à ${job.data.to} a échoué avec ${error}`);
 				});
 		});
 	};
 	public async stop() {
-		return this.connection.then((conn) => conn.close());
+		return this.connection.then(conn => conn.close());
 	}
 }
 export default BullMQService;

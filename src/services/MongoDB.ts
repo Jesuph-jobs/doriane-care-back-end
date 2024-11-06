@@ -1,6 +1,6 @@
-import mongoose, { type Mongoose } from "mongoose";
+import mongoose, { type Mongoose } from 'mongoose';
 
-import { cLogger } from "$server/console";
+import { cLogger } from '$server/console';
 
 // import { fLogger } from '$server/file';
 import {
@@ -9,20 +9,20 @@ import {
 	APP_MONGODB_DB_URI_WITHOUT_CREDENTIALS,
 	APP_MONGODB_DB_USERNAME,
 	isDev,
-} from "&server/env";
+} from '&server/env';
 
-import Service from "./Service";
+import Service from './Service';
 
 /* istanbul ignore next */
-if (isDev) mongoose.set("debug", true);
+if (isDev) mongoose.set('debug', true);
 
 /* service details */
-const id = "MongoDBService";
+const id = 'MongoDBService';
 
 export default class MongoDBService extends Service<Mongoose> {
-	name = "MongoDB";
-	category = "Database";
-	description = "MongoDB Service";
+	name = 'MongoDB';
+	category = 'Database';
+	description = 'MongoDB Service';
 
 	constructor() {
 		super(id, MongoDBService.connect());
@@ -39,18 +39,18 @@ export default class MongoDBService extends Service<Mongoose> {
 	}
 
 	public async stop(): Promise<void> {
-		return this.connection.then((conn) => conn.connection.close());
+		return this.connection.then(conn => conn.connection.close());
 	}
 
 	public static setupEventHandlers() {
-		mongoose.connection.on("error", MongoDBService.errorHandler);
-		mongoose.connection.on("disconnected", MongoDBService.disconnectHandler);
-		mongoose.connection.on("reconnected", MongoDBService.reconnectHandler);
-		mongoose.connection.on("connected", MongoDBService.connectedHandler);
-		mongoose.connection.on("connecting", MongoDBService.connectingHandler);
-		mongoose.connection.on("close", MongoDBService.closeHandler);
-		mongoose.connection.on("open", MongoDBService.openHandler);
-		mongoose.connection.on("disconnecting", MongoDBService.disconnectingHandler);
+		mongoose.connection.on('error', MongoDBService.errorHandler);
+		mongoose.connection.on('disconnected', MongoDBService.disconnectHandler);
+		mongoose.connection.on('reconnected', MongoDBService.reconnectHandler);
+		mongoose.connection.on('connected', MongoDBService.connectedHandler);
+		mongoose.connection.on('connecting', MongoDBService.connectingHandler);
+		mongoose.connection.on('close', MongoDBService.closeHandler);
+		mongoose.connection.on('open', MongoDBService.openHandler);
+		mongoose.connection.on('disconnecting', MongoDBService.disconnectingHandler);
 	}
 
 	/* ----------------------------- Events handlers ----------------------------- */
@@ -59,31 +59,31 @@ export default class MongoDBService extends Service<Mongoose> {
 		//fLogger.error(`🗄️ MongoDB error. ${error}`);
 	}
 	public static disconnectHandler() {
-		cLogger.error("🗄️ MongoDB disconnected.");
+		cLogger.error('🗄️ MongoDB disconnected.');
 		//fLogger.error(`🗄️ MongoDB disconnected.`);
 		// remove error listener
 	}
 	public static reconnectHandler() {
-		cLogger.info("🗄️  MongoDB reconnected.");
+		cLogger.info('🗄️  MongoDB reconnected.');
 		//fLogger.info(`🗄️ MongoDB reconnected.`);
 	}
 	public static connectedHandler() {
 		cLogger.info(`🗄️  MongoDB is ready ==> '${APP_MONGODB_DB_DATABASE}' DB is Connected.`);
 	}
 	public static connectingHandler() {
-		cLogger.info("🗄️  MongoDB connecting...");
+		cLogger.info('🗄️  MongoDB connecting...');
 		// fLogger.info(`🗄️ MongoDB connecting...`);
 	}
 	public static closeHandler() {
-		cLogger.info("🗄️  MongoDB close.");
+		cLogger.info('🗄️  MongoDB close.');
 		// fLogger.info(`🗄️ MongoDB close.`);
 	}
 	public static openHandler() {
-		cLogger.info("🗄️  MongoDB open.");
+		cLogger.info('🗄️  MongoDB open.');
 		//fLogger.info(`🗄️ MongoDB open.`);
 	}
 	public static disconnectingHandler() {
-		cLogger.info("🗄️  MongoDB disconnecting...");
+		cLogger.info('🗄️  MongoDB disconnecting...');
 		//fLogger.info(`🗄️ MongoDB disconnecting...`);
 	}
 }

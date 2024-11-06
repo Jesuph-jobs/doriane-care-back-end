@@ -6,7 +6,7 @@ import type {
 	ObtainDocumentType,
 	/* QueryWithHelpers, */
 	ResolveSchemaOptions,
-} from "mongoose";
+} from 'mongoose';
 
 export type AddressVirtual = object;
 

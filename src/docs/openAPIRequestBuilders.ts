@@ -1,5 +1,5 @@
-import type { RouteConfig, ZodRequestBody } from "@asteasolutions/zod-to-openapi";
-import type { AnyZodObject, ZodTypeAny } from "zod";
+import type { RouteConfig, ZodRequestBody } from '@asteasolutions/zod-to-openapi';
+import type { AnyZodObject, ZodTypeAny } from 'zod';
 
 interface ExampleObject<T = any> {
 	summary?: string;
@@ -25,12 +25,12 @@ export function createApiRequest<bodyT = any>({
 	headers?: AnyZodObject;
 	params?: AnyZodObject;
 	query?: AnyZodObject;
-}): RouteConfig["request"] {
+}): RouteConfig['request'] {
 	const body: ZodRequestBody | undefined = bodySchema
 		? {
 				description: bodySchema.description,
 				content: {
-					"application/json": {
+					'application/json': {
 						schema: bodySchema.schema,
 						examples: bodySchema.examples,
 					},

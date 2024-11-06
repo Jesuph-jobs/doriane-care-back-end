@@ -7,7 +7,7 @@ import type {
 	/* QueryWithHelpers, */
 	ResolveSchemaOptions,
 	Types,
-} from "mongoose";
+} from 'mongoose';
 
 export type UserVirtual = object;
 
@@ -36,7 +36,7 @@ export interface UserStaticMethods {
 	registerGoogleUser: (
 		this: UserModel,
 		userId: string | Types.ObjectId,
-		user: UserGoogleRegistrationI,
+		user: UserGoogleRegistrationI
 	) => Promise<UserHydratedDocument>;
 	loginGoogleUser: (this: UserModel, googleId: string) => Promise<UserHydratedDocument>;
 	findByUsername: (this: UserModel, username: string) => Promise<UserHydratedDocument | null>;

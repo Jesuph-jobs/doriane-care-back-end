@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import type { CleanOptions } from "envalid";
+import type { CleanOptions } from 'envalid';
 
 export const cleanOptions: <T extends object>() => CleanOptions<T> = () => ({
 	reporter: ({ errors }) => {
@@ -11,7 +11,7 @@ export const cleanOptions: <T extends object>() => CleanOptions<T> = () => ({
 });
 export function displayEnvironments<T extends { isDev: boolean }>(env: T) {
 	if (env.isDev) {
-		console.log("🔧 Development Configuration:");
+		console.log('🔧 Development Configuration:');
 		for (const key in env) {
 			console.log(`🟢 ${key}: ${env[key as keyof typeof env]}`);
 		}

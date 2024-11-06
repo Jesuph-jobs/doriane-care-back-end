@@ -1,5 +1,5 @@
-import jwt, { type SignOptions, type VerifyOptions } from "jsonwebtoken";
-import type { ZodError, ZodObject, ZodType } from "zod";
+import jwt, { type SignOptions, type VerifyOptions } from 'jsonwebtoken';
+import type { ZodError, ZodObject, ZodType } from 'zod';
 
 export class JWT<PayLoad extends object = { id: string }> {
 	private secret: string;
@@ -18,7 +18,7 @@ export class JWT<PayLoad extends object = { id: string }> {
 			this.schema.parse(load);
 			return load as PayLoad;
 		} catch (err) {
-			const errorMessage = `Invalid input: ${(err as ZodError).errors.map((e) => e.message).join(", ")}`;
+			const errorMessage = `Invalid input: ${(err as ZodError).errors.map(e => e.message).join(', ')}`;
 			throw new Error(errorMessage);
 		}
 	}

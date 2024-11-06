@@ -9,7 +9,7 @@ declare interface AdditionalContext {
 
 declare type EmailTemplates = keyof EmailContexts;
 
-declare type EmailAccounts = /* 'info' | 'support' | */ "noReply";
+declare type EmailAccounts = /* 'info' | 'support' | */ 'noReply';
 
 declare interface QueuedEmail<T extends EmailTemplates = EmailTemplates> {
 	from: EmailAccounts;

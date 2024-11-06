@@ -1,32 +1,32 @@
-import cookieParser from "cookie-parser";
-import cors from "cors";
-import express, { type Express } from "express";
-import helmet from "helmet";
-import morgan from "morgan";
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
+import express, { type Express } from 'express';
+import helmet from 'helmet';
+import morgan from 'morgan';
 
-import { APP_CORS_ORIGIN, isDev, isProd, isTest } from "@server/config/env";
-import { defaultErrorRequestHandler, unexpectedRequest } from "@server/middleware/errorHandler";
-import rateLimiter from "@server/middleware/rateLimiter";
-import openAPIRouter from "@server/router/v1/openAPI.router";
+import { APP_CORS_ORIGIN, isDev, isProd, isTest } from '@server/config/env';
+import { defaultErrorRequestHandler, unexpectedRequest } from '@server/middleware/errorHandler';
+import rateLimiter from '@server/middleware/rateLimiter';
+import openAPIRouter from '@server/router/v1/openAPI.router';
 
-import type { ERequest } from "!server/back/E_Express";
+import type { ERequest } from '!server/back/E_Express';
 
-import Routing from "./router/v1";
+import Routing from './router/v1';
 //import Routing1_1 from './router/v1.1';
 
 const app: Express = express();
 
 // Set the application to trust the reverse proxy
-app.set("trust proxy", true);
+app.set('trust proxy', true);
 
 //app.use(express.static('public'));
 // Middlewares
 app.use(cors({ origin: new RegExp(APP_CORS_ORIGIN), credentials: true }));
 app.use(helmet());
 if (isDev || isTest) {
-	app.use(morgan("dev"));
+	app.use(morgan('dev'));
 	// Swagger UI
-	app.use("/docs", openAPIRouter);
+	app.use('/docs', openAPIRouter);
 }
 if (isProd || isTest) app.use(rateLimiter);
 
@@ -39,7 +39,7 @@ app.use((req: ERequest, res, next) => {
 	req.records = { user: null };
 	next();
 });
-app.use("/api/v1", Routing);
+app.use('/api/v1', Routing);
 //app.use('/api/v1.1', Routing1_1);
 
 app.use(unexpectedRequest);

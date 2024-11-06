@@ -8,12 +8,15 @@
 		"moduleResolution": "Node",
 		"outDir": "dist",
 		"paths": {
+			"!common/*": ["common/types/*"],
+			"^common/*": ["common/validation/*"],
+			"#common/*": ["common/models/*"],
 			/* server */
 			"!server/*": ["src/types/*"],
 			"^server/*": ["src/validation/*"],
+			"#server/*": ["src/models/*"],
 			"~server/*": ["src/docs/*"],
 			"&server/*": ["src/config/*"],
-			"#server/*": ["src/models/*"],
 			"$server/*": ["src/log/*"],
 			"@server/*": ["src/*"]
 		},
@@ -23,6 +26,6 @@
 		"target": "ESNext",
 		"types": ["vitest/globals"]
 	},
-	"exclude": ["node_modules"],
-	"include": ["src/**/*"]
+	"exclude": ["node_modules", "common/lib"],
+	"include": ["src/**/*", "common/**/*"]
 }

@@ -1,13 +1,13 @@
-import { Router } from "express";
+import { Router } from 'express';
 
-import { OTPSessionRequestSchema, ValidateEmailSchema } from "^server/requests/otpSession";
+import { OTPSessionRequestSchema, ValidateEmailSchema } from '^server/requests/otpSession';
 
-import { resendValidation, validateUserEmail } from "@server/handlers/otpSession";
-import { validateRequest } from "@server/utils/httpHandlers";
+import { resendValidation, validateUserEmail } from '@server/handlers/otpSession';
+import { validateRequest } from '@server/utils/httpHandlers';
 
 const validateRouter = Router();
 validateRouter
-	.route("/")
+	.route('/')
 	.post(validateRequest(OTPSessionRequestSchema()), resendValidation)
 	.put(validateRequest(ValidateEmailSchema()), validateUserEmail);
 

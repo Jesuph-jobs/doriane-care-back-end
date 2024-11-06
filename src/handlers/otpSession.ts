@@ -1,43 +1,43 @@
-import type { Response } from "express";
-import { StatusCodes } from "http-status-codes";
+import type { Response } from 'express';
+import { StatusCodes } from 'http-status-codes';
 
-import { emailQueueService } from "@server/services";
-import EmailQueueService from "@server/services/EmailQueue";
-import { handleErrorResponse, handleServiceResponse } from "@server/utils/httpHandlers";
-import { ResponseStatus, ServiceResponse } from "@server/utils/serviceResponse";
+import { emailQueueService } from '@server/services';
+import EmailQueueService from '@server/services/EmailQueue';
+import { handleErrorResponse, handleServiceResponse } from '@server/utils/httpHandlers';
+import { ResponseStatus, ServiceResponse } from '@server/utils/serviceResponse';
 
-import type { ERequest } from "!server/back/E_Express";
-import otpSessionModel from "#server/otpSession";
+import type { ERequest } from '!server/back/E_Express';
+import otpSessionModel from '#server/otpSession';
 
 export const createRecoveringSession = async (
 	req: ERequest<null, any, ResponseI<string>, OTPSessionI>,
-	res: Response<ResponseI<string>>,
+	res: Response<ResponseI<string>>
 ) => {
 	const { email } = req.body;
 	try {
 		const [key, session, user] = await otpSessionModel.createRecoverySession(email);
 
 		// todo: send email with key
-		const language = (req.headers["accept-language"] || "EN") as LanguagesI;
+		const language = (req.headers['accept-language'] || 'EN') as LanguagesI;
 		await emailQueueService.sendEmail(
-			EmailQueueService.RecoveryEmail(user.toNecessaryUser(false), language, session, key),
+			EmailQueueService.RecoveryEmail(user.toNecessaryUser(false), language, session, key)
 		);
 		handleServiceResponse(
 			new ServiceResponse<string>(
 				ResponseStatus.Success,
-				"Recovery session created",
+				'Recovery session created',
 				session._id.toString(),
-				StatusCodes.CREATED,
+				StatusCodes.CREATED
 			),
-			res,
+			res
 		);
 	} catch (e) {
-		handleErrorResponse(StatusCodes.BAD_REQUEST, "Unable to create a recovery session", e, res);
+		handleErrorResponse(StatusCodes.BAD_REQUEST, 'Unable to create a recovery session', e, res);
 	}
 };
 export const getOTPSession = async (
 	req: ERequest<null, any, ResponseI<OTPSessionResponseI>, object, OTPSessionSendI>,
-	res: Response<ResponseI<OTPSessionResponseI>>,
+	res: Response<ResponseI<OTPSessionResponseI>>
 ) => {
 	const { sessionId, otpCode } = req.query;
 	try {
@@ -45,69 +45,69 @@ export const getOTPSession = async (
 		handleServiceResponse(
 			new ServiceResponse<OTPSessionResponseI>(
 				ResponseStatus.Success,
-				" Recovery session found",
+				' Recovery session found',
 				{ sessionId: session._id.toString(), user },
-				StatusCodes.OK,
+				StatusCodes.OK
 			),
-			res,
+			res
 		);
 	} catch (e) {
-		handleErrorResponse(StatusCodes.NOT_FOUND, "Recovery session not found", e, res);
+		handleErrorResponse(StatusCodes.NOT_FOUND, 'Recovery session not found', e, res);
 	}
 };
 export const resetPassword = async (
 	req: ERequest<null, any, ResponseI<null>, ResetPasswordI>,
-	res: Response<ResponseI<null>>,
+	res: Response<ResponseI<null>>
 ) => {
 	const { sessionId, password, otpCode } = req.body;
 	try {
 		await otpSessionModel.resetPassword(sessionId, password, otpCode);
 		handleServiceResponse(
-			new ServiceResponse<null>(ResponseStatus.Success, "Password reset successful", null, StatusCodes.OK),
-			res,
+			new ServiceResponse<null>(ResponseStatus.Success, 'Password reset successful', null, StatusCodes.OK),
+			res
 		);
 	} catch (e) {
-		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Password could not be reset", e, res);
+		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, 'Password could not be reset', e, res);
 	}
 };
 /* Validation */
 
 export const resendValidation = async (
 	req: ERequest<null, any, ResponseI<string>, OTPSessionI>,
-	res: Response<ResponseI<string>>,
+	res: Response<ResponseI<string>>
 ) => {
 	const { email } = req.body;
 	try {
 		const [key, session, user] = await otpSessionModel.createValidationSession(email);
 
 		// todo: send email with key
-		const language = (req.headers["accept-language"] || "EN") as LanguagesI;
+		const language = (req.headers['accept-language'] || 'EN') as LanguagesI;
 		await emailQueueService.sendEmail(
-			EmailQueueService.ValidationEmail(user.toNecessaryUser(false), language, session, key),
+			EmailQueueService.ValidationEmail(user.toNecessaryUser(false), language, session, key)
 		);
 		handleServiceResponse(
 			new ServiceResponse<string>(
 				ResponseStatus.Success,
-				"Recovery session created",
+				'Recovery session created',
 				session._id.toString(),
-				StatusCodes.CREATED,
+				StatusCodes.CREATED
 			),
-			res,
+			res
 		);
 	} catch (e) {
-		handleErrorResponse(StatusCodes.BAD_REQUEST, "Unable to create a recovery session", e, res);
+		handleErrorResponse(StatusCodes.BAD_REQUEST, 'Unable to create a recovery session', e, res);
 	}
 };
 export const validateUserEmail = async (
 	req: ERequest<null, any, ResponseI<PublicUserI>, OTPSessionSendI>,
-	res: Response<ResponseI<PublicUserI>>,
+	res: Response<ResponseI<PublicUserI>>
 ) => {
 	const { sessionId, otpCode } = req.body;
 	try {
 		const user = await otpSessionModel.validateEmail(sessionId, otpCode);
 		handleServiceResponse(
-			new ServiceResponse<PublicUserI>(ResponseStatus.Success, "Email validated", user, StatusCodes.OK),
-			res,
+			new ServiceResponse<PublicUserI>(ResponseStatus.Success, 'Email validated', user, StatusCodes.OK),
+			res
 		);
 	} catch (e) {
 		handleErrorResponse(StatusCodes.NOT_FOUND, "Couldn't validate email", e, res);

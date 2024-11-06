@@ -1,4 +1,4 @@
-import { OpenAPIRegistry } from "@asteasolutions/zod-to-openapi";
+import { OpenAPIRegistry } from '@asteasolutions/zod-to-openapi';
 /* import { StatusCodes } from 'http-status-codes';
 
 import { errorSchema, nullElementSchema } from '^server/elements';

@@ -1,3 +1,3 @@
-import { pino } from "pino";
+import { pino } from 'pino';
 
-export const cLogger = pino({ name: "app-logs" });
+export const cLogger = pino({ name: 'app-logs' });

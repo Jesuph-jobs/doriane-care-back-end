@@ -1,4 +1,4 @@
-import { ZodError, type ZodTypeAny } from "zod";
+import { ZodError, type ZodTypeAny } from 'zod';
 
 export function SchemaValidator<T>(schema: ZodTypeAny) {
 	return (values: T) => {

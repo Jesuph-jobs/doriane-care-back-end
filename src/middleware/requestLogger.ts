@@ -1,10 +1,10 @@
-import { randomUUID } from "node:crypto";
-import type { IncomingMessage, ServerResponse } from "node:http";
-import type { Request, RequestHandler, Response } from "express";
-import type { LevelWithSilent } from "pino";
-import { type CustomAttributeKeys, type Options, pinoHttp } from "pino-http";
+import { randomUUID } from 'node:crypto';
+import type { IncomingMessage, ServerResponse } from 'node:http';
+import type { Request, RequestHandler, Response } from 'express';
+import type { LevelWithSilent } from 'pino';
+import { type CustomAttributeKeys, type Options, pinoHttp } from 'pino-http';
 
-import { isProd } from "@server/config/env";
+import { isProd } from '@server/config/env';
 
 type PinoCustomProps = {
 	request: Request;
@@ -15,12 +15,12 @@ type PinoCustomProps = {
 
 const requestLogger = (options?: Options): RequestHandler[] => {
 	const pinoOptions: Options = {
-		customProps: customProps as unknown as Options["customProps"],
+		customProps: customProps as unknown as Options['customProps'],
 		redact: [],
 		genReqId,
 		customLogLevel,
 		customSuccessMessage,
-		customReceivedMessage: (req) => `request received: ${req.method}`,
+		customReceivedMessage: req => `request received: ${req.method}`,
 		customErrorMessage: (_req, res) => `request errored with status code: ${res.statusCode}`,
 		customAttributeKeys,
 		...options,
@@ -29,10 +29,10 @@ const requestLogger = (options?: Options): RequestHandler[] => {
 };
 
 const customAttributeKeys: CustomAttributeKeys = {
-	req: "request",
-	res: "response",
-	err: "error",
-	responseTime: "timeTaken",
+	req: 'request',
+	res: 'response',
+	err: 'error',
+	responseTime: 'timeTaken',
 };
 
 const customProps = (req: Request, res: Response): PinoCustomProps => ({
@@ -46,7 +46,7 @@ const responseBodyMiddleware: RequestHandler = (_req, res, next) => {
 	const isNotProduction = !isProd;
 	if (isNotProduction) {
 		const originalSend = res.send;
-		res.send = (content) => {
+		res.send = content => {
 			res.locals.responseBody = content;
 			res.send = originalSend;
 			return originalSend.call(res, content);
@@ -56,22 +56,22 @@ const responseBodyMiddleware: RequestHandler = (_req, res, next) => {
 };
 
 const customLogLevel = (_req: IncomingMessage, res: ServerResponse<IncomingMessage>, err?: Error): LevelWithSilent => {
-	if (res.statusCode >= 400 && res.statusCode < 500) return "warn";
-	if (res.statusCode >= 500 || err) return "error";
-	if (res.statusCode >= 300 && res.statusCode < 400) return "silent";
-	return "info";
+	if (res.statusCode >= 400 && res.statusCode < 500) return 'warn';
+	if (res.statusCode >= 500 || err) return 'error';
+	if (res.statusCode >= 300 && res.statusCode < 400) return 'silent';
+	return 'info';
 };
 
 const customSuccessMessage = (req: IncomingMessage, res: ServerResponse<IncomingMessage>) => {
-	if (res.statusCode === 404) return "resource not found";
+	if (res.statusCode === 404) return 'resource not found';
 	return `${req.method} completed`;
 };
 
 const genReqId = (req: IncomingMessage, res: ServerResponse<IncomingMessage>) => {
-	const existingID = req.id ?? req.headers["x-request-id"];
+	const existingID = req.id ?? req.headers['x-request-id'];
 	if (existingID) return existingID;
 	const id = randomUUID();
-	res.setHeader("X-Request-Id", id);
+	res.setHeader('X-Request-Id', id);
 	return id;
 };
 

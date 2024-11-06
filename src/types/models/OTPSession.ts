@@ -7,12 +7,12 @@ import type {
 	ObtainDocumentType,
 	ResolveSchemaOptions,
 	Types,
-} from "mongoose";
+} from 'mongoose';
 
-import type { UserHydratedDocument } from "!server/models/user";
+import type { UserHydratedDocument } from '!server/models/user';
 
-export type VerifiableI = "email" | "phone";
-export type OTPSessionKindsI = "resetPassword" | "emailVerification" | "phoneVerification";
+export type VerifiableI = 'email' | 'phone';
+export type OTPSessionKindsI = 'resetPassword' | 'emailVerification' | 'phoneVerification';
 export interface OTPSessionDocumentI {
 	userId: Types.ObjectId;
 	hashedOtp: string;
@@ -44,24 +44,24 @@ export interface OTPSessionStaticMethods {
 	createRecoverySession: (
 		this: OTPSessionModel,
 		email: string,
-		replaceUser?: boolean,
+		replaceUser?: boolean
 	) => Promise<[string, OTPSessionHydratedDocument, UserHydratedDocument]>;
 	createValidationSession: (
 		this: OTPSessionModel,
 		email: string,
-		replaceUser?: boolean,
+		replaceUser?: boolean
 	) => Promise<[string, OTPSessionHydratedDocument, UserHydratedDocument]>;
 
 	getNecessarySession: (
 		this: OTPSessionModel,
 		sessionId: string,
 		OTPCode: string,
-		replaceUser?: boolean,
+		replaceUser?: boolean
 	) => Promise<[OTPSessionHydratedDocument, NecessaryUserI]>;
 	getSession: (
 		this: OTPSessionModel,
 		sessionId: string,
-		OTPCode: string,
+		OTPCode: string
 	) => Promise<[OTPSessionHydratedDocument, UserHydratedDocument]>;
 	resetPassword: (this: OTPSessionModel, sessionId: string, password: string, OTPCode: string) => Promise<void>;
 	validateEmail: (this: OTPSessionModel, sessionId: string, OTPCode: string) => Promise<PublicUserI>;
