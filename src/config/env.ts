@@ -155,11 +155,7 @@ const env = cleanEnv(
 			docs: 'https://jwt.io/',
 			example: 'my-secret-key',
 		}),
-		APP_JWT_SECRET_OAUTH: str({
-			desc: 'The secret to sign the JWT for OAuth.',
-			docs: 'https://jwt.io/',
-			example: 'my-oauth-secret-key',
-		}),
+
 		APP_MOBILE_AGENT: str({
 			default: 'Dart.+',
 			devDefault: 'Dart.+|PostmanRuntime.+',
@@ -335,7 +331,6 @@ export const {
 	APP_CLOUDINARY_API_SECRET,
 	APP_CLOUDINARY_CLOUD_NAME, */
 	APP_JWT_SECRET,
-	APP_JWT_SECRET_OAUTH,
 	APP_MOBILE_AGENT,
 	APP_MAINTENANCE_EMAIL,
 	APP_MAINTENANCE_PHONE,
