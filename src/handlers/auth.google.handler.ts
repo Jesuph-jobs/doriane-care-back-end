@@ -36,7 +36,7 @@ export const getUserApps = async (
 	);
 };
 export const googleAuthorizationUrl = (
-	req: ERequest<null, any, ResponseI<string>, object, GoogleAuthorizationUrlRequestI>,
+	_req: ERequest<null, any, ResponseI<string>, object, GoogleAuthorizationUrlRequestI>,
 	res: Response<ResponseI<string>>
 ) => {
 	handleServiceResponse(
@@ -50,7 +50,7 @@ export const googleAuthorizationUrl = (
 	);
 };
 export const googleLinkUrl = (
-	req: ERequest<null, any, ResponseI<string>, object, GoogleAuthorizationUrlRequestI>,
+	_req: ERequest<null, any, ResponseI<string>, object, GoogleAuthorizationUrlRequestI>,
 	res: Response<ResponseI<string>>
 ) => {
 	handleServiceResponse(

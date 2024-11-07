@@ -18,7 +18,13 @@
 			},
 			"suspicious": {
 				"noConfusingVoidType": "off",
-				"noExplicitAny": "off"
+				"noExplicitAny": "off",
+				"noEmptyInterface": "off"
+			},
+			"correctness": {
+				"noUnusedImports": "error",
+				"noUnusedVariables": "error",
+				"noUnusedPrivateClassMembers": "error"
 			}
 		}
 	},
@@ -29,8 +35,13 @@
 		"formatter": {
 			"semicolons": "always",
 			"quoteStyle": "single",
+			"jsxQuoteStyle": "single",
 			"trailingCommas": "es5",
 			"arrowParentheses": "asNeeded"
 		}
+	},
+	"files": {
+		"ignore": ["node_modules", "dist", "build", "common/lib"],
+		"include": ["src/**/*.ts", "common/**/*.ts"]
 	}
 }

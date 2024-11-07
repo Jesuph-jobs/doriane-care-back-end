@@ -13,7 +13,6 @@ export type PersonalInformationVirtual = object;
 export interface PersonalInformationInstanceMethods {
 	toOptimizedObject: (this: PersonalInformationHydratedDocument) => PersonalInformationI;
 }
-/* QueryWithHelpers<PersonalInformationHydratedDocument | null, PersonalInformationHydratedDocument, PersonalInformationQueryHelpers, PersonalInformationDocumentI<ValidationHydratedDocument>,'findOne' >; */
 export type PersonalInformationQueryHelpers = object;
 export interface PersonalInformationDocument
 	extends ApplySchemaOptions<

@@ -13,7 +13,6 @@ export type AddressVirtual = object;
 export interface AddressInstanceMethods {
 	toOptimizedObject: (this: AddressHydratedDocument) => AddressI;
 }
-/* QueryWithHelpers<AddressHydratedDocument | null, AddressHydratedDocument, AddressQueryHelpers, AddressDocumentI<ValidationHydratedDocument>,'findOne' >; */
 export type AddressQueryHelpers = object;
 export interface AddressDocument
 	extends ApplySchemaOptions<

@@ -7,7 +7,6 @@ import {
 	phoneSchema,
 	stringDateSchema,
 	urlSchema,
-	usernameSchema,
 } from '../elements';
 
 import { ContactInformationSchema } from './generals/ContactInformation';

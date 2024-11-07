@@ -23,11 +23,12 @@ declare type UserAppsEnum = EnabledUserAppsEnum | DisabledUserAppsEnum;
 declare type EnabledUserAppsI<T = string> = Record<EnabledUserAppsEnum, T>;
 declare type DisabledUserAppsI<T = string> = Record<DisabledUserAppsEnum, T>;
 declare type UserAppsI<T = string> = EnabledUserAppsI<T> & DisabledUserAppsI<T>;
-interface UserDocumentI extends UserI {
+interface UserDocumentI<ID = string> extends UserI {
 	contactInformation: ContactInformationI;
 	enabled: boolean;
 	lastLogin: Date | string;
 	apps: Partial<EnabledUserAppsI<AppDetailsI>>;
+	roles: ID[];
 }
 
 interface ChangePasswordI {

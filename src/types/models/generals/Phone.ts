@@ -13,7 +13,6 @@ export type PhoneVirtual = object;
 export interface PhoneInstanceMethods {
 	toOptimizedObject: (this: PhoneHydratedDocument) => PhoneI;
 }
-/* QueryWithHelpers<PhoneHydratedDocument | null, PhoneHydratedDocument, PhoneQueryHelpers, PhoneDocumentI<ValidationHydratedDocument>,'findOne' >; */
 export type PhoneQueryHelpers = object;
 export interface PhoneDocument
 	extends ApplySchemaOptions<

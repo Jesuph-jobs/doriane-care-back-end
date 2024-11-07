@@ -13,7 +13,6 @@ export type SocialMediaUrlsVirtual = object;
 export interface SocialMediaUrlsInstanceMethods {
 	toOptimizedObject: (this: SocialMediaUrlsHydratedDocument) => SocialMediaUrlsI;
 }
-/* QueryWithHelpers<SocialMediaUrlsHydratedDocument | null, SocialMediaUrlsHydratedDocument, SocialMediaUrlsQueryHelpers, SocialMediaUrlsDocumentI<ValidationHydratedDocument>,'findOne' >; */
 export type SocialMediaUrlsQueryHelpers = object;
 export interface SocialMediaUrlsDocument
 	extends ApplySchemaOptions<

@@ -23,7 +23,7 @@ export const CheckAuth = async (req: ERequest<UserDocumentI, any, ResponseI<User
 	handleServiceResponse(serviceResponse, res);
 };
 
-export const Logout = async (req: ERequest<UserDocumentI>, res: Response) => {
+export const Logout = async (_req: ERequest<UserDocumentI>, res: Response) => {
 	clearToken(APP_TOKEN_NAME, res);
 	handleServiceResponse(
 		new ServiceResponse<null>(ResponseStatus.Success, 'You have been logged out', null, StatusCodes.OK),

@@ -23,7 +23,7 @@ export interface UserInstanceMethods {
 export type UserQueryHelpers = object;
 export interface UserDocument
 	extends ApplySchemaOptions<
-		ObtainDocumentType<UserDocument, UserDocumentI, ResolveSchemaOptions<UserSchemaOptions>>,
+		ObtainDocumentType<UserDocument, UserDocumentI<Types.ObjectId>, ResolveSchemaOptions<UserSchemaOptions>>,
 		ResolveSchemaOptions<UserSchemaOptions>
 	> {}
 export interface UserHydratedDocument
@@ -48,5 +48,11 @@ export interface UserSchemaOptions {
 	timestamps: true;
 }
 export interface UserModel
-	extends Model<UserDocumentI, UserQueryHelpers, UserInstanceMethods, UserVirtual, UserHydratedDocument>,
+	extends Model<
+			UserDocumentI<Types.ObjectId>,
+			UserQueryHelpers,
+			UserInstanceMethods,
+			UserVirtual,
+			UserHydratedDocument
+		>,
 		UserStaticMethods {}

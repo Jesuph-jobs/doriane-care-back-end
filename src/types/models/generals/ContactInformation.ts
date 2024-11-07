@@ -13,7 +13,6 @@ export type ContactInformationVirtual = object;
 export interface ContactInformationInstanceMethods {
 	toOptimizedObject: (this: ContactInformationHydratedDocument) => ContactInformationI;
 }
-/* QueryWithHelpers<ContactInformationHydratedDocument | null, ContactInformationHydratedDocument, ContactInformationQueryHelpers, ContactInformationDocumentI<ValidationHydratedDocument>,'findOne' >; */
 export type ContactInformationQueryHelpers = object;
 export interface ContactInformationDocument
 	extends ApplySchemaOptions<

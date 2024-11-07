@@ -1,9 +1,9 @@
 import bcrypt from 'bcrypt';
-import { Schema, model } from 'mongoose';
+import { Schema, type Types, model } from 'mongoose';
 
 import { passwordSchema } from '^server/elements';
 
-import { Jwt, JwtOAuth } from '&server/jwt';
+import { Jwt } from '&server/jwt';
 import { replaceEmail, replacePhone } from '@server/utils';
 
 import type {
@@ -15,14 +15,14 @@ import type {
 	UserVirtual,
 } from '!server/models/user';
 
-import { contactInformationSchema } from './generals/ContactInformation';
-import { personalInformationSchema } from './generals/PersonalInformation';
+import { contactInformationSchema } from '../schemas/ContactInformation';
+import { personalInformationSchema } from '../schemas/PersonalInformation';
 
 const required = true;
 const unique = true;
 /* --------------------- Schema --------------------- */
 const userSchema = new Schema<
-	UserDocumentI,
+	UserDocumentI<Types.ObjectId>,
 	UserModel,
 	UserInstanceMethods,
 	UserQueryHelpers,
@@ -31,7 +31,7 @@ const userSchema = new Schema<
 	UserSchemaOptions
 >(
 	{
-		username: { type: String, required, unique },
+		//username: { type: String, required, unique },
 		email: { type: String, required, unique },
 		password: { type: String, required },
 		personalInformation: { type: personalInformationSchema },
@@ -51,6 +51,7 @@ const userSchema = new Schema<
 				default: undefined,
 			},
 		},
+		roles: [{ type: Schema.Types.ObjectId, ref: 'Role' }],
 	},
 	{ timestamps: true }
 );
@@ -89,7 +90,7 @@ userSchema.pre('save', async function (next) {
 userSchema.methods.toOptimizedObject = function () {
 	return {
 		email: this.email,
-		username: this.username,
+		//username: this.username,
 		personalInformation: this.personalInformation,
 		phone: this.phone,
 		id: this._id.toString(),
@@ -103,11 +104,11 @@ userSchema.methods.comparePassword = async function (password) {
 
 userSchema.methods.comparePublicKey = async function (publicKey) {
 	const user = this.toObject();
-	return await bcrypt.compare(`${user.username}/pk/${user.createdAt}`, publicKey);
+	return await bcrypt.compare(`${user.email}/pk/${user.createdAt}`, publicKey);
 };
 userSchema.methods.generatePublicKey = async function () {
 	const user = this.toObject();
-	return bcrypt.hash(`${user.username}/pk/${user.createdAt}`, 10);
+	return bcrypt.hash(`${user.email}/pk/${user.createdAt}`, 10);
 };
 userSchema.methods.generateAuthToken = async function () {
 	const nowDate = Math.floor(Date.now() / 1000);
@@ -118,23 +119,13 @@ userSchema.methods.generateAuthToken = async function () {
 		pk: await this.generatePublicKey(),
 	});
 };
-userSchema.methods.generateOAuthToken = async function (issFor = 'AF') {
-	const nowDate = Math.floor(Date.now() / 1000);
-	return JwtOAuth.sign({
-		id: this._id.toString(),
-		issAt: nowDate,
-		issBy: 'app',
-		issFor,
-		pk: await this.generatePublicKey(),
-	});
-};
 
 userSchema.methods.toNecessaryUser = function (replace = true) {
 	const user = this.toOptimizedObject();
 	return {
 		...user,
 		email: replace ? replaceEmail(user.email) : user.email,
-		phone: replace ? (user.phone ? replacePhone(user.phone) : undefined) : user.phone,
+		phone: replace ? replacePhone(user.phone) : user.phone,
 	};
 };
 
@@ -193,5 +184,5 @@ userSchema.statics.getUserFromToken = async payload => {
 };
 
 /* --------------------- Generate Model --------------------- */
-const userModel = model<UserDocumentI, UserModel, UserQueryHelpers>('User', userSchema);
+const userModel = model<UserDocumentI<Types.ObjectId>, UserModel, UserQueryHelpers>('User', userSchema);
 export default userModel;

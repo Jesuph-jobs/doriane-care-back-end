@@ -14,7 +14,7 @@ export const upload = multer({
 		fileSize: 1024 * 1024 * 5, // 5MB
 	},
 	storage: multer.diskStorage({
-		destination: (req, file, cb) => {
+		destination: (_req, _file, cb) => {
 			cb(null, 'uploads');
 		},
 	}),
