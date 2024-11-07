@@ -1,5 +1,6 @@
 import { type MyZodType, z } from '../defaultZod';
 import {
+	arraySchema,
 	booleanSchema,
 	emailSchema,
 	mongoIDSchema,
@@ -95,6 +96,7 @@ export const UserDocumentSchema = (
 				apps: EnabledUserAppsSchema(),
 				contactInformation: ContactInformationSchema(),
 				profilePicture: urlSchema().optional(),
+				roles: arraySchema(mongoIDSchema()),
 			},
 			{
 				description: DocumentUserMsg.description || 'User document Schema',

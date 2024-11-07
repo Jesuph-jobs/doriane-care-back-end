@@ -2,7 +2,7 @@ import type { Request } from 'express';
 import type * as core from 'express-serve-static-core';
 import type { ParsedQs } from 'qs';
 
-import type { UserHydratedDocument } from '!server/models/user';
+import type { UserHydratedDocument } from '!common/generated/models/user';
 
 type RequestExtends = UserDocumentI;
 

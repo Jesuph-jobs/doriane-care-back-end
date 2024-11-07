@@ -14,9 +14,9 @@ export default class EjsTemplate<T extends EmailTemplates = EmailTemplates> {
 		this.name = name;
 		this.additionalContext = additionalContext;
 		this.templates = {
-			AR: this.loadTemplate('AR'),
-			EN: this.loadTemplate('EN'),
-			FR: this.loadTemplate('FR'),
+			ar: this.loadTemplate('ar'),
+			en: this.loadTemplate('en'),
+			fr: this.loadTemplate('fr'),
 		};
 		const templatePromises = Object.values(this.templates);
 		this.templatesPromise = Promise.all(templatePromises);
@@ -30,10 +30,10 @@ export default class EjsTemplate<T extends EmailTemplates = EmailTemplates> {
 		);
 	}
 	public async loadTemplate(language: LanguagesI) {
-		return readTextFile(`templates/${this.name}/${language}.ejs`);
+		return readTextFile(`templates/${this.name}/${language.toUpperCase()}.ejs`);
 	}
 	public async render(context: EmailContexts[T]) {
-		const language: LanguagesI = context.language || 'FR';
+		const language: LanguagesI = context.language || 'fr';
 		return this.templates[language].then(template => {
 			return ejs.render(template, { ...this.additionalContext, ...context });
 		});

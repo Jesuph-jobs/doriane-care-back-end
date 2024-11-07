@@ -1,6 +1,5 @@
 import { Schema, type Types, model } from 'mongoose';
 
-import { PermissionsIds } from '@server/permissions/Permissions';
 import type {
 	RoleInstanceMethods,
 	RoleModel,
@@ -8,7 +7,8 @@ import type {
 	RoleSchemaOptions,
 	RoleStaticMethods,
 	RoleVirtual,
-} from '../types/models/Role';
+} from '!common/generated/models/Role';
+import { PermissionsIds } from '@server/permissions/Permissions';
 
 const required = true;
 

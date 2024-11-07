@@ -13,10 +13,10 @@ import type {
 	UserSchemaOptions,
 	UserStaticMethods,
 	UserVirtual,
-} from '!server/models/user';
+} from '!common/generated/models/user';
 
-import { contactInformationSchema } from '../schemas/ContactInformation';
-import { personalInformationSchema } from '../schemas/PersonalInformation';
+import { contactInformationSchema } from '@common/schemas/ContactInformation';
+import { personalInformationSchema } from '@common/schemas/PersonalInformation';
 
 const required = true;
 const unique = true;

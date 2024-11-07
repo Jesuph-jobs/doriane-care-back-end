@@ -7,8 +7,8 @@ import { setToken } from '@server/utils/cookies';
 import { handleServiceResponse } from '@server/utils/httpHandlers';
 import { ResponseStatus, ServiceResponse } from '@server/utils/serviceResponse';
 
-import type { ERequest } from '!server/back/E_Express';
-import type { UserHydratedDocument } from '!server/models/user';
+import type { UserHydratedDocument } from '!common/generated/models/user';
+import type { ERequest } from '!server/E_Express';
 import userModel from '#server/user';
 export const getUserApps = async (
 	req: ERequest<UserDocumentI, any, ResponseI<Partial<UserAppsI<string>>>>,

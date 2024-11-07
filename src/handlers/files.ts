@@ -6,7 +6,7 @@ import multer from 'multer';
 import { handleErrorResponse, handleServiceResponse } from '@server/utils/httpHandlers';
 import { ResponseStatus, ServiceResponse } from '@server/utils/serviceResponse';
 
-import type { ERequest } from '!server/back/E_Express';
+import type { ERequest } from '!server/E_Express';
 
 export const upload = multer({
 	dest: 'uploads',

@@ -9,7 +9,7 @@ import { defaultErrorRequestHandler, unexpectedRequest } from '@server/middlewar
 import rateLimiter from '@server/middleware/rateLimiter';
 import openAPIRouter from '@server/router/v1/openAPI.router';
 
-import type { ERequest } from '!server/back/E_Express';
+import type { ERequest } from '!server/E_Express';
 
 import Routing from './router/v1';
 //import Routing1_1 from './router/v1.1';

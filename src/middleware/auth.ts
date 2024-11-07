@@ -7,7 +7,7 @@ import { clearToken, extractAuth } from '@server/utils/cookies';
 import { handleServiceResponse } from '@server/utils/httpHandlers';
 import { ResponseStatus, ServiceResponse } from '@server/utils/serviceResponse';
 
-import type { ERequest } from '!server/back/E_Express';
+import type { ERequest } from '!server/E_Express';
 import userModel from '#server/user';
 
 export const checkLogs = async (req: ERequest<UserDocumentI | null>, res: Response, next: NextFunction) => {

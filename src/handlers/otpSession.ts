@@ -6,8 +6,8 @@ import EmailQueueService from '@server/services/EmailQueue';
 import { handleErrorResponse, handleServiceResponse } from '@server/utils/httpHandlers';
 import { ResponseStatus, ServiceResponse } from '@server/utils/serviceResponse';
 
-import type { ERequest } from '!server/back/E_Express';
-import otpSessionModel from '#server/otpSession';
+import type { ERequest } from '!server/E_Express';
+import otpSessionModel from '#common/otpSession';
 
 export const createRecoveringSession = async (
 	req: ERequest<null, any, ResponseI<string>, OTPSessionI>,

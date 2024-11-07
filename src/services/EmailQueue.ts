@@ -6,7 +6,7 @@ import { cLogger } from '$server/console';
 
 import { APP_DOMAIN, APP_EMAIL_QUEUE_NAME } from '&server/env';
 
-import type { OTPSessionHydratedDocument } from '!server/models/OTPSession';
+import type { OTPSessionHydratedDocument } from '!common/generated/models/OTPSession';
 
 import Service from './Service';
 

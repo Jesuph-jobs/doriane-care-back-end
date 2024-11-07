@@ -60,7 +60,7 @@
 	"lint-staged": {
 		"*.{js,ts,cjs,mjs,d.cts,d.mts,json,jsonc}": ["biome check --apply --no-errors-on-unmatched"]
 	},
-	"main": "index.ts",
+	"main": "src/index.ts",
 	"name": "doriane-care-back-end",
 	"private": true,
 	"repository": "Jesuph-jobs/doriane-care-back-end",

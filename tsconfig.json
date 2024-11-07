@@ -11,6 +11,8 @@
 			"!common/*": ["common/types/*"],
 			"^common/*": ["common/validation/*"],
 			"#common/*": ["common/models/*"],
+			"$common/*": ["common/schemas/*"],
+			"@common/*": ["common/*"],
 			/* server */
 			"!server/*": ["src/types/*"],
 			"^server/*": ["src/validation/*"],
