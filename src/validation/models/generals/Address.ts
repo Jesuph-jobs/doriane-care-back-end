@@ -1,5 +1,5 @@
-import { type MyZodType, z } from '^server/defaultZod';
-import { arraySchema } from '^server/elements';
+import { type MyZodType, z } from '^common/defaultZod';
+import { arraySchema } from '^common/elements';
 
 export const AddressSchema = (
 	{ province, city, addresses }: Partial<Record<keyof AddressI, ErrorsSchemaMsgI>> = {},

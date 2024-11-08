@@ -1,8 +1,8 @@
 import { OpenAPIRegistry } from '@asteasolutions/zod-to-openapi';
 import { StatusCodes } from 'http-status-codes';
 
-import { z } from '^server/defaultZod';
-import { errorSchema } from '^server/elements';
+import { z } from '^common/defaultZod';
+import { errorSchema } from '^common/elements';
 import { AuthResponseSchema } from '^server/generated/user';
 import { GoogleLoginRequestSchema } from '^server/requests/auth';
 

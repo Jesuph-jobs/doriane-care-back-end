@@ -1,5 +1,5 @@
-import { type MyZodType, z } from '^server/defaultZod';
-import { nameSchema, stringDateSchema } from '^server/elements';
+import { type MyZodType, z } from '^common/defaultZod';
+import { nameSchema, stringDateSchema } from '^common/elements';
 
 import { AddressSchema } from './Address';
 export const gendersMap: Record<GendersT, LanguagesContentI> = {

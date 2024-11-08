@@ -1,5 +1,5 @@
-import { type MyZodType, z } from '../../defaultZod';
-import { mongoIDSchema } from '../../elements';
+import { type MyZodType, z } from '../../../../common/validations/defaultZod';
+import { mongoIDSchema } from '../../../../common/validations/elements';
 
 export const APP_JWT_PayloadSchema = ({
 	id,

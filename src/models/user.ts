@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import { Schema, type Types, model } from 'mongoose';
 
-import { passwordSchema } from '^server/elements';
+import { passwordSchema } from '^common/elements';
 
 import { Jwt } from '&server/jwt';
 import { replaceEmail, replacePhone } from '@server/utils';
@@ -15,8 +15,8 @@ import type {
 	UserVirtual,
 } from '!common/generated/models/user';
 
-import { contactInformationSchema } from '@common/schemas/ContactInformation';
-import { personalInformationSchema } from '@common/schemas/PersonalInformation';
+import { contactInformationSchema } from '$common/ContactInformation';
+import { personalInformationSchema } from '$common/PersonalInformation';
 
 const required = true;
 const unique = true;

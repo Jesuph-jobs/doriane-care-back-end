@@ -1,5 +1,5 @@
-import { type MyZodType, z } from '../defaultZod';
-import { emailSchema, usernameSchema } from '../elements';
+import { type MyZodType, z } from '../../../common/validations/defaultZod';
+import { emailSchema, usernameSchema } from '../../../common/validations/elements';
 import { LoginRequestSchema, RegisterRequestSchema } from '../generated/user';
 
 export const CheckAuthShapeSchema = z.object<MyZodType<CheckAuthShapeI>>({

@@ -1,4 +1,4 @@
-import { type MyZodType, z } from '../defaultZod';
+import { type MyZodType, z } from '../../../common/validations/defaultZod';
 import {
 	arraySchema,
 	booleanSchema,
@@ -8,7 +8,7 @@ import {
 	phoneSchema,
 	stringDateSchema,
 	urlSchema,
-} from '../elements';
+} from '../../../common/validations/elements';
 
 import { ContactInformationSchema } from './generals/ContactInformation';
 import { PersonalInformationSchema } from './generals/PersonalInformation';

@@ -1,6 +1,6 @@
 import { OpenAPIRegistry } from '@asteasolutions/zod-to-openapi';
 
-import { nullElementSchema } from '^server/elements';
+import { nullElementSchema } from '^common/elements';
 
 import { createApiRequest } from '~server/openAPIRequestBuilders';
 import { createApiResponse } from '~server/openAPIResponseBuilders';

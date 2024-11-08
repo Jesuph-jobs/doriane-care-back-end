@@ -7,7 +7,7 @@ import { handleErrorResponse, handleServiceResponse } from '@server/utils/httpHa
 import { ResponseStatus, ServiceResponse } from '@server/utils/serviceResponse';
 
 import type { ERequest } from '!server/E_Express';
-import otpSessionModel from '#common/otpSession';
+import otpSessionModel from '#server/otpSession';
 
 export const createRecoveringSession = async (
 	req: ERequest<null, any, ResponseI<string>, OTPSessionI>,

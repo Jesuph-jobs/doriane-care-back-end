@@ -1,6 +1,6 @@
 import type { ZodTypeAny } from 'zod';
 
-import { z } from '../defaultZod';
+import { z } from '../../../common/validations/defaultZod';
 
 export const ServiceResponseSchema = <T extends ZodTypeAny>(dataSchema: T, example: z.infer<T> = {}) =>
 	z

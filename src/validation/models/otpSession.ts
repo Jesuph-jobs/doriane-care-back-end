@@ -1,5 +1,5 @@
-import { type MyZodType, z } from '^server/defaultZod';
-import { emailSchema, mongoIDSchema, otpSchema, passwordSchema } from '^server/elements';
+import { type MyZodType, z } from '^common/defaultZod';
+import { emailSchema, mongoIDSchema, otpSchema, passwordSchema } from '^common/elements';
 
 import { NecessaryUserSchema } from './user';
 

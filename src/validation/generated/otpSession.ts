@@ -1,4 +1,4 @@
-import { type MyZodType, z } from '^server/defaultZod';
+import { type MyZodType, z } from '^common/defaultZod';
 import { OTPSessionSchema, OTPSessionSendSchema, ResetPasswordSchema } from '^server/models/otpSession';
 
 export const OTPSessionRequestSchema = ({

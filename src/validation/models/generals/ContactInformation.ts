@@ -1,5 +1,5 @@
-import { type MyZodType, z } from '^server/defaultZod';
-import { arraySchema, emailSchema, phoneSchema, urlSchema } from '^server/elements';
+import { type MyZodType, z } from '^common/defaultZod';
+import { arraySchema, emailSchema, phoneSchema, urlSchema } from '^common/elements';
 
 /* Social media  schema */
 export const SocialMediaSchema = (

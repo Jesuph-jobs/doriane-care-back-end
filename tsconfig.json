@@ -9,7 +9,7 @@
 		"outDir": "dist",
 		"paths": {
 			"!common/*": ["common/types/*"],
-			"^common/*": ["common/validation/*"],
+			"^common/*": ["common/validations/*"],
 			"#common/*": ["common/models/*"],
 			"$common/*": ["common/schemas/*"],
 			"@common/*": ["common/*"],

@@ -11,7 +11,7 @@ import {
 	urlSchema,
 	usernameSchema,
 	uuidSchema,
-} from '../elements';
+} from '../../../common/validations/elements';
 
 // username
 export const defaultUsernameSchema = usernameSchema();
