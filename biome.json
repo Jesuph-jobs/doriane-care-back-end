@@ -42,6 +42,6 @@
 	},
 	"files": {
 		"ignore": ["node_modules", "dist", "build", "common/lib"],
-		"include": ["src/**/*.ts", "common/**/*.ts"]
+		"include": ["src/**/*.ts", "common/**/*.ts", "seed/**/*.ts"]
 	}
 }

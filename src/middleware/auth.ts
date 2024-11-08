@@ -1,7 +1,7 @@
 import type { NextFunction, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 
-import { APP_TOKEN_NAME } from '&server/env';
+import { FY_TOKEN_NAME } from '&server/env';
 import { Jwt } from '&server/jwt';
 import { clearToken, extractAuth } from '@server/utils/cookies';
 import { handleServiceResponse } from '@server/utils/httpHandlers';
@@ -11,13 +11,13 @@ import type { ERequest } from '!server/E_Express';
 import userModel from '#server/user';
 
 export const checkLogs = async (req: ERequest<UserDocumentI | null>, res: Response, next: NextFunction) => {
-	const token = extractAuth(APP_TOKEN_NAME, req);
+	const token = extractAuth(FY_TOKEN_NAME, req);
 	if (token) {
 		try {
 			const payload = Jwt.verify(token);
 			req.records!.user = await userModel.getUserFromToken(payload);
 		} catch (e) {
-			clearToken(APP_TOKEN_NAME, res);
+			clearToken(FY_TOKEN_NAME, res);
 			const serviceResponse = new ServiceResponse<ErrorResponseI>(
 				ResponseStatus.Failed,
 				'Invalid Token',

@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import { Schema, model } from 'mongoose';
 
-import { APP_EXPIRE_IN_SECONDS } from '&server/env';
+import { FY_EXPIRE_IN_SECONDS } from '&server/env';
 import { generateOTP } from '@server/utils';
 
 import type {
@@ -44,7 +44,7 @@ const otpSessionSchema = new Schema<
 	{ timestamps: true }
 );
 /* --------------------- Indexes ---------------------  */
-otpSessionSchema.index({ createdAt: 1 }, { expireAfterSeconds: APP_EXPIRE_IN_SECONDS });
+otpSessionSchema.index({ createdAt: 1 }, { expireAfterSeconds: FY_EXPIRE_IN_SECONDS });
 /* --------------------- Virtual ---------------------  */
 
 /* --------------------- Hooks ---------------------  */

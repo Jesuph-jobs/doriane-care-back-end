@@ -4,7 +4,7 @@ import path from 'path';
 
 import { cLogger } from '$server/console';
 
-import { APP_CLOUDINARY_API_KEY, APP_CLOUDINARY_API_SECRET, APP_CLOUDINARY_CLOUD_NAME } from '&server/env';
+import { FY_CLOUDINARY_API_KEY, FY_CLOUDINARY_API_SECRET, FY_CLOUDINARY_CLOUD_NAME } from '&server/env';
 
 import Service from './Service';
 const id = 'CloudinaryService';
@@ -29,9 +29,9 @@ export default class CloudinaryService extends Service<void> {
 	}
 	public static async connect() {
 		cloudinary.config({
-			cloud_name: APP_CLOUDINARY_CLOUD_NAME,
-			api_key: APP_CLOUDINARY_API_KEY,
-			api_secret: APP_CLOUDINARY_API_SECRET,
+			cloud_name: FY_CLOUDINARY_CLOUD_NAME,
+			api_key: FY_CLOUDINARY_API_KEY,
+			api_secret: FY_CLOUDINARY_API_SECRET,
 		});
 		return CloudinaryService.checkConnection().then(() => {
 			cLogger.info('☁️  Le service Cloudinary est activé');

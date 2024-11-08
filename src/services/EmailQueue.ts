@@ -4,7 +4,7 @@ import type IORedis from 'ioredis';
 
 import { cLogger } from '$server/console';
 
-import { APP_DOMAIN, APP_EMAIL_QUEUE_NAME } from '&server/env';
+import { FY_DOMAIN, FY_EMAIL_QUEUE_NAME } from '&server/env';
 
 import type { OTPSessionHydratedDocument } from '!common/generated/models/OTPSession';
 
@@ -30,7 +30,7 @@ class EmailQueueService extends Service<Queue<QueuedEmail>> {
 
 	public static async connect(connection: Promise<IORedis>): Promise<Queue<QueuedEmail>> {
 		return connection.then(conn => {
-			const queue = new Queue<QueuedEmail>(APP_EMAIL_QUEUE_NAME, {
+			const queue = new Queue<QueuedEmail>(FY_EMAIL_QUEUE_NAME, {
 				connection: conn,
 			});
 			return queue.waitUntilReady().then(() => queue);
@@ -54,7 +54,7 @@ class EmailQueueService extends Service<Queue<QueuedEmail>> {
 			subject: 'APP - password recovery',
 			context: {
 				name: `${user.personalInformation.firstName} ${user.personalInformation.lastName}`,
-				resetUrl: new URL(`/auth/session/reset-password?sessionId=${session._id}&otpCode=${otp}`, APP_DOMAIN)
+				resetUrl: new URL(`/auth/session/reset-password?sessionId=${session._id}&otpCode=${otp}`, FY_DOMAIN)
 					.href,
 				language,
 				otp,
@@ -76,7 +76,7 @@ class EmailQueueService extends Service<Queue<QueuedEmail>> {
 			subject: 'APP - email validation',
 			context: {
 				name: `${user.personalInformation.firstName} ${user.personalInformation.lastName}`,
-				validateUrl: new URL(`/validate/email?sessionId=${session._id}&otpCode=${otp}`, APP_DOMAIN).href,
+				validateUrl: new URL(`/validate/email?sessionId=${session._id}&otpCode=${otp}`, FY_DOMAIN).href,
 				language,
 				otp: otp,
 			},

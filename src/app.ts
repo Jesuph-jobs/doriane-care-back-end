@@ -4,7 +4,7 @@ import express, { type Express } from 'express';
 import helmet from 'helmet';
 import morgan from 'morgan';
 
-import { APP_CORS_ORIGIN, isDev, isProd, isTest } from '@server/config/env';
+import { FY_CORS_ORIGIN, isDev, isProd, isTest } from '@server/config/env';
 import { defaultErrorRequestHandler, unexpectedRequest } from '@server/middleware/errorHandler';
 import rateLimiter from '@server/middleware/rateLimiter';
 import openAPIRouter from '@server/router/v1/openAPI.router';
@@ -21,7 +21,7 @@ app.set('trust proxy', true);
 
 //app.use(express.static('public'));
 // Middlewares
-app.use(cors({ origin: new RegExp(APP_CORS_ORIGIN), credentials: true }));
+app.use(cors({ origin: new RegExp(FY_CORS_ORIGIN), credentials: true }));
 app.use(helmet());
 if (isDev || isTest) {
 	app.use(morgan('dev'));

@@ -76,7 +76,8 @@
 		"lint:fix-unsafe": "biome check --fix --unsafe",
 		"prepare": "husky",
 		"start": "node dist/index.js",
-		"test": "vitest run"
+		"test": "vitest run",
+		"seed": "chcp 65001 && tsx seed/index.ts"
 	},
 	"tsup": {
 		"clean": true,

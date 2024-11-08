@@ -3,7 +3,7 @@ import BoxConsole from 'box-console';
 
 //import { generateRandomUser } from 'tests/tools/generateRandomUser';
 //import userModel from '#server/user';
-import { APP_HOST, NODE_ENV, PORT, isDev, isTest } from '&server/env';
+import { FY_HOST, NODE_ENV, PORT, isDev, isTest } from '&server/env';
 
 import app from './app';
 import services, { discordWebhookService } from './services';
@@ -24,7 +24,7 @@ async function listen() {
 				`🌐 Server (${NODE_ENV}) running`,
 				`⌛ Server was up in ${process.uptime()} seconds`,
 				`🚪 PORT: ${PORT}`,
-				isDev ? `🖥️  HOST: http://${APP_HOST}:${PORT}/docs/v1` : '',
+				isDev ? `🖥️  HOST: http://${FY_HOST}:${PORT}/docs/v1` : '',
 			]);
 	});
 

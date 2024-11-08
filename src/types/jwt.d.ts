@@ -5,7 +5,7 @@
  * @params pk: string - The public key of the user
  * @params issAt: number - The issue date of the token
  */
-declare interface APP_JWT_Payload {
+declare interface JWT_Payload {
 	id: string;
 	issAt: number;
 	issBy: string;

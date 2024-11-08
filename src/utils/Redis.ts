@@ -3,12 +3,12 @@ import IORedis, { type RedisOptions } from 'ioredis';
 import { cLogger } from '$server/console';
 
 // import { fLogger } from '$server/file';
-import { APP_REDIS_DB_HOST, APP_REDIS_DB_PASSWORD, APP_REDIS_DB_PORT } from '&server/env';
+import { FY_REDIS_DB_HOST, FY_REDIS_DB_PASSWORD, FY_REDIS_DB_PORT } from '&server/env';
 
 const options: RedisOptions = {
-	host: APP_REDIS_DB_HOST,
-	port: APP_REDIS_DB_PORT,
-	password: APP_REDIS_DB_PASSWORD,
+	host: FY_REDIS_DB_HOST,
+	port: FY_REDIS_DB_PORT,
+	password: FY_REDIS_DB_PASSWORD,
 	maxRetriesPerRequest: null,
 };
 const startTime = Date.now();

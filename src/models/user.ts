@@ -13,7 +13,7 @@ import type {
 	UserSchemaOptions,
 	UserStaticMethods,
 	UserVirtual,
-} from '!common/generated/models/user';
+} from '!server/models/user';
 
 import { contactInformationSchema } from '$common/ContactInformation';
 import { personalInformationSchema } from '$common/PersonalInformation';

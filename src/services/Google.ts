@@ -3,10 +3,10 @@ import { google, type oauth2_v2 } from 'googleapis';
 import { cLogger } from '$server/console';
 
 import {
-	APP_GOOGLE_LINK_REDIRECT_URI,
-	APP_GOOGLE_OAUTH2_CLIENT_ID,
-	APP_GOOGLE_OAUTH2_CLIENT_SECRET,
-	APP_GOOGLE_OAUTH2_REDIRECT_URI,
+	FY_GOOGLE_LINK_REDIRECT_URI,
+	FY_GOOGLE_OAUTH2_CLIENT_ID,
+	FY_GOOGLE_OAUTH2_CLIENT_SECRET,
+	FY_GOOGLE_OAUTH2_REDIRECT_URI,
 } from '&server/env';
 
 const googleDefaultId = 'google-oauth2-service';
@@ -26,24 +26,24 @@ export default class GoogleOAuth2Service {
 		cLogger.info(`🌐 Google OAuth2 Service initialized with id: ${this.id}`);
 	}
 	public getGoogleClient(redirect: string) {
-		return new google.auth.OAuth2(APP_GOOGLE_OAUTH2_CLIENT_ID, APP_GOOGLE_OAUTH2_CLIENT_SECRET, redirect);
+		return new google.auth.OAuth2(FY_GOOGLE_OAUTH2_CLIENT_ID, FY_GOOGLE_OAUTH2_CLIENT_SECRET, redirect);
 	}
 	public getAuthorizationUrl() {
-		const client = this.getGoogleClient(APP_GOOGLE_OAUTH2_REDIRECT_URI);
+		const client = this.getGoogleClient(FY_GOOGLE_OAUTH2_REDIRECT_URI);
 		return client.generateAuthUrl({
 			access_type: 'offline',
 			scope: ['profile', 'email'],
 		});
 	}
 	public getLinkingUrl() {
-		const client = this.getGoogleClient(APP_GOOGLE_LINK_REDIRECT_URI);
+		const client = this.getGoogleClient(FY_GOOGLE_LINK_REDIRECT_URI);
 		return client.generateAuthUrl({
 			access_type: 'offline',
 			scope: ['profile', 'email'],
 		});
 	}
 	public async link(code: string): Promise<UserGoogleRegistrationI> {
-		const oAuth2Client = this.getGoogleClient(APP_GOOGLE_LINK_REDIRECT_URI);
+		const oAuth2Client = this.getGoogleClient(FY_GOOGLE_LINK_REDIRECT_URI);
 		const { tokens } = await oAuth2Client.getToken(code);
 
 		oAuth2Client.setCredentials(tokens);
@@ -53,7 +53,7 @@ export default class GoogleOAuth2Service {
 		return this.toUser(data);
 	}
 	public async logOn(code: string): Promise<UserGoogleRegistrationI> {
-		const oAuth2Client = this.getGoogleClient(APP_GOOGLE_OAUTH2_REDIRECT_URI);
+		const oAuth2Client = this.getGoogleClient(FY_GOOGLE_OAUTH2_REDIRECT_URI);
 		const { tokens } = await oAuth2Client.getToken(code);
 
 		oAuth2Client.setCredentials(tokens);

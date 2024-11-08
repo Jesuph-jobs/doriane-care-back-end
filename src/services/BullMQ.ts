@@ -4,7 +4,7 @@ import type IORedis from 'ioredis';
 import { cLogger } from '$server/console';
 
 // import { fLogger } from '$server/file';
-import { APP_EMAIL_QUEUE_NAME } from '&server/env';
+import { FY_EMAIL_QUEUE_NAME } from '&server/env';
 import { emailsAccounts } from '@server/utils/emailsAccounts';
 
 import { emailService, templatesManager } from '.';
@@ -25,7 +25,7 @@ class BullMQService extends Service<Worker<QueuedEmail>> {
 	}
 	public static async connect(connection: Promise<IORedis>): Promise<Worker<QueuedEmail>> {
 		return connection.then(conn => {
-			const worker = new Worker<QueuedEmail>(APP_EMAIL_QUEUE_NAME, BullMQService.onEmailArrive, {
+			const worker = new Worker<QueuedEmail>(FY_EMAIL_QUEUE_NAME, BullMQService.onEmailArrive, {
 				connection: conn,
 			});
 			return worker.waitUntilReady().then(() => worker);

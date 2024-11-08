@@ -1,13 +1,13 @@
 import { type MyZodType, z } from '../../../../common/validations/defaultZod';
 import { mongoIDSchema } from '../../../../common/validations/elements';
 
-export const APP_JWT_PayloadSchema = ({
+export const FY_JWT_PayloadSchema = ({
 	id,
 	pk,
 	issAt,
 	issBy,
-}: Partial<Record<keyof APP_JWT_Payload, ErrorsSchemaMsgI>> = {}) =>
-	z.object<MyZodType<APP_JWT_Payload>>({
+}: Partial<Record<keyof JWT_Payload, ErrorsSchemaMsgI>> = {}) =>
+	z.object<MyZodType<JWT_Payload>>({
 		id: mongoIDSchema(id),
 		issAt: z.number({
 			required_error: issAt?.required || 'issAt is required',

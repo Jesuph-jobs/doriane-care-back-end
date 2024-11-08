@@ -1,15 +1,15 @@
 import type { Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 
-import { APP_TOKEN_NAME } from '&server/env';
+import { FY_TOKEN_NAME } from '&server/env';
 // import { emailQueueService } from '@server/services';
 // import EmailQueueService from '@server/services/Email';
 import { clearToken, setToken } from '@server/utils/cookies';
 import { handleErrorResponse, handleServiceResponse } from '@server/utils/httpHandlers';
 import { ResponseStatus, ServiceResponse } from '@server/utils/serviceResponse';
 
-import type { UserHydratedDocument } from '!common/generated/models/user';
 import type { ERequest } from '!server/E_Express';
+import type { UserHydratedDocument } from '!server/models/user';
 import userModel from '#server/user';
 
 export const CheckAuth = async (req: ERequest<UserDocumentI, any, ResponseI<UserAuthI>>, res: Response) => {
@@ -24,7 +24,7 @@ export const CheckAuth = async (req: ERequest<UserDocumentI, any, ResponseI<User
 };
 
 export const Logout = async (_req: ERequest<UserDocumentI>, res: Response) => {
-	clearToken(APP_TOKEN_NAME, res);
+	clearToken(FY_TOKEN_NAME, res);
 	handleServiceResponse(
 		new ServiceResponse<null>(ResponseStatus.Success, 'You have been logged out', null, StatusCodes.OK),
 		res
@@ -39,7 +39,7 @@ export const Login = async (
 	try {
 		const user = await userModel.findByCredentials(loginData.email, loginData.password);
 		const token = await user.generateAuthToken();
-		setToken(APP_TOKEN_NAME, token, res, loginData.stay);
+		setToken(FY_TOKEN_NAME, token, res, loginData.stay);
 
 		handleServiceResponse(
 			new ServiceResponse<UserAuthI>(
@@ -83,7 +83,7 @@ export const Register = async (
 	try {
 		const user = await userModel.createUser(userBody);
 		const token = await user.generateAuthToken();
-		setToken(APP_TOKEN_NAME, token, res);
+		setToken(FY_TOKEN_NAME, token, res);
 
 		handleServiceResponse(
 			new ServiceResponse<UserAuthI>(

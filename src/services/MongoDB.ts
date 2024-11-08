@@ -4,10 +4,10 @@ import { cLogger } from '$server/console';
 
 // import { fLogger } from '$server/file';
 import {
-	APP_MONGODB_DB_DATABASE,
-	APP_MONGODB_DB_PASSWORD,
-	APP_MONGODB_DB_URI_WITHOUT_CREDENTIALS,
-	APP_MONGODB_DB_USERNAME,
+	FY_MONGODB_DB_DATABASE,
+	FY_MONGODB_DB_PASSWORD,
+	FY_MONGODB_DB_URI_WITHOUT_CREDENTIALS,
+	FY_MONGODB_DB_USERNAME,
 	isDev,
 } from '&server/env';
 
@@ -31,9 +31,9 @@ export default class MongoDBService extends Service<Mongoose> {
 
 	public static async connect(): Promise<Mongoose> {
 		return mongoose.connection.readyState === 0
-			? mongoose.connect(APP_MONGODB_DB_URI_WITHOUT_CREDENTIALS, {
-					auth: { username: APP_MONGODB_DB_USERNAME, password: APP_MONGODB_DB_PASSWORD },
-					dbName: APP_MONGODB_DB_DATABASE,
+			? mongoose.connect(FY_MONGODB_DB_URI_WITHOUT_CREDENTIALS, {
+					auth: { username: FY_MONGODB_DB_USERNAME, password: FY_MONGODB_DB_PASSWORD },
+					dbName: FY_MONGODB_DB_DATABASE,
 				})
 			: Promise.resolve(mongoose);
 	}
@@ -68,7 +68,7 @@ export default class MongoDBService extends Service<Mongoose> {
 		//fLogger.info(`🗄️ MongoDB reconnected.`);
 	}
 	public static connectedHandler() {
-		cLogger.info(`🗄️  MongoDB is ready ==> '${APP_MONGODB_DB_DATABASE}' DB is Connected.`);
+		cLogger.info(`🗄️  MongoDB is ready ==> '${FY_MONGODB_DB_DATABASE}' DB is Connected.`);
 	}
 	public static connectingHandler() {
 		cLogger.info('🗄️  MongoDB connecting...');

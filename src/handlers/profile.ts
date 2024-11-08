@@ -4,8 +4,8 @@ import { StatusCodes } from 'http-status-codes';
 import { handleErrorResponse, handleServiceResponse } from '@server/utils/httpHandlers';
 import { ResponseStatus, ServiceResponse } from '@server/utils/serviceResponse';
 
-import type { UserHydratedDocument } from '!common/generated/models/user';
 import type { ERequest } from '!server/E_Express';
+import type { UserHydratedDocument } from '!server/models/user';
 
 export const getContactInformation = async (
 	req: ERequest<UserDocumentI, any, ResponseI<ContactInformationI>>,

@@ -1,14 +1,14 @@
 import type { Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 
-import { APP_TOKEN_NAME } from '&server/env';
+import { FY_TOKEN_NAME } from '&server/env';
 import { googleOAuth2Service } from '@server/services';
 import { setToken } from '@server/utils/cookies';
 import { handleServiceResponse } from '@server/utils/httpHandlers';
 import { ResponseStatus, ServiceResponse } from '@server/utils/serviceResponse';
 
-import type { UserHydratedDocument } from '!common/generated/models/user';
 import type { ERequest } from '!server/E_Express';
+import type { UserHydratedDocument } from '!server/models/user';
 import userModel from '#server/user';
 export const getUserApps = async (
 	req: ERequest<UserDocumentI, any, ResponseI<Partial<UserAppsI<string>>>>,
@@ -72,7 +72,7 @@ export const loginWithGoogle = async (
 		const googleRegistration = await googleOAuth2Service.logOn(code);
 		const user = await userModel.loginGoogleUser(googleRegistration.id);
 		const token = await user.generateAuthToken();
-		setToken(APP_TOKEN_NAME, token, res, true);
+		setToken(FY_TOKEN_NAME, token, res, true);
 
 		handleServiceResponse(
 			new ServiceResponse<UserAuthI>(

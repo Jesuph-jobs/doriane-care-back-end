@@ -3,16 +3,16 @@ import { rateLimit } from 'express-rate-limit';
 
 import { cLogger } from '$server/console';
 
-import { APP_COMMON_RATE_LIMIT_MAX_REQUESTS, APP_COMMON_RATE_LIMIT_WINDOW_MS } from '@server/config/env';
+import { FY_COMMON_RATE_LIMIT_MAX_REQUESTS, FY_COMMON_RATE_LIMIT_WINDOW_MS } from '@server/config/env';
 import { handleServiceResponse } from '@server/utils/httpHandlers';
 import { ResponseStatus, ServiceResponse } from '@server/utils/serviceResponse';
 
 const rateLimiter = rateLimit({
 	legacyHeaders: true,
-	limit: APP_COMMON_RATE_LIMIT_MAX_REQUESTS,
+	limit: FY_COMMON_RATE_LIMIT_MAX_REQUESTS,
 	message: 'Too many requests, please try again later.',
 	standardHeaders: true,
-	windowMs: APP_COMMON_RATE_LIMIT_WINDOW_MS,
+	windowMs: FY_COMMON_RATE_LIMIT_WINDOW_MS,
 	keyGenerator,
 	handler: (_req, res) => {
 		handleServiceResponse(

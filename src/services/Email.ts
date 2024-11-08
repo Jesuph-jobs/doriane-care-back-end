@@ -5,7 +5,7 @@ import type SMTPTransport from 'nodemailer/lib/smtp-transport';
 import { cLogger } from '$server/console';
 
 // import { fLogger } from '$server/file';
-import { APP_EMAIL_HOST, APP_EMAIL_PASSWORD, APP_EMAIL_PORT, APP_EMAIL_SECURE, APP_EMAIL_USERNAME } from '&server/env';
+import { FY_EMAIL_HOST, FY_EMAIL_PASSWORD, FY_EMAIL_PORT, FY_EMAIL_SECURE, FY_EMAIL_USERNAME } from '&server/env';
 
 import Service from './Service';
 
@@ -29,12 +29,12 @@ class EmailService extends Service<Transporter<SMTPTransport.SentMessageInfo>> {
 	public static async connect() {
 		return new Promise<Transporter<SMTPTransport.SentMessageInfo>>((resolve, reject) => {
 			const transporter = nodemailer.createTransport({
-				host: APP_EMAIL_HOST,
-				port: APP_EMAIL_PORT,
-				secure: APP_EMAIL_SECURE,
+				host: FY_EMAIL_HOST,
+				port: FY_EMAIL_PORT,
+				secure: FY_EMAIL_SECURE,
 				auth: {
-					user: APP_EMAIL_USERNAME,
-					pass: APP_EMAIL_PASSWORD,
+					user: FY_EMAIL_USERNAME,
+					pass: FY_EMAIL_PASSWORD,
 				},
 				tls: {
 					rejectUnauthorized: false,
