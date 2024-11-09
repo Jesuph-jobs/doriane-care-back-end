@@ -4,6 +4,7 @@
 	},
 	"dependencies": {
 		"@asteasolutions/zod-to-openapi": "^7.2.0",
+		"@imranbarbhuiya/mongoose-fuzzy-searching": "^3.0.5",
 		"bcrypt": "^5.1.1",
 		"box-console": "^2.0.0",
 		"bullmq": "^5.24.0",
@@ -34,6 +35,7 @@
 	"description": "A backend for Doriane Care websites managment that provides api to the admin dashboard of the websites managed by the solution provided by BloomQ and shirogin",
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
+		"@faker-js/faker": "^9.2.0",
 		"@types/bcrypt": "^5.0.2",
 		"@types/cookie-parser": "^1.4.7",
 		"@types/cors": "^2.8.17",
@@ -58,7 +60,9 @@
 	},
 	"license": "MIT",
 	"lint-staged": {
-		"*.{js,ts,cjs,mjs,d.cts,d.mts,json,jsonc}": ["biome check --apply --no-errors-on-unmatched"]
+		"*.{js,ts,cjs,mjs,d.cts,d.mts,json,jsonc}": [
+			"biome check --apply --no-errors-on-unmatched"
+		]
 	},
 	"main": "src/index.ts",
 	"name": "doriane-care-back-end",
@@ -81,7 +85,11 @@
 	},
 	"tsup": {
 		"clean": true,
-		"entry": ["!src/**/*.test.*", "!src/**/__tests__/**", "src"],
+		"entry": [
+			"!src/**/*.test.*",
+			"!src/**/__tests__/**",
+			"src"
+		],
 		"sourcemap": true,
 		"splitting": false
 	},

@@ -32,7 +32,12 @@ const userSchema = new Schema<
 >(
 	{
 		//username: { type: String, required, unique },
-		email: { type: String, required, unique },
+		email: {
+			type: String,
+			required,
+			unique,
+			match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Email is invalid'],
+		},
 		password: { type: String, required },
 		personalInformation: { type: personalInformationSchema },
 		phone: { type: String },
@@ -95,7 +100,7 @@ userSchema.methods.toOptimizedObject = function () {
 		phone: this.phone,
 		id: this._id.toString(),
 		profilePicture: this.profilePicture,
-		emailValidated: this.contactInformation.validatedEmails.includes(this.email),
+		emailValidated: !!this.contactInformation.validatedEmails?.includes(this.email),
 	};
 };
 userSchema.methods.comparePassword = async function (password) {

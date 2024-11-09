@@ -13,7 +13,7 @@ import type {
 	OTPSessionSchemaOptions,
 	OTPSessionStaticMethods,
 	OTPSessionVirtual,
-} from '!common/generated/models/OTPSession';
+} from '!server/models/OTPSession';
 
 import userModel from './user';
 
@@ -110,7 +110,8 @@ otpSessionSchema.statics.resetPassword = async function (sessionId, password, OT
 otpSessionSchema.statics.validateEmail = async function (sessionId, OTPCode) {
 	const [session, user] = await this.getSession(sessionId, OTPCode);
 	if (!session.toValidate) throw new Error('No email to validate');
-	user.contactInformation.validatedEmails.push(session.toValidate);
+	if (user.contactInformation.validatedEmails) user.contactInformation.validatedEmails.push(session.toValidate);
+	else user.contactInformation.validatedEmails = [session.toValidate];
 	await Promise.all([user.save(), session.deleteOne()]);
 	return user.toOptimizedObject();
 };
