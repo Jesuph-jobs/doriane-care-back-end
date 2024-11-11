@@ -1,31 +1,34 @@
-import { seedBlog } from './blogs';
-import { seedCategory } from './categories';
+import mongoose from 'mongoose';
+import { seedCollectionsWithPublishable } from './collection';
 import seedServices from './services';
 
+//const website = new Types.ObjectId('672e626d22d00e6bfea3821d');
 async function seed() {
+	console.time('server');
 	await Promise.all(seedServices);
+	console.timeEnd('server');
+	console.time('seeding');
+	mongoose.set('debug', false);
 	//await seedWebsite();
-	const categories = await Promise.all(
-		Array.from({ length: 10 }).map(async () => {
-			//return seedCategory('p');
-			return seedCategory('b');
-		})
-	);
-	await Promise.all(
-		categories.map(async cat => {
-			return Promise.all(
-				Array.from({ length: 10 }).map(async () => {
-					//return seedProducts(cat._id);
-					return seedBlog(cat._id);
-				})
-			);
-		})
-	);
-	/* console.time('seed');
+	seedCollectionsWithPublishable('b');
 
-	const v = await blogModel.fuzzySearch('abbas');
+	console.timeEnd('seeding');
+
+	/* 	console.time('search');
+
+	const v = await productModel
+		.fuzzySearch('Soap')
+		.find({ website })
+		.sort({ 'pricing.current': -1 }, { override: true });
+
 	console.log({ v, length: v.length });
-	console.timeEnd('seed'); */
+	console.timeEnd('search'); */
+
+	/* 	console.time('test');
+	const [x, y, z] = await Promise.all([getRandomProductsIds(10), getRandomProductsIds(10), getRandomProductsIds(10)]);
+
+	console.log({ x, y, z });
+	console.timeEnd('test'); */
 }
 
 seed();
