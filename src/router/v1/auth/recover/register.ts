@@ -1,13 +1,13 @@
 import { OpenAPIRegistry } from '@asteasolutions/zod-to-openapi';
 /* import { StatusCodes } from 'http-status-codes';
 
-import { errorSchema, nullElementSchema } from '^server/elements';
+import { errorSchema, nullElementSchema } from '^common/elements';
 import {
 	OTPSessionRequestSchema,
 	ResetPasswordRequestSchema,
 	SendOTPSessionGetSchema,
 	SendOTPSessionSchema,
-} from '^server/generated/otpSession'; */
+} from '^common/generated/otpSession'; */
 
 /* import { createApiRequest } from '~server/openAPIRequestBuilders';
 import { createApiResponses } from '~server/openAPIResponseBuilders';

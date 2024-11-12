@@ -1,10 +1,11 @@
 import { faker } from '@faker-js/faker';
-import { Types } from 'mongoose';
+import type { Types } from 'mongoose';
 import collectionModel from '#common/Collection';
 import { getRandomBlogsIds } from './blogs';
 import { getRandomProductsIds } from './seedProducts';
 
 const collection = (
+	website: Types.ObjectId,
 	publishables: Types.ObjectId[],
 	forC: PublishableContentTypeI = 'b'
 ): CollectionI<Types.ObjectId> => ({
@@ -18,7 +19,7 @@ const collection = (
 		imageIndex: -1,
 	},
 
-	website: new Types.ObjectId('672e626d22d00e6bfea3821d'),
+	website,
 	enabled: true,
 	for: forC,
 	isPublic: true,
@@ -31,20 +32,26 @@ const collection = (
 	},
 });
 
-export async function seedCollection(publishables: Types.ObjectId[], forC: PublishableContentTypeI = 'b') {
-	return collectionModel.create(collection(publishables, forC));
+export async function seedCollection(
+	website: Types.ObjectId,
+	publishables: Types.ObjectId[],
+	forC: PublishableContentTypeI = 'b'
+) {
+	return collectionModel.create(collection(website, publishables, forC));
 }
-export async function seedCollectionsWithPublishable(forC: PublishableContentTypeI = 'p') {
+export async function seedCollectionsWithPublishable(website: Types.ObjectId, forC: PublishableContentTypeI = 'p') {
 	await Promise.all(
 		Array.from({ length: 15 }).map(async () => {
 			//return seedCategory('p');
 			const numberOfProducts = faker.number.int({ min: 10, max: 40 });
-			return forC === 'p' ? getRandomProductsIds(numberOfProducts) : getRandomBlogsIds(numberOfProducts);
+			return forC === 'p'
+				? getRandomProductsIds(website, numberOfProducts)
+				: getRandomBlogsIds(website, numberOfProducts);
 		})
 	).then(pubs => {
 		return Promise.all(
 			pubs.map(async pubs => {
-				return seedCollection(pubs, forC);
+				return seedCollection(website, pubs, forC);
 			})
 		);
 	});

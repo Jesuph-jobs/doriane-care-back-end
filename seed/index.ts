@@ -1,17 +1,25 @@
 import mongoose from 'mongoose';
-import { seedCollectionsWithPublishable } from './collection';
+import { seedUsers } from './admin';
+import { getRandomRoles } from './roles';
 import seedServices from './services';
+import { websites } from './website';
 
 //const website = new Types.ObjectId('672e626d22d00e6bfea3821d');
 async function seed() {
 	console.time('server');
 	await Promise.all(seedServices);
 	console.timeEnd('server');
-	console.time('seeding');
-	mongoose.set('debug', false);
-	//await seedWebsite();
-	seedCollectionsWithPublishable('b');
 
+	mongoose.set('debug', false);
+
+	console.time('seeding');
+	//await seedWebsite();
+	//seedCollectionsWithPublishable('b');
+	//await Promise.all([seedRoles(undefined, 1, ['admin:super'])]);
+
+	const roles = await Promise.all([getRandomRoles(), getRandomRoles(websites[0]), getRandomRoles(websites[1])]);
+	const user = await seedUsers(roles.flat(1).map(r => r._id));
+	console.log({ user });
 	console.timeEnd('seeding');
 
 	/* 	console.time('search');

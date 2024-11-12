@@ -5,10 +5,10 @@ import {
 	CheckEmailShapeSchema,
 	CheckUsernameShapeSchema,
 	LoginRequestShapeSchema,
-	RegisterRequestShapeSchema,
-} from '^server/requests/auth';
+	/* RegisterRequestShapeSchema, */
+} from '^common/requests/auth';
 
-import { CheckAuth, Login, Logout, Register, checkEmail, checkUsername } from '@server/handlers/auth';
+import { CheckAuth, Login, Logout, /* Register, */ checkEmail, checkUsername } from '@server/handlers/auth';
 import { checkLogs, isLoggedIn } from '@server/middleware/auth';
 import { validateRequest } from '@server/utils/httpHandlers';
 
@@ -28,12 +28,12 @@ router.delete('/', checkLogs, isLoggedIn, Logout);
 router.post('/login', validateRequest(LoginRequestShapeSchema), Login);
 
 // register
-router.post(
+/* router.post(
 	'/register',
 
 	validateRequest(RegisterRequestShapeSchema),
 	Register
-);
+); */
 
 // check if username is available
 router.get('/username/:username', validateRequest(CheckUsernameShapeSchema), checkUsername);

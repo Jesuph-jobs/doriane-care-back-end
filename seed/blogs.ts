@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker';
-import { Types } from 'mongoose';
+import type { Types } from 'mongoose';
 import blogModel from '#common/Blog';
 
-const blog = (categoryID: Types.ObjectId): BlogI<Types.ObjectId> => {
+const blog = (website: Types.ObjectId, categoryID: Types.ObjectId): BlogI<Types.ObjectId> => {
 	const distribution = [
 		faker.number.int({ min: 1, max: 100 }),
 		faker.number.int({ min: 1, max: 100 }),
@@ -34,7 +34,7 @@ const blog = (categoryID: Types.ObjectId): BlogI<Types.ObjectId> => {
 			distribution,
 		},
 		views: faker.number.int({ min: 1, max: 100 }),
-		website: new Types.ObjectId('672e626d22d00e6bfea3821d'),
+		website,
 		enabled: true,
 		cover: {
 			src: faker.image.url({ width: 850, height: 315 }),
@@ -45,9 +45,21 @@ const blog = (categoryID: Types.ObjectId): BlogI<Types.ObjectId> => {
 	};
 };
 
-export async function seedBlog(categoryID: Types.ObjectId) {
-	return blogModel.create(blog(categoryID));
+export async function seedBlog(website: Types.ObjectId, categoryID: Types.ObjectId) {
+	return blogModel.create(blog(website, categoryID));
 }
-export async function getRandomBlogsIds(size: number) {
-	return (await blogModel.aggregate().sample(size).project({ _id: 1 }).exec()).map(el => el._id);
+export async function getRandomBlogsIds(website: Types.ObjectId, size: number) {
+	return (
+		await blogModel
+			.aggregate([
+				{
+					$match: {
+						website,
+					},
+				},
+			])
+			.sample(size)
+			.project({ _id: 1 })
+			.exec()
+	).map(el => el._id);
 }

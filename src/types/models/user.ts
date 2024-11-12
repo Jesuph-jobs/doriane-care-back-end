@@ -16,8 +16,9 @@ export interface UserInstanceMethods {
 	comparePublicKey: (this: UserHydratedDocument, publicKey: string) => Promise<boolean>;
 	generatePublicKey: (this: UserHydratedDocument) => Promise<string>;
 	generateAuthToken: (this: UserHydratedDocument) => Promise<string>;
-	toOptimizedObject: (this: UserHydratedDocument) => PublicUserI;
+	toOptimizedObject: (this: UserHydratedDocument) => OptimizedUserI;
 	toNecessaryUser: (this: UserHydratedDocument, replace?: boolean) => NecessaryUserI;
+	toPublicUser: (this: UserHydratedDocument) => PublicUserI<BasicWebSiteI>;
 }
 /* QueryWithHelpers<UserHydratedDocument | null, UserHydratedDocument, UserQueryHelpers, UserDocumentI<ValidationHydratedDocument>,'findOne' >; */
 export type UserQueryHelpers = object;

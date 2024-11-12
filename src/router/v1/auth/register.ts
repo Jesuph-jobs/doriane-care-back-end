@@ -7,7 +7,7 @@ import {
 	DefaultPublicUserSchema,
 	LoginRequestSchema,
 	RegisterRequestSchema,
-} from '^server/generated/user';
+} from '^common/generated/user';
 
 import { createApiRequest } from '~server/openAPIRequestBuilders';
 import { createApiResponses } from '~server/openAPIResponseBuilders';

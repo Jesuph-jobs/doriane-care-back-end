@@ -17,6 +17,7 @@ import type {
 
 import { contactInformationSchema } from '$common/ContactInformation';
 import { personalInformationSchema } from '$common/PersonalInformation';
+import { rolesManagerService } from '@server/services';
 
 const required = true;
 const unique = true;
@@ -41,7 +42,7 @@ const userSchema = new Schema<
 		password: { type: String, required },
 		personalInformation: { type: personalInformationSchema },
 		phone: { type: String },
-		lastLogin: { type: Date, default: Date.now },
+		lastLogin: { type: Date },
 		enabled: { type: Boolean, default: true },
 		profilePicture: { type: String },
 		contactInformation: {
@@ -98,9 +99,16 @@ userSchema.methods.toOptimizedObject = function () {
 		//username: this.username,
 		personalInformation: this.personalInformation,
 		phone: this.phone,
-		id: this._id.toString(),
+		_id: this._id.toString(),
 		profilePicture: this.profilePicture,
 		emailValidated: !!this.contactInformation.validatedEmails?.includes(this.email),
+	};
+};
+userSchema.methods.toPublicUser = function () {
+	rolesManagerService;
+	return {
+		...this.toOptimizedObject(),
+		websitesPermissions: rolesManagerService.getWebsitePermissions(this.roles),
 	};
 };
 userSchema.methods.comparePassword = async function (password) {

@@ -2,8 +2,8 @@
 import { StatusCodes } from 'http-status-codes';
 import { z } from 'zod';
 
-import { UploadFileShapeSchema } from '^server/backend/requests/uploadFileShapeSchema';
-import { errorSchema } from '^server/elements';
+import { UploadFileShapeSchema } from '^common/backend/requests/uploadFileShapeSchema';
+import { errorSchema } from '^common/elements';
 
 import { createApiRequest } from '@server/api-docs/openAPIRequestBuilders';
 import { createApiResponses } from '@server/api-docs/openAPIResponseBuilders';

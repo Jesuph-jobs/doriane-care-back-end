@@ -17,7 +17,7 @@ export const CheckAuth = async (req: ERequest<UserDocumentI, any, ResponseI<User
 	const serviceResponse = new ServiceResponse<UserAuthI>(
 		ResponseStatus.Success,
 		'Welcome back!',
-		{ user: user.toOptimizedObject() },
+		{ user: user.toPublicUser() },
 		StatusCodes.OK
 	);
 	handleServiceResponse(serviceResponse, res);
@@ -46,8 +46,8 @@ export const Login = async (
 				ResponseStatus.Success,
 				'You have been logged in',
 				{
-					user: user.toOptimizedObject(),
-					token: token,
+					user: user.toPublicUser(),
+					new: !user.lastLogin,
 				},
 				StatusCodes.OK
 			),
@@ -66,14 +66,13 @@ export const Login = async (
 	}
 };
 
-export const Register = async (
+/* export const Register = async (
 	req: ERequest<null, any, ResponseI<UserAuthI>, UserRegistrationI>,
 	res: Response<ResponseI<UserAuthI>>
 ) => {
 	const userData = req.body;
 	const userBody: UserI = {
 		email: userData.email,
-		/* username: userData.username, */
 		password: userData.password,
 		personalInformation: userData.personalInformation,
 		phone: userData.phone,
@@ -90,7 +89,7 @@ export const Register = async (
 				ResponseStatus.Success,
 				'You have been registered',
 				{
-					user: user.toOptimizedObject(),
+					user: await user.toPublicUser(),
 					new: true,
 					token: token,
 				},
@@ -101,7 +100,7 @@ export const Register = async (
 	} catch (e) {
 		handleErrorResponse(StatusCodes.BAD_REQUEST, 'User could not be registered', e, res);
 	}
-};
+}; */
 export const checkUsername = async (req: ERequest<null, { username: string }, ResponseI<boolean>>, res: Response) => {
 	const { username } = req.params;
 	try {

@@ -60,7 +60,6 @@ class EmailQueueService extends Service<Queue<QueuedEmail>> {
 				otp,
 			},
 			template: 'resetPassword',
-			by: 'ASSO',
 			from: 'noReply',
 		};
 	}
@@ -81,7 +80,6 @@ class EmailQueueService extends Service<Queue<QueuedEmail>> {
 				otp: otp,
 			},
 			template: 'validateEmail',
-			by: 'ASSO',
 			from: 'noReply',
 		};
 	}

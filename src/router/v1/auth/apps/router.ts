@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import { GoogleLoginRequestShapeSchema, RequestGoogleUrlShapeSchema } from '^server/requests/auth';
+import { GoogleLoginRequestShapeSchema, RequestGoogleUrlShapeSchema } from '^common/requests/auth';
 
 import {
 	getUserApps,

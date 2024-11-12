@@ -1,10 +1,9 @@
 import { faker } from '@faker-js/faker';
 import { Types } from 'mongoose';
 import productModel from '#common/Product';
-const website = new Types.ObjectId('672e626d22d00e6bfea3821d');
 
-const product = (categoryID: Types.ObjectId): ProductI<Types.ObjectId> => {
-	const price = faker.number.float({ min: 350, max: 1250, multipleOf: 50 });
+const product = (website: Types.ObjectId, categoryID: Types.ObjectId): ProductI<Types.ObjectId> => {
+	const price = faker.number.int({ min: 350, max: 1250, multipleOf: 50 });
 	const fixedPrice = price - Math.floor(price) < 0.7 ? Math.floor(price) : price;
 	const sold = faker.number.int({ min: 3, max: 120 });
 	return {
@@ -64,10 +63,22 @@ const product = (categoryID: Types.ObjectId): ProductI<Types.ObjectId> => {
 	};
 };
 
-export async function seedProducts(categoryID: Types.ObjectId) {
-	return productModel.create(product(categoryID));
+export async function seedProducts(website: Types.ObjectId, categoryID: Types.ObjectId) {
+	return productModel.create(product(website, categoryID));
 }
 
-export async function getRandomProductsIds(size: number) {
-	return (await productModel.aggregate().sample(size).project({ _id: 1 }).exec()).map(el => el._id);
+export async function getRandomProductsIds(website: Types.ObjectId, size: number) {
+	return (
+		await productModel
+			.aggregate([
+				{
+					$match: {
+						website,
+					},
+				},
+			])
+			.sample(size)
+			.project({ _id: 1 })
+			.exec()
+	).map(el => el._id);
 }

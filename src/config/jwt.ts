@@ -1,4 +1,4 @@
-import { FY_JWT_PayloadSchema } from '^server/models/back/jwt';
+import { FY_JWT_PayloadSchema } from '^common/models/back/jwt';
 
 import { JWT } from '@server/utils/JWT';
 
