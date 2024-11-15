@@ -63,8 +63,9 @@ export default class WebsitesManagerService extends Service<WebSiteDocumentI<Typ
 			throw err;
 		}
 	}
-	getBasicWebsites(websiteIds: (string | Types.ObjectId)[]): BasicWebSiteI[] {
-		return websiteIds
+	getBasicWebsites(websiteIds: (string | Types.ObjectId)[]): Map<string, BasicWebSiteI> {
+		const map = new Map<string, BasicWebSiteI>();
+		websiteIds
 			.map(websiteId => {
 				const website = this.websites.get(websiteId.toString());
 				if (!website) {
@@ -73,7 +74,11 @@ export default class WebsitesManagerService extends Service<WebSiteDocumentI<Typ
 				}
 				return toBasicWebSite(website);
 			})
-			.filter(website => website !== null);
+			.filter(website => website !== null)
+			.forEach(website => {
+				map.set(website._id.toString(), website);
+			});
+		return map;
 	}
 	getWebsite(websiteId: string | Types.ObjectId): WebSiteDocumentI<Types.ObjectId, NativeDate> | undefined {
 		return this.websites.get(websiteId.toString());

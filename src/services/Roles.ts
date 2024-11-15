@@ -91,9 +91,12 @@ export default class RolesManagerService extends Service<RoleDocumentI<Types.Obj
 				return role;
 			})
 			.filter(role => role !== null);
-		const websites: BasicWebSiteI[] = websitesManagerService.getBasicWebsites(
+		const websitesMap = websitesManagerService.getBasicWebsites(
 			roles.map(role => role.website).filter(website => !!website)
 		);
+
+		const websites = websitesMap.values();
+
 		return [
 			{
 				website: undefined,
