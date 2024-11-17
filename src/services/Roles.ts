@@ -2,7 +2,7 @@ import type { Types } from 'mongoose';
 
 import { cLogger } from '$server/console';
 
-import { rolesEmitter } from '@server/events/roles';
+import { rolesEmitter } from '@common/events/roles';
 import { createDeferred } from '@server/utils/promises';
 import roleModel from '#common/Role';
 import { websitesManagerService } from '.';
