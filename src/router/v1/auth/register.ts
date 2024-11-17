@@ -2,12 +2,7 @@ import { OpenAPIRegistry } from '@asteasolutions/zod-to-openapi';
 import { StatusCodes } from 'http-status-codes';
 
 import { errorSchema, nullElementSchema } from '^common/elements';
-import {
-	AuthResponseSchema,
-	DefaultPublicUserSchema,
-	LoginRequestSchema,
-	RegisterRequestSchema,
-} from '^common/generated/user';
+import { AuthResponseSchema, DefaultPublicUserSchema, LoginRequestSchema } from '^common/generated/user';
 
 import { createApiRequest } from '~server/openAPIRequestBuilders';
 import { createApiResponses } from '~server/openAPIResponseBuilders';
@@ -98,7 +93,7 @@ authRegistry.registerPath({
 	]),
 });
 
-authRegistry.registerPath({
+/* authRegistry.registerPath({
 	method: 'post',
 	path: '/auth/register',
 	summary: 'Register user',
@@ -125,6 +120,6 @@ authRegistry.registerPath({
 			description: 'User could not be registered',
 		},
 	]),
-});
+}); */
 
 export default authRegistry;
