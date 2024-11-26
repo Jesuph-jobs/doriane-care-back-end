@@ -4,8 +4,8 @@ import { StatusCodes } from 'http-status-codes';
 import { handleErrorResponse, handleServiceResponse } from '@server/utils/httpHandlers';
 import { ResponseStatus, ServiceResponse } from '@server/utils/serviceResponse';
 
+import type { UserHydratedDocument } from '!common/generated/models/user';
 import type { ERequest } from '!server/E_Express';
-import type { UserHydratedDocument } from '!server/models/user';
 
 export const getContactInformation = async (
 	req: ERequest<UserDocumentI, any, ResponseI<ContactInformationI>>,
@@ -25,8 +25,8 @@ export const getContactInformation = async (
 };
 
 export const updateContactInformation = async (
-	req: ERequest<UserDocumentI, any, ResponseI<PublicUserI>, ContactInformationI>,
-	res: Response<ResponseI<PublicUserI>>
+	req: ERequest<UserDocumentI, any, ResponseI<OptimizedUserI>, ContactInformationI>,
+	res: Response<ResponseI<OptimizedUserI>>
 ) => {
 	const user = req.records!.user as UserHydratedDocument;
 	const contactInformation = req.body;
@@ -34,7 +34,7 @@ export const updateContactInformation = async (
 	try {
 		await user.save();
 		handleServiceResponse(
-			new ServiceResponse<PublicUserI>(
+			new ServiceResponse<OptimizedUserI>(
 				ResponseStatus.Success,
 				'Contact information has been updated',
 				user.toOptimizedObject(),
@@ -48,8 +48,8 @@ export const updateContactInformation = async (
 };
 
 export const updatePersonalInformation = async (
-	req: ERequest<UserDocumentI, any, ResponseI<PublicUserI>, PersonalInformationI>,
-	res: Response<ResponseI<PublicUserI>>
+	req: ERequest<UserDocumentI, any, ResponseI<OptimizedUserI>, PersonalInformationI>,
+	res: Response<ResponseI<OptimizedUserI>>
 ) => {
 	const user = req.records!.user as UserHydratedDocument;
 	const personalInformation = req.body;
@@ -57,7 +57,7 @@ export const updatePersonalInformation = async (
 	try {
 		await user.save();
 		handleServiceResponse(
-			new ServiceResponse<PublicUserI>(
+			new ServiceResponse<OptimizedUserI>(
 				ResponseStatus.Success,
 				'Personal information has been updated',
 				user.toOptimizedObject(),
@@ -73,8 +73,8 @@ export const updatePersonalInformation = async (
 export const updateMainContact =
 	(contactMethod: 'email' | 'phone') =>
 	async (
-		req: ERequest<UserDocumentI, any, ResponseI<PublicUserI>, { value: string }>,
-		res: Response<ResponseI<PublicUserI>>
+		req: ERequest<UserDocumentI, any, ResponseI<OptimizedUserI>, { value: string }>,
+		res: Response<ResponseI<OptimizedUserI>>
 	) => {
 		const user = req.records!.user as UserHydratedDocument;
 		const { value } = req.body;
@@ -89,7 +89,7 @@ export const updateMainContact =
 			}
 			await user.save();
 			handleServiceResponse(
-				new ServiceResponse<PublicUserI>(
+				new ServiceResponse<OptimizedUserI>(
 					ResponseStatus.Success,
 					'Main contact has been updated',
 					user.toOptimizedObject(),
@@ -120,8 +120,8 @@ export const updatePassword = async (
 	}
 };
 export const updatePicture = async (
-	req: ERequest<UserDocumentI, any, ResponseI<PublicUserI>, { profilePicture?: string }>,
-	res: Response<ResponseI<PublicUserI>>
+	req: ERequest<UserDocumentI, any, ResponseI<OptimizedUserI>, { profilePicture?: string }>,
+	res: Response<ResponseI<OptimizedUserI>>
 ) => {
 	const user = req.records!.user as UserHydratedDocument;
 	const { profilePicture } = req.body;
@@ -129,7 +129,7 @@ export const updatePicture = async (
 	try {
 		await user.save();
 		handleServiceResponse(
-			new ServiceResponse<PublicUserI>(
+			new ServiceResponse<OptimizedUserI>(
 				ResponseStatus.Success,
 				'Picture has been updated',
 				user.toOptimizedObject(),

@@ -110,7 +110,27 @@ const env = cleanEnv(
 			docs: 'https://www.npmjs.com/package/mongoose',
 			example: 'root',
 		}),
-
+		// MONGODB ATLAS
+		FY_MONGODB_ATLAS_PRODJECT_ID: str({
+			desc: 'The project id of the MongoDB Atlas.',
+			docs: 'https://www.npmjs.com/package/mongoose',
+			example: 'project-id',
+		}),
+		FY_MONGODB_ATLAS_CLUSTER: str({
+			desc: 'The cluster of the MongoDB Atlas.',
+			docs: 'https://www.npmjs.com/package/mongoose',
+			example: 'cluster-id',
+		}),
+		FY_MONGODB_ATLAS_PUBLIC_KEY: str({
+			desc: 'The public key of the MongoDB Atlas.',
+			docs: 'https://www.npmjs.com/package/mongoose',
+			example: 'public-key',
+		}),
+		FY_MONGODB_ATLAS_PRIVATE_KEY: str({
+			desc: 'The private key of the MongoDB Atlas.',
+			docs: 'https://www.npmjs.com/package/mongoose',
+			example: 'private-key',
+		}),
 		// Redis Configuration
 		FY_REDIS_DB_HOST: host({
 			default: 'localhost',
@@ -324,6 +344,10 @@ export const {
 	FY_MONGODB_DB_DATABASE,
 	FY_MONGODB_DB_USERNAME,
 	FY_MONGODB_DB_PASSWORD,
+	FY_MONGODB_ATLAS_CLUSTER,
+	FY_MONGODB_ATLAS_PRIVATE_KEY,
+	FY_MONGODB_ATLAS_PRODJECT_ID,
+	FY_MONGODB_ATLAS_PUBLIC_KEY,
 	FY_REDIS_DB_HOST,
 	FY_REDIS_DB_PORT,
 	FY_REDIS_DB_PASSWORD,

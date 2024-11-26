@@ -1,6 +1,8 @@
 import { faker } from '@faker-js/faker';
 import type { Types } from 'mongoose';
 import blogModel from '#common/Blog';
+import { admins } from './admin';
+import { toLanguagesContent } from './utils';
 
 const blog = (website: Types.ObjectId, categoryID: Types.ObjectId): BlogI<Types.ObjectId> => {
 	const distribution = [
@@ -17,17 +19,13 @@ const blog = (website: Types.ObjectId, categoryID: Types.ObjectId): BlogI<Types.
 			lastName: faker.person.lastName(),
 			note: faker.lorem.paragraph(),
 		},
-		name: faker.animal.dog(),
-		content: faker.lorem.paragraph(),
-		description: faker.lorem.paragraph(),
+		name: toLanguagesContent(faker.animal.dog()),
+		content: toLanguagesContent(faker.lorem.paragraph()),
+		summary: toLanguagesContent(faker.lorem.paragraph()),
 		slug: faker.lorem.slug(),
 		category: categoryID,
+		createdBy: admins[0],
 		tags: [faker.lorem.slug(), faker.lorem.slug(), faker.lorem.slug()],
-		meta: {
-			keywords: [faker.lorem.slug(), faker.lorem.slug(), faker.lorem.slug()],
-			summery: faker.lorem.paragraph(),
-			imageIndex: -1,
-		},
 		ratingAggregation: {
 			average: distribution.reduce((a, b, rate) => a + b * (rate + 1), 0) / rateCount,
 			count: rateCount,
@@ -41,6 +39,16 @@ const blog = (website: Types.ObjectId, categoryID: Types.ObjectId): BlogI<Types.
 			alt: faker.lorem.slug(),
 			height: 315,
 			width: 850,
+		},
+		thumbnail: {
+			src: faker.image.urlPicsumPhotos({
+				width: 350,
+				height: 350,
+				blur: 0,
+			}),
+			height: 350,
+			width: 350,
+			alt: faker.lorem.slug(),
 		},
 	};
 };

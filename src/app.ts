@@ -36,7 +36,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use((req: ERequest, _res, next) => {
-	req.records = { user: null };
+	req.records = { user: null, website: null };
 	next();
 });
 app.use('/api/v1', Routing);

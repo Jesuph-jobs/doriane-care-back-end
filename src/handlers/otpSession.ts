@@ -7,7 +7,7 @@ import { handleErrorResponse, handleServiceResponse } from '@server/utils/httpHa
 import { ResponseStatus, ServiceResponse } from '@server/utils/serviceResponse';
 
 import type { ERequest } from '!server/E_Express';
-import otpSessionModel from '#server/otpSession';
+import otpSessionModel from '#common/otpSession';
 
 export const createRecoveringSession = async (
 	req: ERequest<null, any, ResponseI<string>, OTPSessionI>,
@@ -99,14 +99,14 @@ export const resendValidation = async (
 	}
 };
 export const validateUserEmail = async (
-	req: ERequest<null, any, ResponseI<PublicUserI>, OTPSessionSendI>,
-	res: Response<ResponseI<PublicUserI>>
+	req: ERequest<null, any, ResponseI<OptimizedUserI>, OTPSessionSendI>,
+	res: Response<ResponseI<OptimizedUserI>>
 ) => {
 	const { sessionId, otpCode } = req.body;
 	try {
 		const user = await otpSessionModel.validateEmail(sessionId, otpCode);
 		handleServiceResponse(
-			new ServiceResponse<PublicUserI>(ResponseStatus.Success, 'Email validated', user, StatusCodes.OK),
+			new ServiceResponse<OptimizedUserI>(ResponseStatus.Success, 'Email validated', user, StatusCodes.OK),
 			res
 		);
 	} catch (e) {

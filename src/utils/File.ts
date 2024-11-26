@@ -1,4 +1,4 @@
-import { readFile } from 'node:fs/promises';
+import { readFile, writeFile } from 'node:fs/promises';
 
 import { cLogger } from '$server/console';
 
@@ -21,6 +21,15 @@ export async function readJSONFile<T = unknown>(filePath: string) {
 		return JSON.parse(text) as T;
 	} catch (error) {
 		cLogger.error('🗃️ Error reading file:', error);
+		process.exit(ExitCodes.ERROR_FILE_NOT_FOUND.code);
+	}
+}
+
+export async function writeJSONFile<T>(filePath: string, data: T) {
+	try {
+		await writeFile(filePath, JSON.stringify(data));
+	} catch (error) {
+		cLogger.error('🗃️ Error writing file:', error);
 		process.exit(ExitCodes.ERROR_FILE_NOT_FOUND.code);
 	}
 }

@@ -1,22 +1,20 @@
 import { faker } from '@faker-js/faker';
-import { Types } from 'mongoose';
+import type { Types } from 'mongoose';
 import productModel from '#common/Product';
+import { admins } from './admin';
+import { toLanguagesContent } from './utils';
 
 const product = (website: Types.ObjectId, categoryID: Types.ObjectId): ProductI<Types.ObjectId> => {
 	const price = faker.number.int({ min: 350, max: 1250, multipleOf: 50 });
 	const fixedPrice = price - Math.floor(price) < 0.7 ? Math.floor(price) : price;
 	const sold = faker.number.int({ min: 3, max: 120 });
 	return {
-		name: faker.commerce.productName(),
-		description: faker.commerce.productDescription(),
+		name: toLanguagesContent(faker.commerce.productName()),
+		description: toLanguagesContent(faker.commerce.productDescription()),
+		summary: toLanguagesContent(faker.commerce.productDescription()),
 		slug: faker.lorem.slug(),
 		category: categoryID,
 		tags: [faker.lorem.slug(), faker.lorem.slug(), faker.lorem.slug()],
-		meta: {
-			keywords: [faker.lorem.slug(), faker.lorem.slug(), faker.lorem.slug()],
-			summery: faker.lorem.paragraph(),
-			imageIndex: -1,
-		},
 		ratingAggregation: {
 			average: faker.number.int({ min: 1, max: 5 }),
 			count: faker.number.int({ min: 1, max: 100 }),
@@ -34,13 +32,18 @@ const product = (website: Types.ObjectId, categoryID: Types.ObjectId): ProductI<
 			benefits: Array.from({ length: 10 }).map(() => ({
 				title: faker.lorem.slug(),
 				description: faker.lorem.paragraph(),
-				image: faker.image.avatar(),
+				image: {
+					src: faker.image.avatar(),
+					alt: faker.lorem.slug(),
+					width: 350,
+					height: 350,
+				},
 			})),
 			ingredients: faker.lorem.paragraph(),
 			usage: faker.lorem.paragraph(),
 			storageInstructions: faker.lorem.paragraph(),
 		},
-		createdBy: new Types.ObjectId(faker.database.mongodbObjectId()),
+		createdBy: admins[0],
 		flags: {
 			comingSoon: false,
 			preOrder: false,
