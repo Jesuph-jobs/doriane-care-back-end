@@ -1,4 +1,6 @@
+import { productLabelsEnums } from '@common/data/enums/generalEnums';
 import { faker } from '@faker-js/faker';
+import _ from 'lodash';
 import type { Types } from 'mongoose';
 import productModel from '#common/Product';
 import { admins } from './admin';
@@ -63,6 +65,13 @@ const product = (website: Types.ObjectId, categoryID: Types.ObjectId): ProductI<
 			count: sold,
 			delivered: (sold * faker.number.int({ min: 60, max: 99 })) / 100,
 		},
+		thumbnail: {
+			src: faker.image.url({ width: 350, height: 350 }),
+			alt: faker.lorem.slug(),
+			width: 350,
+			height: 350,
+		},
+		label: _.sample(productLabelsEnums),
 	};
 };
 

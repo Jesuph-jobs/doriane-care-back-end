@@ -34,7 +34,7 @@ export const website: WebSiteI = {
 			{
 				province: 19,
 				city: 19,
-				addresses: ['123 Main St'],
+				address: '123 Main St',
 			},
 		],
 		contactInformation: {
@@ -73,6 +73,7 @@ export const website: WebSiteI = {
 			desk: 150,
 			door: 350,
 		},
+		daysToDeliver: faker.number.int({ min: 2, max: 3 }),
 	},
 };
 

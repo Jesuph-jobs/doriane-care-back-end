@@ -10,7 +10,7 @@ const category = (
 	forC: PublishableContentTypeI = 'b',
 	parentCategory?: Types.ObjectId
 ): CategoryI<Types.ObjectId> => ({
-	name: toLanguagesContent(faker.lorem.sentence()),
+	name: toLanguagesContent(faker.lorem.words({ min: 2, max: 3 })),
 	summary: toLanguagesContent(faker.lorem.paragraph()),
 	slug: faker.lorem.slug(),
 	tags: [faker.lorem.slug(), faker.lorem.slug(), faker.lorem.slug()],
