@@ -32,8 +32,8 @@ const product = (website: Types.ObjectId, categoryID: Types.ObjectId): ProductI<
 		enabled: true,
 		additional: {
 			benefits: Array.from({ length: 10 }).map(() => ({
-				title: faker.lorem.slug(),
-				description: faker.lorem.paragraph(),
+				title: { en: faker.lorem.sentence(), fr: faker.lorem.sentence(), ar: faker.lorem.sentence() },
+				description: { en: faker.lorem.paragraph(), fr: faker.lorem.paragraph(), ar: faker.lorem.paragraph() },
 				image: {
 					src: faker.image.avatar(),
 					alt: faker.lorem.slug(),

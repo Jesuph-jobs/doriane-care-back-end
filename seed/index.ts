@@ -1,18 +1,17 @@
-/* import mongoose from 'mongoose';
-import { seedCategoriesWithPublishable } from './categories';
-import { seedCollectionsWithPublishable } from './collection';
-import seedServices from './services';
-import { websites } from './website'; */
-
-import { loadCities, saveCities } from './cities';
+//import { loadCities, saveCities } from './cities';
 //import { website } from './website';
 
-//const website = new Types.ObjectId('672e626d22d00e6bfea3821d');
+import mongoose, { Types } from 'mongoose';
+import { seedCategoriesWithPublishable } from './categories';
+import seedServices from './services';
+
+const website = new Types.ObjectId('674b7fb77bb4d56ad4b90d6b');
 async function seed() {
-	const cities = await loadCities();
-	console.log(cities);
-	await saveCities(cities);
-	/* console.time('server');
+	//const cities = await loadCities();
+	//console.log(cities);
+	//await saveCities(cities);
+	//await writeJSONFile('./website.json', website);
+	console.time('server');
 	await Promise.all(seedServices);
 	console.timeEnd('server');
 
@@ -22,18 +21,18 @@ async function seed() {
 	console.timeLog('seeding', 'started');
 	//await seedWebsite();
 	await Promise.all([
-		seedCollectionsWithPublishable(websites[0], 'b'),
-		seedCategoriesWithPublishable(websites[0], 'b'),
-		seedCollectionsWithPublishable(websites[0], 'p'),
-		seedCategoriesWithPublishable(websites[0], 'p'),
+		//seedCollectionsWithPublishable(website, 'b'),
+		seedCategoriesWithPublishable(website, 'b'),
+		//seedCollectionsWithPublishable(website, 'p'),
+		seedCategoriesWithPublishable(website, 'p'),
 	]);
 	//await Promise.all([seedRoles(undefined, 1, ['admin:super'])]);
 
-	//const roles = await Promise.all([getRandomRoles(), getRandomRoles(websites[0]), getRandomRoles(websites[1])]);
-	//const user = await seedUsers(roles.flat(1).map(r => r._id));
-	//console.log({ user });
+	/* const roles = await Promise.all([getRandomRoles(), getRandomRoles(website), getRandomRoles(website)]);
+	const user = await seedUsers(roles.flat(1).map(r => r._id));
+	console.log({ user }); */
 	console.timeLog('seeding', 'ended');
-	console.timeEnd('seeding'); */
+	console.timeEnd('seeding');
 
 	/* 	console.time('search');
 

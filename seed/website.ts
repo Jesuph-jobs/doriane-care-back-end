@@ -11,25 +11,37 @@ export const website: WebSiteI = {
 	FY_ID: 'doriane-care-2',
 	banners: [],
 	services: Array.from({ length: 4 }, () => ({
-		title: faker.lorem.sentence(),
-		description: faker.lorem.paragraph(),
+		title: { en: faker.lorem.sentence(), fr: faker.lorem.sentence(), ar: faker.lorem.sentence() },
+		description: { en: faker.lorem.paragraph(), fr: faker.lorem.paragraph(), ar: faker.lorem.paragraph() },
 		image: { src: faker.image.avatar(), alt: faker.lorem.sentence(), width: 350, height: 350 },
 	})),
-	testimonials: Array.from({ length: 12 }, () => ({
-		title: faker.lorem.sentence(),
-		description: faker.lorem.paragraph(),
+	testimonials: Array.from({ length: 20 }, () => ({
+		title: { en: faker.lorem.sentence(), fr: faker.lorem.sentence(), ar: faker.lorem.sentence() },
+		description: { en: faker.lorem.paragraph(), fr: faker.lorem.paragraph(), ar: faker.lorem.paragraph() },
 		image: { src: faker.image.avatar(), alt: faker.lorem.sentence(), width: 350, height: 350 },
 	})),
 	faqs: Array.from({ length: 6 }, () => ({
-		question: faker.lorem.sentence(),
-		answer: faker.lorem.paragraph(),
+		question: { en: faker.lorem.sentence(), fr: faker.lorem.sentence(), ar: faker.lorem.sentence() },
+		answer: { en: faker.lorem.paragraph(), fr: faker.lorem.paragraph(), ar: faker.lorem.paragraph() },
 	})),
 
 	websiteInformation: {
-		name: 'Doriane Care2',
-		domain: 'doriane.care',
-		description: 'Doriane Care',
-		aboutUs: 'An e-commerce website called Doriane care',
+		name: {
+			en: 'Aquasoft',
+			fr: 'Aquasoft',
+			ar: 'Aquasoft',
+		},
+		domain: 'https://www.aquasoft-dz.com',
+		description: {
+			en: 'An e-commerce website called Aquasoft by Doriane care',
+			fr: 'Un site e-commerce appelé Aquasoft par Doriane care',
+			ar: 'موقع انترنت يسمى Aquasoft من قبل Doriane care',
+		},
+		aboutUs: {
+			en: faker.lorem.paragraph(),
+			fr: faker.lorem.paragraph(),
+			ar: faker.lorem.paragraph(),
+		},
 		addresses: [
 			{
 				province: 19,
