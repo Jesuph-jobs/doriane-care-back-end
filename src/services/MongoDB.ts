@@ -13,8 +13,7 @@ import {
 
 import Service from './Service';
 
-/* istanbul ignore next */
-if (isDev) mongoose.set('debug', true);
+mongoose.set('debug', isDev);
 
 /* service details */
 const id = 'MongoDBService';

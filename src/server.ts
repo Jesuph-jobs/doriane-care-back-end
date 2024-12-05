@@ -6,7 +6,7 @@ import BoxConsole from 'box-console';
 import { FY_HOST, NODE_ENV, PORT, isDev, isTest } from '&server/env';
 
 import app from './app';
-import services, { discordWebhookService } from './services';
+import services /* , { discordWebhookService } */ from './services';
 
 let manager: Promise<any[]> | null = null;
 let serverListener: http.Server | null = null;
@@ -29,13 +29,13 @@ async function listen() {
 	});
 
 	/* istanbul ignore next */
-	if (!(isDev || isTest)) await discordWebhookService.sendToDiscord('Server started');
+	//if (!(isDev || isTest)) await discordWebhookService.sendToDiscord('Server started');
 }
 async function close() {
 	serverListener!.close();
 	await Promise.all([
 		...services.map(service => service.stop()),
-		isDev || isTest ? null : /* istanbul ignore next */ discordWebhookService.sendToDiscord('Server closed'),
+		//isDev || isTest ? null : /* istanbul ignore next */ discordWebhookService.sendToDiscord('Server closed'),
 	]);
 }
 

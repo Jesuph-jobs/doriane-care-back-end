@@ -1,4 +1,4 @@
-import { Router } from 'express';
+/* import { Router } from 'express';
 
 import { GoogleLoginRequestShapeSchema, RequestGoogleUrlShapeSchema } from '^common/requests/auth';
 
@@ -32,3 +32,4 @@ appsRouter
 	.delete(unlinkGoogle);
 
 export default appsRouter;
+ */

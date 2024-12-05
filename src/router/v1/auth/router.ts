@@ -12,7 +12,7 @@ import { CheckAuth, Login, Logout, /* Register, */ checkEmail, checkUsername } f
 import { checkLogs, isLoggedIn } from '@server/middleware/auth';
 import { validateRequest } from '@server/utils/httpHandlers';
 
-import appsRouter from './apps/router';
+//import appsRouter from './apps/router';
 import recoverRouter from './recover/router';
 import validateRouter from './validate/router';
 
@@ -48,6 +48,6 @@ router.use('/validate', checkLogs, isLoggedIn, validateRouter);
 router.use('/recover', recoverRouter);
 
 // apps auth (google, facebook, etc)
-router.use('/apps', appsRouter);
+//router.use('/apps', appsRouter);
 
 export default router;

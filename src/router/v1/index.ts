@@ -4,6 +4,7 @@ import { checkConfiguration, isLoggedInAndWebsite } from '@server/middleware/aut
 import authRouter from './auth/router';
 import blogsRouter from './blogs.router';
 import categoriesRouter from './categories.router';
+import collectionsRouter from './collections.router';
 import uploadRouter from './files/router';
 import healthCheckRouter from './healthCheck/router';
 import productsRouter from './products.router';
@@ -21,4 +22,5 @@ v1Router.use('/products', productsRouter);
 v1Router.use('/reviews', reviewsRouter);
 v1Router.use('/blogs', blogsRouter);
 v1Router.use('/categories', categoriesRouter);
+v1Router.use('/collections', collectionsRouter);
 export default v1Router;

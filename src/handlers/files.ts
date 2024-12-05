@@ -12,6 +12,9 @@ import { ResponseStatus, ServiceResponse } from '@server/utils/serviceResponse';
 import type { ERequest } from '!server/E_Express';
 import { FY_PUBLIC_DIR } from '&server/env';
 const imageDir = path.join(FY_PUBLIC_DIR, 'images');
+if (!fs.existsSync(FY_PUBLIC_DIR)) {
+	fs.mkdirSync(FY_PUBLIC_DIR);
+}
 if (!fs.existsSync(imageDir)) {
 	fs.mkdirSync(imageDir);
 }

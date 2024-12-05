@@ -1,4 +1,4 @@
-import type { Response } from 'express';
+/* import type { Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 
 import { FY_TOKEN_NAME } from '&server/env';
@@ -167,3 +167,4 @@ export const unlinkGoogle = async (
 		);
 	}
 };
+ */

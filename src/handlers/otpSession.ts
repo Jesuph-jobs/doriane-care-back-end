@@ -1,10 +1,7 @@
-import type { Response } from 'express';
-import { StatusCodes } from 'http-status-codes';
-
-import { emailQueueService } from '@server/services';
-import EmailQueueService from '@server/services/EmailQueue';
 import { handleErrorResponse, handleServiceResponse } from '@server/utils/httpHandlers';
 import { ResponseStatus, ServiceResponse } from '@server/utils/serviceResponse';
+import type { Response } from 'express';
+import { StatusCodes } from 'http-status-codes';
 
 import type { ERequest } from '!server/E_Express';
 import otpSessionModel from '#common/otpSession';
@@ -15,13 +12,14 @@ export const createRecoveringSession = async (
 ) => {
 	const { email } = req.body;
 	try {
-		const [key, session, user] = await otpSessionModel.createRecoverySession(email);
+		const [/* key */ , session /* ,user */] = await otpSessionModel.createRecoverySession(email);
 
 		// todo: send email with key
+		/* 
 		const language = (req.headers['accept-language'] || 'EN') as LanguagesI;
 		await emailQueueService.sendEmail(
 			EmailQueueService.RecoveryEmail(user.toNecessaryUser(false), language, session, key)
-		);
+		); */
 		handleServiceResponse(
 			new ServiceResponse<string>(
 				ResponseStatus.Success,
@@ -78,13 +76,13 @@ export const resendValidation = async (
 ) => {
 	const { email } = req.body;
 	try {
-		const [key, session, user] = await otpSessionModel.createValidationSession(email);
+		const [/* key */ , session /* , user */] = await otpSessionModel.createValidationSession(email);
 
 		// todo: send email with key
-		const language = (req.headers['accept-language'] || 'EN') as LanguagesI;
+		/* const language = (req.headers['accept-language'] || 'EN') as LanguagesI;
 		await emailQueueService.sendEmail(
 			EmailQueueService.ValidationEmail(user.toNecessaryUser(false), language, session, key)
-		);
+		); */
 		handleServiceResponse(
 			new ServiceResponse<string>(
 				ResponseStatus.Success,

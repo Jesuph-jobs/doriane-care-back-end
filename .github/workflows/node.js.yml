@@ -1,0 +1,51 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Node.js CI
+
+on:
+    push:
+        branches: [production]
+    pull_request:
+        branches: [production]
+
+jobs:
+    build:
+        runs-on: self-hosted
+
+        strategy:
+            matrix:
+                node-version: [22.x]
+
+        steps:
+            - uses: actions/checkout@v3
+              with:
+                submodules: recursive
+                token: ${{ secrets.PAT_FOR_COMMON_REPOS }}
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v3
+              with:
+                  node-version: ${{ matrix.node-version }}
+                  cache: "npm"
+            - name: Install packages
+              run: npm ci
+            - name: build the application
+              run: npm run build
+            - name: Delete old serve
+              run: pm2 delete ecosystem.config.cjs || true
+            - name: Start new serve
+              run: pm2 start ecosystem.config.cjs
+              env:
+                FY_CORS_ORIGIN: ${{ secrets.FY_CORS_ORIGIN }}
+                FY_MONGODB_DB_URI_WITHOUT_CREDENTIALS: ${{ secrets.FY_MONGODB_DB_URI_WITHOUT_CREDENTIALS }}
+                FY_MONGODB_DB_USERNAME: ${{ secrets.FY_MONGODB_DB_USERNAME }}
+                FY_MONGODB_DB_PASSWORD: ${{ secrets.FY_MONGODB_DB_PASSWORD }}
+                FY_MONGODB_DB_DATABASE: ${{ secrets.FY_MONGODB_DB_DATABASE }}
+                FY_JWT_SECRET: ${{ secrets.FY_JWT_SECRET }}
+                FY_LOGS_DIR: ${{ secrets.FY_LOGS_DIR }}
+                FY_PUBLIC_DIR: ${{ secrets.FY_PUBLIC_DIR }}
+                FY_PUBLIC_CASH_AGE: ${{ vars.FY_PUBLIC_CASH_AGE }}
+            - name: Save PM2 list
+              run: pm2 save
+            - name: Restart ngnix
+              run: sudo service nginx restart

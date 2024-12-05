@@ -54,7 +54,9 @@ export const getCategories = async (
 ) => {
 	const website = req.records!.website!;
 	try {
-		const list = await categoryModel.getCategoriesTableDataI(req.query, website._id);
+		const list = await categoryModel.getCategoriesTableDataI(req.query, website._id, {
+			categoryType: req.query.categoryType === 'b' ? 'b' : 'p',
+		});
 		if (!list) throw new Error('Categories not found');
 		handleServiceResponse(
 			new ServiceResponseList<CategoryTableDataI>(
@@ -120,6 +122,7 @@ export const getDraftCategories = async (
 	const website = req.records!.website!;
 	try {
 		const list = await categoryModel.getCategoriesTableDataI(req.query, website._id, {
+			categoryType: req.query.categoryType === 'b' ? 'b' : 'p',
 			additionalFilter: {
 				$or: [{ isPublished: { $exists: false } }, { isPublished: false }],
 			},
@@ -151,6 +154,7 @@ export const getDisabledCategories = async (
 	const website = req.records!.website!;
 	try {
 		const list = await categoryModel.getCategoriesTableDataI(req.query, website._id, {
+			categoryType: req.query.categoryType === 'b' ? 'b' : 'p',
 			additionalFilter: {
 				$or: [{ enabled: { $exists: false } }, { enabled: false }],
 			},
@@ -365,7 +369,7 @@ export const updateCategoryInformation = async (
 				{
 					$set: {
 						name: req.body.name,
-						description: req.body.description,
+						for: req.body.for,
 						summary: req.body.summary,
 						slug: req.body.slug,
 					},

@@ -1,5 +1,5 @@
 import fs from 'node:fs';
-import { FY_CORS_ORIGIN, FY_PUBLIC_DIR, isDev, isProd, isTest } from '@server/config/env';
+import { FY_CORS_ORIGIN, FY_PUBLIC_CASH_AGE, FY_PUBLIC_DIR, isDev, isProd, isTest } from '@server/config/env';
 import { defaultErrorRequestHandler, unexpectedRequest } from '@server/middleware/errorHandler';
 import rateLimiter from '@server/middleware/rateLimiter';
 import openAPIRouter from '@server/router/v1/openAPI.router';
@@ -22,7 +22,12 @@ app.set('trust proxy', true);
 if (!fs.existsSync(FY_PUBLIC_DIR)) {
 	fs.mkdirSync(FY_PUBLIC_DIR);
 }
-app.use('/public', express.static(FY_PUBLIC_DIR));
+app.use(
+	'/public',
+	express.static(FY_PUBLIC_DIR, {
+		maxAge: FY_PUBLIC_CASH_AGE,
+	})
+);
 // Middlewares
 app.use(cors({ origin: new RegExp(FY_CORS_ORIGIN), credentials: true }));
 app.use(helmet());
