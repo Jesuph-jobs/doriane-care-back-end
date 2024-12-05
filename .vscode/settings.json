@@ -42,7 +42,10 @@
 	},
 	"peacock.color": "#215732",
 	"cSpell.words": [
+		"cloudinary",
+		"maxlength",
 		"openapi",
+		"originalname",
 		"publishables"
 	],
 	"cSpell.language": "en,fr"

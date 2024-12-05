@@ -26,3 +26,4 @@ dist-ssr
 *.sw?
 package-copy.json
 !logs/readme.md
+public/*

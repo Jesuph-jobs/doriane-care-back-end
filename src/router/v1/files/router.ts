@@ -1,8 +1,8 @@
 import { Router } from 'express';
 
-import { UploadFile, upload } from '@server/handlers/files';
+import { UploadFile, uploadImageMulter } from '@server/handlers/files';
 
-const filesRouter = Router();
-if (upload) filesRouter.route('/').post(upload.single('image'), UploadFile);
+const uploadRouter = Router();
+if (uploadImageMulter) uploadRouter.route('/image').post(uploadImageMulter.single('image'), UploadFile);
 
-export default filesRouter;
+export default uploadRouter;

@@ -19,6 +19,7 @@ export const website: WebSiteI = {
 		title: { en: faker.lorem.sentence(), fr: faker.lorem.sentence(), ar: faker.lorem.sentence() },
 		description: { en: faker.lorem.paragraph(), fr: faker.lorem.paragraph(), ar: faker.lorem.paragraph() },
 		image: { src: faker.image.avatar(), alt: faker.lorem.sentence(), width: 350, height: 350 },
+		rating: faker.number.int({ min: 1, max: 5 }),
 	})),
 	faqs: Array.from({ length: 6 }, () => ({
 		question: { en: faker.lorem.sentence(), fr: faker.lorem.sentence(), ar: faker.lorem.sentence() },
@@ -65,6 +66,7 @@ export const website: WebSiteI = {
 				linkedin: 'https://linkedin.com/doriane.care',
 			},
 		},
+		keywords: ['e-commerce', 'website', 'aquasoft', 'doriane care'],
 	},
 	productsAttributes: ProductAdditionalEnums,
 	flags: WebsiteFeaturesFlagsEnums,
@@ -87,6 +89,81 @@ export const website: WebSiteI = {
 		},
 		daysToDeliver: faker.number.int({ min: 2, max: 3 }),
 	},
+	policies: {
+		privacy: {
+			rules: [
+				{
+					question: {
+						en: 'What is your return policy?',
+						fr: 'Quelle est votre politique de retour?',
+						ar: 'ما هي سياسة الاسترداد الخاصة بك؟',
+					},
+					answer: {
+						en: 'We accept returns within 30 days of purchase. Please contact us at support@example.com for more information.',
+						fr: "Nous acceptons les retours dans les 30 jours suivant l'achat. Veuillez nous contacter à l'adresse support@example.com pour plus d'informations.",
+						ar: 'نحن نقبل الاستردادات خلال 30 يومًا من الشراء. يرجى الاتصال بنا على البريد الإلكتروني support@example.com لمزيد من المعلومات.',
+					},
+				},
+			],
+			description: {
+				en: 'We accept returns within 30 days of purchase. Please contact us at support@example.com for more information.',
+				fr: "Nous acceptons les retours dans les 30 jours suivant l'achat. Veuillez nous contacter à l'adresse support@example.com pour plus d'informations.",
+				ar: 'نحن نقبل الاستردادات خلال 30 يومًا من الشراء. يرجى الاتصال بنا على البريد الإلكتروني support@example.com لمزيد من المعلومات.',
+			},
+		},
+	},
+	mainCategories: [],
+	productsLists: [],
+	quickLinks: [
+		{
+			label: {
+				en: 'Home',
+				ar: 'الرئيسية',
+				fr: 'Accueil',
+			},
+			href: '/home',
+		},
+		{
+			label: {
+				en: 'Benefits',
+				ar: 'فوائد',
+				fr: 'Bienfaits',
+			},
+			href: '/home#benefits',
+		},
+		{
+			label: {
+				en: 'Products',
+				ar: 'المنتجات',
+				fr: 'Produits',
+			},
+			href: '/products',
+		},
+		{
+			label: {
+				en: 'Tips',
+				ar: 'نصائح',
+				fr: 'Conseils',
+			},
+			href: '/blogs',
+		},
+		{
+			label: {
+				en: 'FAQs',
+				ar: 'الأسئلة الشائعة',
+				fr: 'FAQ',
+			},
+			href: '/home#faqs',
+		},
+		{
+			label: {
+				en: 'Contact',
+				ar: 'تواصل معنا',
+				fr: 'Contact',
+			},
+			href: '/home#contact',
+		},
+	],
 };
 
 export async function seedWebsite() {

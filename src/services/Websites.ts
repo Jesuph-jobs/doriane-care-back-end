@@ -90,5 +90,7 @@ function toBasicWebSite(website: WebSiteDocumentI<Types.ObjectId, NativeDate>): 
 		FY_ID: website.FY_ID,
 		name: website.websiteInformation.name,
 		domain: website.websiteInformation.domain,
+		flags: website.flags,
+		productsAttributes: website.productsAttributes,
 	};
 }

@@ -1,6 +1,6 @@
+import path from 'node:path';
 import dotenv from 'dotenv';
 import { url, bool, cleanEnv, email, host, num, port, str } from 'envalid';
-
 import { cleanOptions, displayEnvironments } from '../utils/env';
 
 dotenv.config();
@@ -327,7 +327,7 @@ const env = cleanEnv(
 	cleanOptions()
 );
 export default env;
-
+export const FY_PUBLIC_DIR = path.resolve(env.FY_PUBLIC_DIR);
 export const {
 	NODE_ENV,
 	FY_SHUTDOWN_TIMEOUT,
@@ -362,7 +362,7 @@ export const {
 	FY_MAINTENANCE_DISCORD_WEBHOOK_AVATAR,
 	FY_MAINTENANCE_DISCORD_WEBHOOK_USERNAME,
 	FY_LOGS_DIR,
-	FY_PUBLIC_DIR,
+
 	FY_PUBLIC_CASH_AGE,
 	FY_EMAIL_QUEUE_NAME,
 	FY_TOKEN_NAME,
