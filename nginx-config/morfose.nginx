@@ -1,0 +1,8 @@
+server {
+    listen 80;
+    listen [::]:80;
+
+    server_name admin.morfose-dz.com;
+
+    return 301 https://admin.aquasoft-dz.com$request_uri;
+}
