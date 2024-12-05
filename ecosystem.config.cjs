@@ -3,7 +3,7 @@ module.exports = {
 		{
 			name: 'fy-e-commerce-back',
 			script: 'npm',
-			args: 'run preview', // This runs the 'npm run start' command to start your Next.js app
+			args: 'run start', // This runs the 'npm run start' command to start your Next.js app
 			cwd: './', // The working directory of the app (adjust if needed)
 			instances: '1', // Runs the app in cluster mode with maximum instances
 			exec_mode: 'fork', // Use cluster mode to take advantage of multi-core systems
