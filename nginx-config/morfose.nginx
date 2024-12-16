@@ -2,7 +2,7 @@ server {
     listen 80;
     listen [::]:80;
 
-    server_name admin.morfose-dz.com;
+    server_name back.morfose-dz.com;
 
-    return 301 https://admin.aquasoft-dz.com$request_uri;
+    return 301 https://back.aquasoft-dz.com$request_uri;
 }

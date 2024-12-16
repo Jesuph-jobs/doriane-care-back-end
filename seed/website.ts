@@ -5,7 +5,7 @@ import { Types } from 'mongoose';
 import webSiteModel from '#common/WebSite';
 export const websites = [
 	new Types.ObjectId('672e626d22d00e6bfea3821d'), // main one
-	new Types.ObjectId('67338cca1c3a192a4e349d14'),
+	new Types.ObjectId('674b7fb77bb4d56ad4b90d6b'),
 ];
 export const website: WebSiteI = {
 	FY_ID: 'doriane-care-2',
@@ -164,6 +164,7 @@ export const website: WebSiteI = {
 			href: '/home#contact',
 		},
 	],
+	links: [],
 };
 
 export async function seedWebsite() {

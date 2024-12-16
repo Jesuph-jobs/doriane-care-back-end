@@ -28,14 +28,27 @@ app.use(
 		maxAge: FY_PUBLIC_CASH_AGE,
 	})
 );
+const originRegEx = new RegExp(FY_CORS_ORIGIN);
 // Middlewares
-app.use(cors({ origin: new RegExp(FY_CORS_ORIGIN), credentials: true }));
 app.use(helmet());
 if (isDev || isTest) {
 	app.use(morgan('dev'));
 	// Swagger UI
 	app.use('/docs', openAPIRouter);
 }
+app.use(
+	cors({
+		origin: (requestOrigin, callback) => {
+			console.log({ requestOrigin });
+			if (!requestOrigin) return callback(new Error('no origin provided'));
+			const isValid = originRegEx.test(requestOrigin);
+			if (isValid) return callback(null, requestOrigin);
+			return callback(new Error('no a valid origin'), requestOrigin);
+		},
+		credentials: true,
+	})
+);
+
 if (isProd || isTest) app.use(rateLimiter);
 
 // Route the app

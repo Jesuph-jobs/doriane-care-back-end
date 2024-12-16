@@ -32,7 +32,7 @@ async function listen() {
 	//if (!(isDev || isTest)) await discordWebhookService.sendToDiscord('Server started');
 }
 async function close() {
-	serverListener!.close();
+	serverListener?.close();
 	await Promise.all([
 		...services.map(service => service.stop()),
 		//isDev || isTest ? null : /* istanbul ignore next */ discordWebhookService.sendToDiscord('Server closed'),

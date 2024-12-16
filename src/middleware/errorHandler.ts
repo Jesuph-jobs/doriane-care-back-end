@@ -9,7 +9,7 @@ export const unexpectedRequest: RequestHandler = (_req, res) => {
 	handleServiceResponse(serviceResponse, res);
 };
 
-export const defaultErrorRequestHandler: ErrorRequestHandler = (err, _req, res) => {
+export const defaultErrorRequestHandler: ErrorRequestHandler = (err, _req, res, _next) => {
 	handleServiceResponse(
 		new ServiceResponse(ResponseStatus.Failed, err.message, null, StatusCodes.INTERNAL_SERVER_ERROR),
 		res
