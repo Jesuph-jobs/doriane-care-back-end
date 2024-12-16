@@ -3,7 +3,8 @@
 	"formatter": {
 		"indentStyle": "tab",
 		"indentWidth": 4,
-		"lineWidth": 120
+		"lineWidth": 120,
+		"lineEnding": "lf"
 	},
 	"linter": {
 		"enabled": true,

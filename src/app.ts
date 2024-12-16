@@ -29,13 +29,25 @@ app.use(
 	})
 );
 // Middlewares
-app.use(cors({ origin: new RegExp(FY_CORS_ORIGIN), credentials: true }));
-app.use(helmet());
 if (isDev || isTest) {
 	app.use(morgan('dev'));
 	// Swagger UI
 	app.use('/docs', openAPIRouter);
 }
+const originRegEx = new RegExp(FY_CORS_ORIGIN);
+app.use(
+	cors({
+		origin: (requestOrigin, callback) => {
+			if (!requestOrigin) return callback(new Error('no origin provided'));
+			const isValid = originRegEx.test(requestOrigin);
+			if (isValid) return callback(null, requestOrigin);
+			return callback(new Error('no a valid origin'), requestOrigin);
+		},
+		credentials: true,
+	})
+);
+app.use(helmet());
+
 if (isProd || isTest) app.use(rateLimiter);
 
 // Route the app
