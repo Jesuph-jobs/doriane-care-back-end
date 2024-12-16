@@ -29,7 +29,6 @@ app.use(
 	})
 );
 // Middlewares
-app.use(helmet());
 if (isDev || isTest) {
 	app.use(morgan('dev'));
 	// Swagger UI
@@ -50,6 +49,7 @@ app.use(
 		credentials: true,
 	})
 );
+app.use(helmet());
 
 if (isProd || isTest) app.use(rateLimiter);
 
