@@ -35,13 +35,10 @@ if (isDev || isTest) {
 	app.use('/docs', openAPIRouter);
 }
 const originRegEx = new RegExp(FY_CORS_ORIGIN);
-console.log({ originRegEx });
 app.use(
 	cors({
 		origin: (requestOrigin, callback) => {
-			console.log({ requestOrigin });
 			if (!requestOrigin) return callback(new Error('no origin provided'));
-			console.log({ reg: requestOrigin.match(originRegEx) });
 			const isValid = originRegEx.test(requestOrigin);
 			if (isValid) return callback(null, requestOrigin);
 			return callback(new Error('no a valid origin'), requestOrigin);
