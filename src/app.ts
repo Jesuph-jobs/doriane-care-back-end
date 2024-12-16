@@ -22,15 +22,17 @@ app.set('trust proxy', true);
 if (!fs.existsSync(FY_PUBLIC_DIR)) {
 	fs.mkdirSync(FY_PUBLIC_DIR);
 }
+app.use(morgan('dev'));
+
 app.use(
 	'/public',
 	express.static(FY_PUBLIC_DIR, {
 		maxAge: FY_PUBLIC_CASH_AGE,
+		immutable: true,
 	})
 );
 // Middlewares
 if (isDev || isTest) {
-	app.use(morgan('dev'));
 	// Swagger UI
 	app.use('/docs', openAPIRouter);
 }
