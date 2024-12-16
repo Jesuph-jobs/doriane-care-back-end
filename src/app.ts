@@ -28,7 +28,6 @@ app.use(
 		maxAge: FY_PUBLIC_CASH_AGE,
 	})
 );
-const originRegEx = new RegExp(FY_CORS_ORIGIN);
 // Middlewares
 app.use(helmet());
 if (isDev || isTest) {
@@ -36,6 +35,8 @@ if (isDev || isTest) {
 	// Swagger UI
 	app.use('/docs', openAPIRouter);
 }
+const originRegEx = new RegExp(FY_CORS_ORIGIN);
+console.log({ originRegEx });
 app.use(
 	cors({
 		origin: (requestOrigin, callback) => {

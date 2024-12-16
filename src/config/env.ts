@@ -328,11 +328,6 @@ export default env;
 export const FY_PUBLIC_DIR = resolvePath(env.FY_PUBLIC_DIR);
 export const FY_LOGS_DIR = resolvePath(env.FY_LOGS_DIR);
 
-console.log({
-	FY_PUBLIC_DIR: FY_PUBLIC_DIR,
-	FY_LOGS_DIR: FY_LOGS_DIR,
-});
-
 export const {
 	NODE_ENV,
 	FY_SHUTDOWN_TIMEOUT,
