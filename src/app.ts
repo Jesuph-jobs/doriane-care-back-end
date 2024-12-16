@@ -43,6 +43,7 @@ app.use(
 			console.log({ requestOrigin });
 			if (!requestOrigin) return callback(new Error('no origin provided'));
 			const isValid = originRegEx.test(requestOrigin);
+			console.log({ isValid });
 			if (isValid) return callback(null, requestOrigin);
 			return callback(new Error('no a valid origin'), requestOrigin);
 		},
