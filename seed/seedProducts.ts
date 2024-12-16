@@ -11,6 +11,7 @@ const product = (website: Types.ObjectId, categoryID: Types.ObjectId): ProductI<
 	const fixedPrice = price - Math.floor(price) < 0.7 ? Math.floor(price) : price;
 	const sold = faker.number.int({ min: 3, max: 120 });
 	return {
+		isPublished: Math.random() > 0.5,
 		name: toLanguagesContent(faker.commerce.productName()),
 		description: toLanguagesContent(faker.commerce.productDescription()),
 		summary: toLanguagesContent(faker.commerce.productDescription()),
@@ -41,9 +42,21 @@ const product = (website: Types.ObjectId, categoryID: Types.ObjectId): ProductI<
 					height: 350,
 				},
 			})),
-			ingredients: faker.lorem.paragraph(),
-			usage: faker.lorem.paragraph(),
-			storageInstructions: faker.lorem.paragraph(),
+			ingredients: {
+				en: faker.lorem.paragraph(),
+				fr: faker.lorem.paragraph(),
+				ar: faker.lorem.paragraph(),
+			},
+			usage: {
+				ar: faker.lorem.paragraph(),
+				en: faker.lorem.paragraph(),
+				fr: faker.lorem.paragraph(),
+			},
+			storageInstructions: {
+				ar: faker.lorem.paragraph(),
+				en: faker.lorem.paragraph(),
+				fr: faker.lorem.paragraph(),
+			},
 		},
 		createdBy: admins[0],
 		flags: {

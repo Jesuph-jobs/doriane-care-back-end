@@ -45,7 +45,7 @@ export const getOrders = async (
 ) => {
 	const website = req.records!.website!;
 	try {
-		const list = await orderModel.getOrderTableDataI(req.query, website._id);
+		const list = await orderModel.getOrdersTableData(req.query, website._id);
 		if (!list) throw new Error('Orders not found');
 		handleServiceResponse(
 			new ServiceResponseList<OrderTableDataI>(
@@ -72,8 +72,10 @@ export const getDraftOrders = async (
 ) => {
 	const website = req.records!.website!;
 	try {
-		const list = await orderModel.getOrdersTableDataI(req.query, website._id, {
-			$or: [{ isPublished: { $exists: false } }, { isPublished: false }],
+		const list = await orderModel.getOrdersTableData(req.query, website._id, {
+			additionalFilter: {
+				$or: [{ isPublished: { $exists: false } }, { isPublished: false }],
+			},
 		});
 		if (!list) throw new Error('Orders not found');
 		handleServiceResponse(
@@ -101,8 +103,10 @@ export const getDisabledOrders = async (
 ) => {
 	const website = req.records!.website!;
 	try {
-		const list = await orderModel.getOrderTableDataI(req.query, website._id, {
-			$or: [{ enabled: { $exists: false } }, { enabled: false }],
+		const list = await orderModel.getOrdersTableData(req.query, website._id, {
+			additionalFilter: {
+				$or: [{ enabled: { $exists: false } }, { enabled: false }],
+			},
 		});
 		if (!list) throw new Error('Orders not found');
 		handleServiceResponse(
