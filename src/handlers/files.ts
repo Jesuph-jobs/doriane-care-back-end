@@ -10,7 +10,7 @@ import { handleErrorResponse, handleServiceResponse } from '@server/utils/httpHa
 import { ResponseStatus, ServiceResponse } from '@server/utils/serviceResponse';
 
 import type { ERequest } from '!server/E_Express';
-import { FY_PUBLIC_DIR } from '&server/env';
+import { FY_PUBLIC_DIR, isDev } from '&server/env';
 const imageDir = path.join(FY_PUBLIC_DIR, 'images');
 if (!fs.existsSync(FY_PUBLIC_DIR)) {
 	fs.mkdirSync(FY_PUBLIC_DIR);
@@ -33,7 +33,7 @@ export const uploadImageMulter = multer({
 	storage: multer.diskStorage({
 		filename: (_req, file, cb) => {
 			const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
-			cb(null, `${uniqueSuffix}-${file.originalname}`);
+			cb(null, `${uniqueSuffix}-${file.originalname.replaceAll(' ', '-')}`);
 		},
 		destination: (_req, _file, cb) => {
 			cb(null, imageDir);
@@ -50,7 +50,7 @@ export const UploadFile = async (req: ERequest<null, any, ResponseI<MyFile>>, re
 
 		const file: MyFile = {
 			fileName: req.file.filename,
-			src: `${req.protocol}://${req.get('host')}/public/images/${req.file.filename}`,
+			src: `http${isDev ? '' : 's'}://${req.get('host')}/public/images/${req.file.filename}`,
 			size: req.file.size,
 			width: metadata.width || 0,
 			height: metadata.height || 0,
