@@ -14,6 +14,7 @@ const blog = (website: Types.ObjectId, categoryID: Types.ObjectId): BlogI<Types.
 	] as BlogI['ratingAggregation']['distribution'];
 	const rateCount = distribution.reduce((a, b) => a + b, 0);
 	return {
+		isPublished: Math.random() > 0.5,
 		author: {
 			firstName: faker.person.firstName(),
 			lastName: faker.person.lastName(),
