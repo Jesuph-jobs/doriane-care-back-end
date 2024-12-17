@@ -5,7 +5,7 @@ import { handleErrorResponse, handleServiceResponse } from '@server/utils/httpHa
 import { ResponseStatus, ServiceResponse } from '@server/utils/serviceResponse';
 
 import type { ERequest } from '!server/E_Express';
-import reviewModel from '#common/Review';
+import reviewModel from '&common/Review';
 
 export const updateReviewState = async (
 	req: ERequest<WebSiteDocumentI, { reviewId: string }, ResponseI<null>, { enabled: boolean }>,

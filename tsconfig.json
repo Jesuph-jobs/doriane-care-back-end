@@ -8,10 +8,12 @@
 		"moduleResolution": "Node",
 		"outDir": "dist",
 		"paths": {
-			"!common/*": ["common/types/*"],
-			"^common/*": ["common/validations/*"],
-			"#common/*": ["common/models/*"],
+			/* common */
+			"&common/*": ["common/models/*"],
 			"$common/*": ["common/schemas/*"],
+			"^common/*": ["common/validations/*"],
+			"!common/*": ["common/types/*"],
+			"~common/*": ["common/lib/*"],
 			"@common/*": ["common/*"],
 			/* server */
 			"^server/*": ["src/validations/*"],
@@ -28,6 +30,6 @@
 		"target": "ESNext",
 		"types": ["vitest/globals"]
 	},
-	"exclude": ["node_modules", "common/lib"],
-	"include": ["src/**/*", "common/**/*", "cli/**/*","seed/**/*"]
+	"exclude": ["node_modules", "common/lib", "common/actions/server/register.ts", "common/actions/client"],
+	"include": ["src/**/*", "common/**/*", "cli/**/*", "seed/**/*"]
 }

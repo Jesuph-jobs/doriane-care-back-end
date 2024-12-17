@@ -5,8 +5,8 @@ import { handleErrorResponse, handleServiceResponse } from '@server/utils/httpHa
 import { ResponseStatus, ServiceResponse, ServiceResponseList } from '@server/utils/serviceResponse';
 
 import type { ERequest } from '!server/E_Express';
+import collectionModel from '&common/Collection';
 import { Types, isObjectIdOrHexString } from 'mongoose';
-import collectionModel from '#common/Collection';
 
 export const getCollectionById = async (
 	req: ERequest<WebSiteDocumentI, { collectionId: string }, ResponseI<CollectionI>>,

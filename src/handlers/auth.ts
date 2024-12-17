@@ -10,7 +10,7 @@ import { ResponseStatus, ServiceResponse } from '@server/utils/serviceResponse';
 
 import type { UserHydratedDocument } from '!common/generated/models/user';
 import type { ERequest } from '!server/E_Express';
-import userModel from '#common/user';
+import userModel from '&common/user';
 
 export const CheckAuth = async (req: ERequest<UserDocumentI, any, ResponseI<UserAuthI>>, res: Response) => {
 	const user = req.records!.user as UserHydratedDocument;
