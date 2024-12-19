@@ -11,20 +11,14 @@ import { CalculateOrder, createOrder } from '@common/actions/server/checkout';
 import { Types } from 'mongoose';
 
 export const getOrderById = async (
-	req: ERequest<
-		WebSiteDocumentI,
-		{ orderId: string },
-		ResponseI<OrderDocumentI<string, SimpleProductI, SimpleCustomerInformationI, SimpleAdminInformationI>>
-	>,
-	res: Response<
-		ResponseI<OrderDocumentI<string, SimpleProductI, SimpleCustomerInformationI, SimpleAdminInformationI>>
-	>
+	req: ERequest<WebSiteDocumentI, { orderId: string }, ResponseI<AdminOrderT>>,
+	res: Response<ResponseI<AdminOrderT>>
 ) => {
 	const orderId = req.params.orderId;
 	const website = req.records!.website!;
 	try {
 		const order = (
-			await orderModel.aggregate([
+			await orderModel.aggregate<AdminOrderT>([
 				{
 					$match: {
 						website: website._id,
@@ -34,15 +28,18 @@ export const getOrderById = async (
 				...customerOrderPipeline,
 				...adminOrderPipeline,
 			])
-		)[0] as OrderDocumentI<string, SimpleProductI, SimpleCustomerInformationI, SimpleAdminInformationI> | undefined;
+		)[0];
 
 		if (!order)
 			return handleErrorResponse(StatusCodes.NOT_FOUND, 'Order not found', new Error('Order not found'), res);
 
 		handleServiceResponse(
-			new ServiceResponse<
-				OrderDocumentI<string, SimpleProductI, SimpleCustomerInformationI, SimpleAdminInformationI>
-			>(ResponseStatus.Success, 'Order fetched successfully', order, StatusCodes.OK),
+			new ServiceResponse<AdminOrderT>(
+				ResponseStatus.Success,
+				'Order fetched successfully',
+				order,
+				StatusCodes.OK
+			),
 			res
 		);
 	} catch (e) {
