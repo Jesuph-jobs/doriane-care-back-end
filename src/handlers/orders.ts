@@ -8,7 +8,7 @@ import type { ERequest } from '!server/E_Express';
 import guestModel from '&common/Guest';
 import orderModel, { adminOrderPipeline, customerOrderPipeline } from '&common/Order';
 import { CalculateOrder, createOrder } from '@common/actions/server/checkout';
-import { Types } from 'mongoose';
+import { Types, isObjectIdOrHexString } from 'mongoose';
 
 export const getOrderById = async (
 	req: ERequest<WebSiteDocumentI, { orderId: string }, ResponseI<AdminOrderT>>,
@@ -65,6 +65,45 @@ export const getOrders = async (
 						status: req.query.status,
 					}
 				: {},
+		});
+		if (!list) throw new Error('Orders not found');
+		handleServiceResponse(
+			new ServiceResponseList<OrderTableDataI>(
+				ResponseStatus.Success,
+				'Orders fetched successfully',
+				list,
+				StatusCodes.OK
+			),
+			res
+		);
+	} catch (e) {
+		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't fetch orders", e, res);
+	}
+};
+export const getCustomerOrders = async (
+	req: ERequest<
+		WebSiteDocumentI,
+		{ customerId: string },
+		ResponseI<ListOf<OrderTableDataI>>,
+		any,
+		SortableQuerySearchI<OrderSortableFields> & { status?: OrderStatusTypes }
+	>,
+	res: Response<ResponseI<ListOf<OrderTableDataI>>>
+) => {
+	const website = req.records!.website!;
+	try {
+		if (!req.params.customerId || !isObjectIdOrHexString(req.params.customerId))
+			throw new Error('customerId is not valable id');
+		const customerId = new Types.ObjectId(req.params.customerId);
+		const list = await orderModel.getOrdersTableData(req.query, website._id, {
+			additionalFilter: {
+				...(req.query.status
+					? {
+							status: req.query.status,
+						}
+					: {}),
+				customer: customerId,
+			},
 		});
 		if (!list) throw new Error('Orders not found');
 		handleServiceResponse(

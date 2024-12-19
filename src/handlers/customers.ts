@@ -10,12 +10,12 @@ import customerModel from '&common/Customer';
 import baseCustomerModel from '&common/BaseCustomer';
 
 export const getCustomerById = async (
-	req: ERequest<null, { customerId: string }, ResponseI<PublicBaseCustomerI>>,
-	res: Response<ResponseI<PublicBaseCustomerI>>
+	req: ERequest<null, { customerId: string }, ResponseI<CustomerTableDataI>>,
+	res: Response<ResponseI<CustomerTableDataI>>
 ) => {
 	const customerId = req.params.customerId;
 	try {
-		const customer = await baseCustomerModel.findById(customerId);
+		const customer = await baseCustomerModel.findById(customerId).select('-password');
 
 		if (!customer)
 			return handleErrorResponse(
@@ -26,7 +26,7 @@ export const getCustomerById = async (
 			);
 
 		handleServiceResponse(
-			new ServiceResponse<PublicBaseCustomerI>(
+			new ServiceResponse<CustomerTableDataI>(
 				ResponseStatus.Success,
 				'Customer fetched successfully',
 				customer.toOptimizedObject(),
