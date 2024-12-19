@@ -45,6 +45,13 @@ jobs:
                 FY_LOGS_DIR: ${{ secrets.FY_LOGS_DIR }}
                 FY_PUBLIC_DIR: ${{ secrets.FY_PUBLIC_DIR }}
                 FY_PUBLIC_CASH_AGE: ${{ vars.FY_PUBLIC_CASH_AGE }}
+                FY_PUBLIC_FILES_DOMAIN: ${{ vars.FY_PUBLIC_FILES_DOMAIN }}
+                FY_NOREPLY_EMAIL: ${{ vars.FY_NOREPLY_EMAIL }}
+                FY_EMAIL_PASSWORD: ${{ secrets.FY_EMAIL_PASSWORD }}
+                FY_EMAIL_USERNAME: ${{ secrets.FY_EMAIL_USERNAME }}
+                FY_EMAIL_HOST: ${{ vars.FY_EMAIL_HOST }}
+                FY_EMAIL_PORT: ${{ vars.FY_EMAIL_PORT }}
+                FY_EMAIL_SECURE: ${{ vars.FY_EMAIL_SECURE }}
             - name: Save PM2 list
               run: pm2 save
             - name: Restart ngnix
