@@ -15,6 +15,14 @@ export class ServiceResponse<T = null> implements StaticResponseI<T> {
 		this.data = data;
 		this.statusCode = statusCode;
 	}
+	static create<T = null>(response: ResponseI<T>) {
+		return new ServiceResponse<T>(
+			response.success ? ResponseStatus.Success : ResponseStatus.Failed,
+			response.message,
+			(response.data as T) || (null as T),
+			response.statusCode
+		);
+	}
 }
 export class ServiceResponseList<T = null> extends ServiceResponse<ListOf<T>> {
 	success: boolean;

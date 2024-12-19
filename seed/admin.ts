@@ -1,6 +1,6 @@
+import userModel from '&common/user';
 import { faker } from '@faker-js/faker';
 import { Types } from 'mongoose';
-import userModel from '#common/user';
 export const admins = [
 	new Types.ObjectId('6733ad5b0373b32bf81c5f1f'), // main one
 ];

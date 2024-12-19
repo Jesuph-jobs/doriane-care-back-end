@@ -9,7 +9,7 @@ import { ResponseStatus, ServiceResponse } from '@server/utils/serviceResponse';
 
 import type { UserHydratedDocument } from '!common/generated/models/user';
 import type { ERequest } from '!server/E_Express';
-import userModel from '#common/user';
+import userModel from '&common/user';
 export const getUserApps = async (
 	req: ERequest<UserDocumentI, any, ResponseI<Partial<UserAppsI<string>>>>,
 	res: Response<ResponseI<Partial<UserAppsI<string>>>>

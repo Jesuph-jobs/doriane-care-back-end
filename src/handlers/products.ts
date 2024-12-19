@@ -5,9 +5,9 @@ import { handleErrorResponse, handleServiceResponse } from '@server/utils/httpHa
 import { ResponseStatus, ServiceResponse, ServiceResponseList } from '@server/utils/serviceResponse';
 
 import type { ERequest } from '!server/E_Express';
+import productModel from '&common/Product';
+import reviewModel from '&common/Review';
 import { Types, isObjectIdOrHexString } from 'mongoose';
-import productModel from '#common/Product';
-import reviewModel from '#common/Review';
 
 export const getProductById = async (
 	req: ERequest<WebSiteDocumentI, { productId: string }, ResponseI<ProductI>>,
@@ -474,7 +474,7 @@ export const getProductReviews = async (
 			},
 			{
 				$lookup: {
-					from: 'costumers',
+					from: 'customers',
 					localField: 'createdBy',
 					foreignField: '_id',
 					as: 'createdBy',

@@ -13,7 +13,7 @@ function generateOpenAPIDocument() {
 		openapi: '3.1.0',
 		info: {
 			version: '0.0.1',
-			title: 'APP accounts API',
+			title: 'FY app API',
 		},
 		externalDocs: {
 			description: 'View the raw OpenAPI Specification in JSON format',

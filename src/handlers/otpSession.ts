@@ -4,7 +4,7 @@ import type { Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 
 import type { ERequest } from '!server/E_Express';
-import otpSessionModel from '#common/otpSession';
+import otpSessionModel from '&common/otpSession';
 
 export const createRecoveringSession = async (
 	req: ERequest<null, any, ResponseI<string>, OTPSessionI>,

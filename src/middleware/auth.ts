@@ -8,8 +8,8 @@ import { handleServiceResponse } from '@server/utils/httpHandlers';
 import { ResponseStatus, ServiceResponse } from '@server/utils/serviceResponse';
 
 import type { ERequest } from '!server/E_Express';
+import userModel from '&common/user';
 import { websitesManagerService } from '@server/services';
-import userModel from '#common/user';
 async function loadLogs(req: ERequest<UserDocumentI | null>) {
 	const token = extractAuth(FY_TOKEN_NAME, req);
 	if (token) {

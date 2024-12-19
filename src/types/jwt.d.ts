@@ -1,5 +1,5 @@
 /**
- * APP JWT Payload
+ * FY JWT Payload
  * @params id: string - The id of the user
  * @params exp: number - The expiration date of the token
  * @params pk: string - The public key of the user

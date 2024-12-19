@@ -1,6 +1,6 @@
+import blogModel from '&common/Blog';
 import { faker } from '@faker-js/faker';
 import type { Types } from 'mongoose';
-import blogModel from '#common/Blog';
 import { admins } from './admin';
 import { toLanguagesContent } from './utils';
 

@@ -5,27 +5,41 @@ import { handleErrorResponse, handleServiceResponse } from '@server/utils/httpHa
 import { ResponseStatus, ServiceResponse, ServiceResponseList } from '@server/utils/serviceResponse';
 
 import type { ERequest } from '!server/E_Express';
-import { Types, isObjectIdOrHexString } from 'mongoose';
-import orderModel from '#common/Order';
-import reviewModel from '#common/Review';
+import guestModel from '&common/Guest';
+import orderModel, { adminOrderPipeline, customerOrderPipeline } from '&common/Order';
+import { CalculateOrder, createOrder } from '@common/actions/server/checkout';
+import { Types } from 'mongoose';
 
 export const getOrderById = async (
-	req: ERequest<WebSiteDocumentI, { orderId: string }, ResponseI<OrderI>>,
-	res: Response<ResponseI<OrderI>>
+	req: ERequest<WebSiteDocumentI, { orderId: string }, ResponseI<AdminOrderT>>,
+	res: Response<ResponseI<AdminOrderT>>
 ) => {
 	const orderId = req.params.orderId;
 	const website = req.records!.website!;
 	try {
-		const order = (await orderModel
-			.findOne({
-				website: website._id,
-				_id: orderId,
-			})
-			.lean()) as OrderI | null;
+		const order = (
+			await orderModel.aggregate<AdminOrderT>([
+				{
+					$match: {
+						website: website._id,
+						_id: new Types.ObjectId(orderId),
+					},
+				},
+				...customerOrderPipeline,
+				...adminOrderPipeline,
+			])
+		)[0];
+
 		if (!order)
 			return handleErrorResponse(StatusCodes.NOT_FOUND, 'Order not found', new Error('Order not found'), res);
+
 		handleServiceResponse(
-			new ServiceResponse<OrderI>(ResponseStatus.Success, 'Order fetched successfully', order, StatusCodes.OK),
+			new ServiceResponse<AdminOrderT>(
+				ResponseStatus.Success,
+				'Order fetched successfully',
+				order,
+				StatusCodes.OK
+			),
 			res
 		);
 	} catch (e) {
@@ -39,43 +53,18 @@ export const getOrders = async (
 		any,
 		ResponseI<ListOf<OrderTableDataI>>,
 		any,
-		SortableQuerySearchI<OrderSortableFields>
-	>,
-	res: Response<ResponseI<ListOf<OrderTableDataI>>>
-) => {
-	const website = req.records!.website!;
-	try {
-		const list = await orderModel.getOrdersTableData(req.query, website._id);
-		if (!list) throw new Error('Orders not found');
-		handleServiceResponse(
-			new ServiceResponseList<OrderTableDataI>(
-				ResponseStatus.Success,
-				'Orders fetched successfully',
-				list,
-				StatusCodes.OK
-			),
-			res
-		);
-	} catch (e) {
-		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't fetch orders", e, res);
-	}
-};
-export const getDraftOrders = async (
-	req: ERequest<
-		WebSiteDocumentI,
-		any,
-		ResponseI<ListOf<OrderTableDataI>>,
-		any,
-		SortableQuerySearchI<OrderSortableFields>
+		SortableQuerySearchI<OrderSortableFields> & { status?: OrderStatusTypes }
 	>,
 	res: Response<ResponseI<ListOf<OrderTableDataI>>>
 ) => {
 	const website = req.records!.website!;
 	try {
 		const list = await orderModel.getOrdersTableData(req.query, website._id, {
-			additionalFilter: {
-				$or: [{ isPublished: { $exists: false } }, { isPublished: false }],
-			},
+			additionalFilter: req.query.status
+				? {
+						status: req.query.status,
+					}
+				: {},
 		});
 		if (!list) throw new Error('Orders not found');
 		handleServiceResponse(
@@ -91,68 +80,27 @@ export const getDraftOrders = async (
 		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't fetch orders", e, res);
 	}
 };
-export const getDisabledOrders = async (
-	req: ERequest<
-		WebSiteDocumentI,
-		any,
-		ResponseI<ListOf<OrderTableDataI>>,
-		any,
-		SortableQuerySearchI<OrderSortableFields>
-	>,
-	res: Response<ResponseI<ListOf<OrderTableDataI>>>
-) => {
-	const website = req.records!.website!;
-	try {
-		const list = await orderModel.getOrdersTableData(req.query, website._id, {
-			additionalFilter: {
-				$or: [{ enabled: { $exists: false } }, { enabled: false }],
-			},
-		});
-		if (!list) throw new Error('Orders not found');
-		handleServiceResponse(
-			new ServiceResponseList<OrderTableDataI>(
-				ResponseStatus.Success,
-				'Orders fetched successfully',
-				list,
-				StatusCodes.OK
-			),
-			res
-		);
-	} catch (e) {
-		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't fetch orders", e, res);
-	}
-};
-export const createOrder = async (
-	req: ERequest<WebSiteDocumentI & UserDocumentI, any, ResponseI<PublicOrderI>, OrderInformationI>,
+
+export const createGuestOrder = async (
+	req: ERequest<WebSiteDocumentI & UserDocumentI, any, ResponseI<PublicOrderI>, CheckoutAsGuestI>,
 	res: Response<ResponseI<PublicOrderI>>
 ) => {
 	const website = req.records!.website!;
-	const user = req.records!.user!;
+	// const user = req.records!.user!;
 	try {
-		const newOrder: CreateOrderI<Types.ObjectId> = {
-			...req.body,
+		const { checkout, guest } = req.body;
+		const guestD = await guestModel.create({
+			...guest,
 			website: website._id,
-			thumbnail: {
-				src: '',
-				alt: '',
-				height: 0,
-				width: 0,
-			},
-			images: [],
-			pricing: { current: 0 },
-			additional: {},
-			tags: [],
-			isPublished: false,
-			enabled: true,
-			createdBy: user._id,
-		};
-		const order = (await orderModel.create(newOrder)).toOptimizedObject();
+		});
+		const orderD = await createOrder(checkout, website.toOptimizedObject(), guestD._id);
+
 		handleServiceResponse(
 			new ServiceResponse<PublicOrderI>(
 				ResponseStatus.Success,
 				'Order created successfully',
-				order,
-				StatusCodes.CREATED
+				orderD.toOptimizedObject(),
+				StatusCodes.OK
 			),
 			res
 		);
@@ -160,237 +108,190 @@ export const createOrder = async (
 		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't create order", e, res);
 	}
 };
+const allowedStatusChanges: Record<OrderStatusTypes, OrderStatusTypes[]> = {
+	pending: ['confirmed', 'cancelled'],
+	confirmed: ['shipped', 'cancelled'],
+	shipped: ['returned', 'delivered'],
+	delivered: ['returned'],
+	cancelled: ['confirmed'],
+	returned: ['confirmed'],
+};
+const updateAllowedStatus: OrderStatusTypes[] = ['pending', 'confirmed'];
 
 export const updateOrderState = async (
-	req: ERequest<WebSiteDocumentI, { orderId: string }, ResponseI<null>, PublishableStateI>,
+	req: ERequest<WebSiteDocumentI | UserDocumentI, { orderId: string }, ResponseI<null>, { status: OrderStatusTypes }>,
 	res: Response<ResponseI<null>>
 ) => {
 	const website = req.records!.website!;
+	const user = req.records!.user!;
 	try {
-		const order = await orderModel
-			.updateOne(
-				{
-					website: website._id,
-					_id: req.params.orderId,
-				},
-				{
-					$set: req.body,
-				},
-				{
-					new: true,
-				}
-			)
-			.lean();
-		if (order.modifiedCount === 0) throw new Error('Order not found');
-		handleServiceResponse(
-			new ServiceResponse<null>(ResponseStatus.Success, 'Order updated successfully', null, StatusCodes.OK),
-			res
-		);
-	} catch (e) {
-		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't update order", e, res);
-	}
-};
-export const updateOrderLabels = async (
-	req: ERequest<WebSiteDocumentI, { orderId: string }, ResponseI<null>, PublishableLabelsI<OrderLabelsT>>,
-	res: Response<ResponseI<null>>
-) => {
-	const website = req.records!.website!;
-	console.log('label', req.body);
-	try {
-		const order = await orderModel
-			.updateOne(
-				{
-					website: website._id,
-					_id: req.params.orderId,
-				},
-				{
-					$set: {
-						...(req.body.label ? { label: req.body.label, tags: req.body.tags } : { tags: req.body.tags }),
-					},
-					...(req.body.label
-						? {}
-						: {
-								$unset: {
-									label: '',
-								},
-							}),
-				},
-				{
-					new: true,
-				}
-			)
-			.lean();
-		if (order.modifiedCount === 0) throw new Error('Order not found');
-		handleServiceResponse(
-			new ServiceResponse<null>(ResponseStatus.Success, 'Order updated successfully', null, StatusCodes.OK),
-			res
-		);
-	} catch (e) {
-		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't update order", e, res);
-	}
-};
-export const updateOrderCategory = async (
-	req: ERequest<WebSiteDocumentI, { orderId: string }, ResponseI<null>, { categoryId: string }>,
-	res: Response<ResponseI<null>>
-) => {
-	const website = req.records!.website!;
-	console.log('label', req.body);
-	try {
-		const order = await orderModel
-			.updateOne(
-				{
-					website: website._id,
-					_id: req.params.orderId,
-				},
-				{
-					...(req.body.categoryId && isObjectIdOrHexString(req.body.categoryId)
-						? {
-								$set: {
-									category: new Types.ObjectId(req.body.categoryId),
-								},
-							}
-						: {
-								$unset: {
-									category: '',
-								},
-							}),
-				},
-				{
-					new: true,
-				}
-			)
-			.lean();
-		if (order.modifiedCount === 0) throw new Error('Order not found');
-		handleServiceResponse(
-			new ServiceResponse<null>(ResponseStatus.Success, 'Order updated successfully', null, StatusCodes.OK),
-			res
-		);
-	} catch (e) {
-		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't update order", e, res);
-	}
-};
-export const updateOrderImages = async (
-	req: ERequest<WebSiteDocumentI, { orderId: string }, ResponseI<null>, OrderImagesI>,
-	res: Response<ResponseI<null>>
-) => {
-	const website = req.records!.website!;
-	try {
-		const order = await orderModel
-			.updateOne(
-				{
-					website: website._id,
-					_id: req.params.orderId,
-				},
-				{
-					$set: {
-						images: req.body.images,
-						thumbnail: req.body.thumbnail,
-					},
-				},
-				{
-					new: true,
-				}
-			)
-			.lean();
-		if (order.modifiedCount === 0) throw new Error('Order not found');
-		handleServiceResponse(
-			new ServiceResponse<null>(ResponseStatus.Success, 'Order updated successfully', null, StatusCodes.OK),
-			res
-		);
-	} catch (e) {
-		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't update order", e, res);
-	}
-};
-
-export const updateOrderInformation = async (
-	req: ERequest<WebSiteDocumentI, { orderId: string }, ResponseI<null>, OrderInformationI>,
-	res: Response<ResponseI<null>>
-) => {
-	const website = req.records!.website!;
-	try {
-		const order = await orderModel
-			.updateOne(
-				{
-					website: website._id,
-					_id: req.params.orderId,
-				},
-				{
-					$set: {
-						name: req.body.name,
-						description: req.body.description,
-						summary: req.body.summary,
-						slug: req.body.slug,
-					},
-				},
-				{
-					new: true,
-				}
-			)
-			.lean();
-		if (order.modifiedCount === 0) throw new Error('Order not found');
-		handleServiceResponse(
-			new ServiceResponse<null>(ResponseStatus.Success, 'Order updated successfully', null, StatusCodes.OK),
-			res
-		);
-	} catch (e) {
-		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't update order", e, res);
-	}
-};
-
-export const checkOrderSlug = async (
-	req: ERequest<WebSiteDocumentI, any, ResponseI<boolean>, any, { slug: string; orderId?: string }>,
-	res: Response<ResponseI<boolean>>
-) => {
-	const website = req.records!.website!;
-	try {
-		const order = await orderModel.exists({
+		const order = await orderModel.findOne({
 			website: website._id,
-			slug: req.query.slug,
-			...(req.query.orderId
-				? {
-						_id: {
-							$ne: req.query.orderId,
-						},
-					}
-				: {}),
+			_id: req.params.orderId,
 		});
+		if (!order) throw new Error('Order not found');
+		const status = req.body.status;
+		if (!allowedStatusChanges[order.status].includes(status))
+			throw new Error(`You can't change state from '${order.status}' to '${status}'`);
+		order.status = status;
+		order.statusHistory.push({
+			changedBy: user._id,
+			status: status,
+		});
+		await order.save();
 		handleServiceResponse(
-			new ServiceResponse<boolean>(
+			new ServiceResponse<null>(
 				ResponseStatus.Success,
-				order ? 'Slug already exists' : 'Slug is available',
-				!!order,
+				`Order updated to ${status} successfully`,
+				null,
 				StatusCodes.OK
 			),
 			res
 		);
 	} catch (e) {
-		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't check slug", e, res);
+		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't update order", e, res);
 	}
 };
-// OrderAdditionalI;
-export const updateOrderAdditional = async (
-	req: ERequest<WebSiteDocumentI, { orderId: string }, ResponseI<null>, OrderAdditionalI>,
+
+export const updateOrderDeliveryInformation = async (
+	req: ERequest<WebSiteDocumentI, { orderId: string }, ResponseI<null>, DeliverOptionsI>,
 	res: Response<ResponseI<null>>
 ) => {
 	const website = req.records!.website!;
 	try {
-		const order = await orderModel
-			.updateOne(
-				{
-					website: website._id,
-					_id: req.params.orderId,
-				},
-				{
-					$set: {
-						additional: req.body,
-					},
-				},
-				{
-					new: true,
+		const order = await orderModel.findOne({
+			website: website._id,
+			_id: req.params.orderId,
+		});
+		if (!order) throw new Error('Order not found');
+		if (!updateAllowedStatus.includes(order.status))
+			throw new Error(`You can't update order if status is ${order.status}.`);
+		const { shipping, subTotal } = CalculateOrder(order.products, website.toOptimizedObject(), req.body);
+		order.delivery = {
+			...req.body,
+			cost: shipping,
+		};
+		order.totalPrice = subTotal + shipping;
+		await order.save();
+		handleServiceResponse(
+			new ServiceResponse<null>(ResponseStatus.Success, 'Order updated successfully', null, StatusCodes.OK),
+			res
+		);
+	} catch (e) {
+		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't update order", e, res);
+	}
+};
+export const updateOrderDeliveryCost = async (
+	req: ERequest<WebSiteDocumentI, { orderId: string }, ResponseI<null>, { cost: number }>,
+	res: Response<ResponseI<null>>
+) => {
+	const website = req.records!.website!;
+	try {
+		const order = await orderModel.findOne({
+			website: website._id,
+			_id: req.params.orderId,
+		});
+		if (!order) throw new Error('Order not found');
+		if (!updateAllowedStatus.includes(order.status))
+			throw new Error(`You can't update order if status is ${order.status}.`);
+		order.totalPrice = order.totalPrice + (req.body.cost - order.delivery.cost);
+		order.delivery.cost = req.body.cost;
+		await order.save();
+		handleServiceResponse(
+			new ServiceResponse<null>(ResponseStatus.Success, 'Order updated successfully', null, StatusCodes.OK),
+			res
+		);
+	} catch (e) {
+		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't update order", e, res);
+	}
+};
+export const updateOrderTotalPrice = async (
+	req: ERequest<WebSiteDocumentI, { orderId: string }, ResponseI<null>, { totalPrice: number }>,
+	res: Response<ResponseI<null>>
+) => {
+	const website = req.records!.website!;
+	try {
+		const order = await orderModel.findOne({
+			website: website._id,
+			_id: req.params.orderId,
+		});
+		if (!order) throw new Error('Order not found');
+		if (!updateAllowedStatus.includes(order.status))
+			throw new Error(`You can't update order if status is ${order.status}.`);
+		order.totalPrice = req.body.totalPrice;
+		await order.save();
+		handleServiceResponse(
+			new ServiceResponse<null>(ResponseStatus.Success, 'Order updated successfully', null, StatusCodes.OK),
+			res
+		);
+	} catch (e) {
+		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't update order", e, res);
+	}
+};
+export const updateOrderProductPrice = async (
+	req: ERequest<WebSiteDocumentI, { orderId: string }, ResponseI<null>, OrderProductPriceUpdateI>,
+	res: Response<ResponseI<null>>
+) => {
+	const website = req.records!.website!;
+	try {
+		const order = await orderModel.findOne({
+			website: website._id,
+			_id: req.params.orderId,
+		});
+		if (!order) throw new Error('Order not found');
+		if (!updateAllowedStatus.includes(order.status))
+			throw new Error(`You can't update order if status is ${order.status}.`);
+		const { price, productId, variantId } = req.body;
+		const productIndex = order.products.findIndex(productItem => {
+			if (productItem.product.productId.equals(productId)) {
+				if (variantId) {
+					return !!(productItem.product.variant as VariantI & { _id: Types.ObjectId })._id?.equals(variantId);
 				}
-			)
-			.lean();
-		if (order.modifiedCount === 0) throw new Error('Order not found');
+				return true;
+			}
+			return false;
+		});
+		if (productIndex === -1) throw new Error('Product not found in this order.');
+		order.products[productIndex].product.price = price;
+		const subTotal = order.products.reduce((acc, p) => acc + p.count * p.product.price, 0);
+		order.totalPrice = subTotal + order.delivery.cost;
+		await order.save();
+		handleServiceResponse(
+			new ServiceResponse<null>(ResponseStatus.Success, 'Order updated successfully', null, StatusCodes.OK),
+			res
+		);
+	} catch (e) {
+		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't update order", e, res);
+	}
+};
+export const updateOrderProductCount = async (
+	req: ERequest<WebSiteDocumentI, { orderId: string }, ResponseI<null>, OrderProductCountUpdateI>,
+	res: Response<ResponseI<null>>
+) => {
+	const website = req.records!.website!;
+	try {
+		const order = await orderModel.findOne({
+			website: website._id,
+			_id: req.params.orderId,
+		});
+		if (!order) throw new Error('Order not found');
+		if (!updateAllowedStatus.includes(order.status))
+			throw new Error(`You can't update order if status is ${order.status}.`);
+		const { count, productId, variantId } = req.body;
+		const productIndex = order.products.findIndex(productItem => {
+			if (productItem.product.productId.equals(productId)) {
+				if (variantId) {
+					return !!(productItem.product.variant as VariantI & { _id: Types.ObjectId })._id?.equals(variantId);
+				}
+				return true;
+			}
+			return false;
+		});
+		if (productIndex === -1) throw new Error('Product not found in this order.');
+		order.products[productIndex].count = count;
+		const subTotal = order.products.reduce((acc, p) => acc + p.count * p.product.price, 0);
+		order.totalPrice = subTotal + order.delivery.cost;
+		await order.save();
 		handleServiceResponse(
 			new ServiceResponse<null>(ResponseStatus.Success, 'Order updated successfully', null, StatusCodes.OK),
 			res
@@ -400,6 +301,7 @@ export const updateOrderAdditional = async (
 	}
 };
 
+/* 
 export const updateOrderPricing = async (
 	req: ERequest<WebSiteDocumentI, { orderId: string }, ResponseI<null>, PricingI>,
 	res: Response<ResponseI<null>>
@@ -435,77 +337,8 @@ export const updateOrderPricing = async (
 	} catch (e) {
 		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't update order pricing", e, res);
 	}
-};
-export const getOrderReviews = async (
-	req: ERequest<
-		WebSiteDocumentI,
-		{ orderId: string },
-		ResponseI<PublicReviewI<Types.ObjectId, PublicPersonalInformationI<Types.ObjectId>>[]>
-	>,
-	res: Response<ResponseI<PublicReviewI<Types.ObjectId, PublicPersonalInformationI<Types.ObjectId>>[]>>
-) => {
-	const website = req.records!.website!;
-	const orderId = req.params.orderId;
-	try {
-		const order = await orderModel
-			.findOne({
-				website: website._id,
-				_id: orderId,
-			})
-			.lean();
-		if (!order)
-			return handleErrorResponse(StatusCodes.NOT_FOUND, 'Order not found', new Error('Order not found'), res);
-		const reviews = await reviewModel.aggregate<
-			PublicReviewI<Types.ObjectId, PublicPersonalInformationI<Types.ObjectId>>
-		>([
-			{
-				$match: {
-					'link.ref': new Types.ObjectId(orderId),
-					website: website._id,
-				},
-			},
-			{
-				$lookup: {
-					from: 'costumers',
-					localField: 'createdBy',
-					foreignField: '_id',
-					as: 'createdBy',
-					pipeline: [
-						{
-							$project: {
-								_id: 1,
-								firstName: '$personalInformation.firstName',
-								lastName: '$personalInformation.lastName',
-							},
-						},
-					],
-				},
-			},
-			{
-				$unwind: {
-					path: '$createdBy',
-					preserveNullAndEmptyArrays: false,
-				},
-			},
-			{
-				$sort: {
-					createdAt: -1,
-				},
-			},
-		]);
-		handleServiceResponse(
-			new ServiceResponse<PublicReviewI<Types.ObjectId, PublicPersonalInformationI<Types.ObjectId>>[]>(
-				ResponseStatus.Success,
-				'Order reviews fetched successfully',
-				reviews,
-				StatusCodes.OK
-			),
-			res
-		);
-	} catch (e) {
-		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't fetch order reviews", e, res);
-	}
-};
+}; */
+
 export const deleteOrders = async (
 	req: ERequest<WebSiteDocumentI, any, ResponseI<null>, { orderIds: string[] }>,
 	res: Response<ResponseI<null>>
@@ -517,9 +350,10 @@ export const deleteOrders = async (
 			_id: {
 				$in: req.body.orderIds,
 			},
+			status: 'pending',
 		});
 		if (orders.deletedCount === 0) throw new Error('Orders not found');
-		if (orders.deletedCount !== req.body.orderIds.length) throw new Error('Some orders not found');
+		if (orders.deletedCount !== req.body.orderIds.length) throw new Error('Some orders not found or not deletable');
 		handleServiceResponse(
 			new ServiceResponse<null>(ResponseStatus.Success, 'Orders deleted successfully', null, StatusCodes.OK),
 			res

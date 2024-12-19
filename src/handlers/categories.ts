@@ -5,8 +5,8 @@ import { handleErrorResponse, handleServiceResponse } from '@server/utils/httpHa
 import { ResponseStatus, ServiceResponse, ServiceResponseList } from '@server/utils/serviceResponse';
 
 import type { ERequest } from '!server/E_Express';
+import categoryModel from '&common/Category';
 import { Types, isObjectIdOrHexString } from 'mongoose';
-import categoryModel from '#common/Category';
 
 export const getCategoryById = async (
 	req: ERequest<WebSiteDocumentI, { categoryId: string }, ResponseI<CategoryI>>,

@@ -7,10 +7,10 @@ if (!fs.existsSync(FY_LOGS_DIR)) {
 	fs.mkdirSync(FY_LOGS_DIR);
 }
 
-export const fLogger = pino(
-	{ name: 'fy-logs-file' },
+export const pLogger = pino(
+	{ name: 'fy-logs' },
 	pino.destination({
-		dest: `${FY_LOGS_DIR}/logs.log`,
+		dest: `${FY_LOGS_DIR}/public.log`,
 		append: true,
 		sync: true,
 	})
