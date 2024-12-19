@@ -46,6 +46,8 @@ jobs:
                 FY_PUBLIC_DIR: ${{ secrets.FY_PUBLIC_DIR }}
                 FY_PUBLIC_CASH_AGE: ${{ vars.FY_PUBLIC_CASH_AGE }}
                 FY_PUBLIC_FILES_DOMAIN: ${{ vars.FY_PUBLIC_FILES_DOMAIN }}
+                FY_DOMAIN: ${{ vars.FY_DOMAIN }}
+                FY_BACK_DOMAIN: ${{ vars.FY_BACK_DOMAIN }}
                 FY_NOREPLY_EMAIL: ${{ vars.FY_NOREPLY_EMAIL }}
                 FY_EMAIL_PASSWORD: ${{ secrets.FY_EMAIL_PASSWORD }}
                 FY_EMAIL_USERNAME: ${{ secrets.FY_EMAIL_USERNAME }}
