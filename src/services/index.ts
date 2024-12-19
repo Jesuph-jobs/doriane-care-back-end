@@ -16,9 +16,9 @@ export const mongoDBService = new MongoDBService();
 export const rolesManagerService = new RolesManagerService();
 export const websitesManagerService = new WebsitesManagerService();
 /* 
-const discordAvatar = new URL('/icons/logo.svg', FY_DOMAIN).href;
+const discordAvatar = new URL('/public/logo.svg', FY_BACK_DOMAIN).href;
 export const discordWebhookService = new DiscordWebhookService(
-	'APP Maintenance Service',
+	'FY Maintenance Service',
 	FY_MAINTENANCE_DISCORD_WEBHOOK_URL,
 	discordAvatar
 );

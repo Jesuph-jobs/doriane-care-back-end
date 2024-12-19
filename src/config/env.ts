@@ -1,6 +1,6 @@
 import { resolvePath } from '@server/utils/resolvePath';
 import dotenv from 'dotenv';
-import { cleanEnv, host, num, port, str } from 'envalid';
+import { url, bool, cleanEnv, email, host, num, port, str } from 'envalid';
 import { cleanOptions, displayEnvironments } from '../utils/env';
 
 dotenv.config();
@@ -209,10 +209,10 @@ const env = cleanEnv(
 			docs: 'https://discord.com/developers/docs/resources/webhook#execute-webhook',
 		}),
 		FY_MAINTENANCE_DISCORD_WEBHOOK_USERNAME: str({
-			default: 'APP SSO',
-			devDefault: 'APP SSO',
+			default: 'FY FY',
+			devDefault: 'FY FY',
 			desc: 'The Discord webhook username to send maintenance notifications.',
-			example: 'APP SSO',
+			example: 'FY FY',
 			docs: 'https://discord.com/developers/docs/resources/webhook#execute-webhook',
 		}),
 		FY_MAINTENANCE_DISCORD_WEBHOOK_AVATAR: str({
@@ -253,11 +253,16 @@ const env = cleanEnv(
 		}),
 		// domains and subdomains
 
-		/* 	FY_DOMAIN: url({
+		FY_BACK_DOMAIN: url({
 			desc: 'The domain of the server.',
 			docs: 'https://en.wikipedia.org/wiki/Subdomain',
 			example: 'https://accounts-back.app.net',
-		}), */
+		}),
+		FY_DOMAIN: url({
+			desc: 'The domain of the front end.',
+			docs: 'https://en.wikipedia.org/wiki/Subdomain',
+			example: 'https://accounts.app.net',
+		}),
 		// Google Configuration
 		/* FY_GOOGLE_OAUTH2_CLIENT_ID: str({
 			desc: 'Google OAuth2 client ID',
@@ -281,7 +286,8 @@ const env = cleanEnv(
 			docs: 'https://developers.google.com/identity/protocols/oauth2',
 			example: 'https://app.net/auth/google/callback',
 		}), */
-		/* FY_REPLY_EMAIL: email({
+		// emails settings
+		FY_NOREPLY_EMAIL: email({
 			desc: 'The email to send the emails from',
 			example: 'no-reply@mail.com',
 		}),
@@ -291,8 +297,8 @@ const env = cleanEnv(
 			desc: 'Enable online mode',
 			docs: 'https://app.net',
 			example: 'true',
-		}), */
-		/* FY_EMAIL_HOST: host({
+		}),
+		FY_EMAIL_HOST: host({
 			devDefault: 'smtp.gmail.com',
 			desc: 'The host of the email server.',
 			docs: 'https://nodemailer.com/smtp/',
@@ -319,7 +325,7 @@ const env = cleanEnv(
 			desc: 'The username of the email server.',
 			docs: 'https://nodemailer.com/smtp/',
 			example: 'username',
-		}), */
+		}),
 	},
 	cleanOptions()
 );
@@ -367,18 +373,19 @@ export const {
 	FY_PUBLIC_CASH_AGE,
 	FY_EMAIL_QUEUE_NAME,
 	FY_TOKEN_NAME,
-	/* FY_DOMAIN, */
+	FY_DOMAIN,
+	FY_BACK_DOMAIN,
 	/* FY_GOOGLE_OAUTH2_CLIENT_ID,
 	FY_GOOGLE_OAUTH2_CLIENT_SECRET,
 	FY_GOOGLE_OAUTH2_REDIRECT_URI,
 	FY_GOOGLE_LINK_REDIRECT_URI, */
-	/* FY_REPLY_EMAIL,
-	FY_ENABLE_ONLINE, */
-	/* FY_EMAIL_HOST,
+	FY_NOREPLY_EMAIL,
+	FY_ENABLE_ONLINE,
+	FY_EMAIL_HOST,
 	FY_EMAIL_PASSWORD,
 	FY_EMAIL_PORT,
 	FY_EMAIL_SECURE,
-	FY_EMAIL_USERNAME, */
+	FY_EMAIL_USERNAME,
 	// envalid other properties
 	isDev,
 	isProd,

@@ -42,7 +42,7 @@
 		}
 	},
 	"files": {
-		"ignore": ["node_modules", "dist", "build", "common/lib", "package-lock.json"],
+		"ignore": ["node_modules", "dist", "build", "common/lib", "package-lock.json", "common/data/Algeria"],
 		"include": ["src/**/*.ts", "common/**/*.ts", "seed/**/*.ts", "*.json"]
 	}
 }

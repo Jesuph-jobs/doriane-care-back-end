@@ -11,6 +11,7 @@ import morgan from 'morgan';
 
 import type { ERequest } from '!server/E_Express';
 
+import path from 'node:path';
 import Routing from './router/v1';
 //import Routing1_1 from './router/v1.1';
 
@@ -27,6 +28,14 @@ app.use(morgan('dev'));
 app.use(
 	'/public',
 	express.static(FY_PUBLIC_DIR, {
+		maxAge: FY_PUBLIC_CASH_AGE,
+		immutable: true,
+	})
+);
+
+app.use(
+	'/public',
+	express.static(path.join(__dirname, './public'), {
 		maxAge: FY_PUBLIC_CASH_AGE,
 		immutable: true,
 	})

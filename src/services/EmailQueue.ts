@@ -51,7 +51,7 @@ class EmailQueueService extends Service<Queue<QueuedEmail>> {
 	): QueuedEmail {
 		return {
 			to: user.email,
-			subject: 'APP - password recovery',
+			subject: 'FY - password recovery',
 			context: {
 				name: `${user.personalInformation.firstName} ${user.personalInformation.lastName}`,
 				resetUrl: new URL(`/auth/session/reset-password?sessionId=${session._id}&otpCode=${otp}`, FY_DOMAIN)
@@ -72,7 +72,7 @@ class EmailQueueService extends Service<Queue<QueuedEmail>> {
 	): QueuedEmail {
 		return {
 			to: user.email,
-			subject: 'APP - email validation',
+			subject: 'FY - email validation',
 			context: {
 				name: `${user.personalInformation.firstName} ${user.personalInformation.lastName}`,
 				validateUrl: new URL(`/validate/email?sessionId=${session._id}&otpCode=${otp}`, FY_DOMAIN).href,
