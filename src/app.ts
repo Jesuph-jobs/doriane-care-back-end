@@ -1,5 +1,4 @@
-import fs from 'node:fs';
-import { FY_CORS_ORIGIN, FY_PUBLIC_CASH_AGE, FY_PUBLIC_DIR, isDev, isProd, isTest } from '@server/config/env';
+import { FY_CORS_ORIGIN, FY_PUBLIC_CASH_AGE, isDev, isProd, isTest } from '@server/config/env';
 import { defaultErrorRequestHandler, unexpectedRequest } from '@server/middleware/errorHandler';
 import rateLimiter from '@server/middleware/rateLimiter';
 import openAPIRouter from '@server/router/v1/openAPI.router';
@@ -20,19 +19,6 @@ const app: Express = express();
 // Set the application to trust the reverse proxy
 app.set('trust proxy', true);
 // Set the public directory
-if (!fs.existsSync(FY_PUBLIC_DIR)) {
-	fs.mkdirSync(FY_PUBLIC_DIR);
-}
-app.use(morgan('dev'));
-
-app.use(
-	'/public',
-	express.static(FY_PUBLIC_DIR, {
-		maxAge: FY_PUBLIC_CASH_AGE,
-		immutable: true,
-	})
-);
-
 app.use(
 	'/public',
 	express.static(path.join(__dirname, './public'), {
@@ -40,8 +26,10 @@ app.use(
 		immutable: true,
 	})
 );
+
 // Middlewares
 if (isDev || isTest) {
+	app.use(morgan('dev'));
 	// Swagger UI
 	app.use('/docs', openAPIRouter);
 }

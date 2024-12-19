@@ -10,7 +10,7 @@ import { handleErrorResponse, handleServiceResponse } from '@server/utils/httpHa
 import { ResponseStatus, ServiceResponse } from '@server/utils/serviceResponse';
 
 import type { ERequest } from '!server/E_Express';
-import { FY_PUBLIC_DIR, isDev } from '&server/env';
+import { FY_PUBLIC_DIR, FY_PUBLIC_FILES_DOMAIN } from '&server/env';
 const imageDir = path.join(FY_PUBLIC_DIR, 'images');
 if (!fs.existsSync(FY_PUBLIC_DIR)) {
 	fs.mkdirSync(FY_PUBLIC_DIR);
@@ -50,7 +50,7 @@ export const UploadFile = async (req: ERequest<null, any, ResponseI<MyFile>>, re
 
 		const file: MyFile = {
 			fileName: req.file.filename,
-			src: `http${isDev ? '' : 's'}://${req.get('host')}/public/images/${req.file.filename}`,
+			src: new URL(`/images/${req.file.filename}`, FY_PUBLIC_FILES_DOMAIN).href,
 			size: req.file.size,
 			width: metadata.width || 0,
 			height: metadata.height || 0,

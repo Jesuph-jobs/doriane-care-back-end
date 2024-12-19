@@ -230,6 +230,11 @@ const env = cleanEnv(
 			docs: 'https://www.npmjs.com/package/pino',
 			example: 'logs',
 		}),
+		FY_PUBLIC_FILES_DOMAIN: url({
+			devDefault: 'http://localhost:7777',
+			desc: 'The url to retrieve the public files.',
+			example: 'public',
+		}),
 		FY_PUBLIC_DIR: str({
 			default: 'public',
 			devDefault: 'public',
@@ -386,6 +391,7 @@ export const {
 	FY_EMAIL_PORT,
 	FY_EMAIL_SECURE,
 	FY_EMAIL_USERNAME,
+	FY_PUBLIC_FILES_DOMAIN,
 	// envalid other properties
 	isDev,
 	isProd,
