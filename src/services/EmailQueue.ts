@@ -7,8 +7,7 @@ import { cLogger } from '$server/console';
 import { FY_DOMAIN, FY_EMAIL_QUEUE_NAME } from '&server/env';
 
 import type { OTPSessionHydratedDocument } from '!common/generated/models/OTPSession';
-
-import Service from './Service';
+import Service from '@common/services/Service';
 
 /* service details */
 const defaultId = 'EmailService';
@@ -80,6 +79,23 @@ class EmailQueueService extends Service<Queue<QueuedEmail>> {
 				otp: otp,
 			},
 			template: 'validateEmail',
+			from: 'noReply',
+		};
+	}
+	public static ResetedPasswordEmail(
+		user: NecessaryUserI,
+		language: LanguagesI,
+		password: string
+	): QueuedEmail<'resetedPassword'> {
+		return {
+			to: user.email,
+			subject: 'FY manager - reseted password',
+			context: {
+				name: `${user.personalInformation.firstName} ${user.personalInformation.lastName}`,
+				language,
+				password,
+			},
+			template: 'resetedPassword',
 			from: 'noReply',
 		};
 	}

@@ -6,7 +6,7 @@ import {
 	CheckUsernameShapeSchema,
 	LoginRequestShapeSchema,
 	/* RegisterRequestShapeSchema, */
-} from '^common/requests/auth';
+} from '^server/requests/auth';
 
 import { CheckAuth, Login, Logout, /* Register, */ checkEmail, checkUsername } from '@server/handlers/auth';
 import { checkLogs, isLoggedIn } from '@server/middleware/auth';

@@ -7,10 +7,10 @@ import { readTextFile } from './File';
 export default class EjsTemplate<T extends EmailTemplates = EmailTemplates> {
 	public name: EmailTemplates;
 	public templates: Record<LanguagesI, Promise<string>>;
-	public additionalContext: AdditionalContext[T];
+	public additionalContext: AdditionalContext;
 	public templatesPromise: Promise<string[]>;
 
-	constructor(name: T, additionalContext: AdditionalContext[T]) {
+	constructor(name: T, additionalContext: AdditionalContext) {
 		this.name = name;
 		this.additionalContext = additionalContext;
 		this.templates = {
@@ -32,8 +32,7 @@ export default class EjsTemplate<T extends EmailTemplates = EmailTemplates> {
 	public async loadTemplate(language: LanguagesI) {
 		return readTextFile(`templates/${this.name}/${language.toUpperCase()}.ejs`);
 	}
-	public async render(context: EmailContexts[T]) {
-		const language: LanguagesI = context.language || 'fr';
+	public async render(context: EmailContexts, language: LanguagesI = 'fr') {
 		return this.templates[language].then(template => {
 			return ejs.render(template, { ...this.additionalContext, ...context });
 		});

@@ -8,6 +8,7 @@ import type { ERequest } from '!server/E_Express';
 import customerModel from '&common/Customer';
 
 import baseCustomerModel from '&common/BaseCustomer';
+import { generatePassword } from '@server/utils/password';
 
 export const getCustomerById = async (
 	req: ERequest<null, { customerId: string }, ResponseI<CustomerTableDataI>>,
@@ -127,17 +128,31 @@ export const getGuests = async (
 };
 
 export const createCustomer = async (
-	req: ERequest<WebSiteDocumentI & UserDocumentI, any, ResponseI<NecessaryCustomerI>, CustomerRegisterI>,
+	req: ERequest<
+		WebSiteDocumentI & UserDocumentI,
+		any,
+		ResponseI<NecessaryCustomerI>,
+		Omit<CustomerRegisterI, 'password'>
+	>,
 	res: Response<ResponseI<NecessaryCustomerI>>
 ) => {
 	const website = req.records!.website!;
 	// const user = req.records!.user!;
 	try {
-		const customer = req.body;
-		const customerD = await customerModel.create({
-			...customer,
-			website: website._id,
-		});
+		const { personalInformation, phone, email } = req.body;
+		const password = generatePassword();
+		const customerFound = await customerModel.exists({ email, website: website._id });
+		if (customerFound) throw new Error('Email already exists!');
+
+		// Form a DB payload
+		const newCustomer: CustomerRegisterI = {
+			personalInformation,
+			phone,
+			email,
+			password,
+		};
+		// Update the DB
+		const customerD = await customerModel.create({ ...newCustomer, website: website._id });
 
 		handleServiceResponse(
 			new ServiceResponse<NecessaryCustomerI>(

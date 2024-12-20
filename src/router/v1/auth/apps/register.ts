@@ -4,7 +4,7 @@ import { StatusCodes } from 'http-status-codes';
 import { z } from '^common/defaultZod';
 import { errorSchema } from '^common/elements';
 import { AuthResponseSchema } from '^common/generated/user';
-import { GoogleLoginRequestSchema } from '^common/requests/auth';
+import { GoogleLoginRequestSchema } from '^server/requests/auth';
 
 import { createApiRequest } from '~server/openAPIRequestBuilders';
 import { createApiResponses } from '~server/openAPIResponseBuilders';

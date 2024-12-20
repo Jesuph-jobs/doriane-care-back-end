@@ -5,8 +5,8 @@ import { cLogger } from '$server/console';
 import type { WebSettingsHydratedDocument } from '!common/generated/models/WebSite';
 import websiteModel from '&common/WebSite';
 import { websitesEmitter } from '@common/events/websites';
+import Service from '@common/services/Service';
 import { createDeferred } from '@server/utils/promises';
-import Service from './Service';
 /* events */
 
 /* service details */

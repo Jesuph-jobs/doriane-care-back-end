@@ -10,7 +10,7 @@ export async function readTextFile(filePath: string) {
 		const text = await readFile(filePath, 'utf8');
 		return text;
 	} catch (error) {
-		cLogger.error('🗃️ Error reading file:', error);
+		cLogger.error(`🗃️ Error reading file: ${error instanceof Error ? error.message : JSON.stringify(error as any)}`);
 		process.exit(ExitCodes.ERROR_FILE_NOT_FOUND.code);
 	}
 }
@@ -20,7 +20,7 @@ export async function readJSONFile<T = unknown>(filePath: string) {
 		const text = await readFile(filePath, 'utf8');
 		return JSON.parse(text) as T;
 	} catch (error) {
-		cLogger.error('🗃️ Error reading file:', error);
+		cLogger.error(`🗃️ Error reading file: ${error instanceof Error ? error.message : JSON.stringify(error as any)}`);
 		process.exit(ExitCodes.ERROR_FILE_NOT_FOUND.code);
 	}
 }
@@ -29,7 +29,7 @@ export async function writeJSONFile<T>(filePath: string, data: T) {
 	try {
 		await writeFile(filePath, JSON.stringify(data));
 	} catch (error) {
-		cLogger.error('🗃️ Error writing file:', error);
+		cLogger.error(`🗃️ Error writing file: ${error instanceof Error ? error.message : JSON.stringify(error as any)}`);
 		process.exit(ExitCodes.ERROR_FILE_NOT_FOUND.code);
 	}
 }

@@ -1,22 +1,24 @@
 import { cLogger } from '$server/console';
 
 import { FY_BACK_DOMAIN, FY_NOREPLY_EMAIL } from '&server/env';
+import Service from '@common/services/Service';
 // import { fLogger } from '$server/file';
 import EjsTemplate from '@server/utils/EjsTemplate';
 
-import Service from './Service';
-
 /* service details */
 const id = 'TemplatesManager';
-const defaultContext: AdditionalContext[EmailTemplates] = {
+const defaultContext: AdditionalContext = {
 	logo: new URL('/public/logo.svg', FY_BACK_DOMAIN).href,
 	supportEmail: FY_NOREPLY_EMAIL,
+	AppName: 'AppName',
 };
 export const resetPassword = new EjsTemplate('resetPassword', defaultContext);
+export const resetedPassword = new EjsTemplate('resetedPassword', defaultContext);
 export const validateEmail = new EjsTemplate('validateEmail', defaultContext);
 const templates: Record<EmailTemplates, EjsTemplate<EmailTemplates>> = {
 	resetPassword,
 	validateEmail,
+	resetedPassword,
 };
 
 class TemplatesManager extends Service<void> {

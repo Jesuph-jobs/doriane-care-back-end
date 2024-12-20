@@ -1,6 +1,7 @@
 import { Router } from 'express';
 
 import { checkConfiguration, isLoggedInAndWebsite } from '@server/middleware/auth';
+import adminsRouter from './admins.router';
 import authRouter from './auth/router';
 import blogsRouter from './blogs.router';
 import categoriesRouter from './categories.router';
@@ -22,6 +23,7 @@ v1Router.use('/profile', profileRouter);
 v1Router.use(checkConfiguration, isLoggedInAndWebsite);
 v1Router.use('/products', productsRouter);
 v1Router.use('/customers', customersRouter);
+v1Router.use('/admins', adminsRouter);
 v1Router.use('/reviews', reviewsRouter);
 v1Router.use('/orders', ordersRouter);
 v1Router.use('/blogs', blogsRouter);
