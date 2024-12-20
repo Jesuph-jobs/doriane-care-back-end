@@ -194,7 +194,7 @@ export const updateCustomerState = async (
 			res
 		);
 	} catch (e) {
-		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't update product", e, res);
+		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't update customer", e, res);
 	}
 };
 

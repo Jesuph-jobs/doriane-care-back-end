@@ -15,10 +15,12 @@ const defaultContext: AdditionalContext = {
 export const resetPassword = new EjsTemplate('resetPassword', defaultContext);
 export const resetedPassword = new EjsTemplate('resetedPassword', defaultContext);
 export const validateEmail = new EjsTemplate('validateEmail', defaultContext);
+export const welcomeAdmin = new EjsTemplate('welcomeAdmin', defaultContext);
 const templates: Record<EmailTemplates, EjsTemplate<EmailTemplates>> = {
 	resetPassword,
 	validateEmail,
 	resetedPassword,
+	welcomeAdmin,
 };
 
 class TemplatesManager extends Service<void> {

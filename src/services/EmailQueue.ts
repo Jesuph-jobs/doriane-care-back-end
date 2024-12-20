@@ -99,6 +99,25 @@ class EmailQueueService extends Service<Queue<QueuedEmail>> {
 			from: 'noReply',
 		};
 	}
+	public static WelcomeAdminEmail(
+		user: NecessaryUserI,
+		language: LanguagesI,
+		password: string
+	): QueuedEmail<'welcomeAdmin'> {
+		return {
+			to: user.email,
+			subject: 'FY manager - reseted password',
+			context: {
+				name: `${user.personalInformation.firstName} ${user.personalInformation.lastName}`,
+				language,
+				password,
+				email: user.email,
+				adminLoginURL: new URL('/login', FY_DOMAIN).href,
+			},
+			template: 'welcomeAdmin',
+			from: 'noReply',
+		};
+	}
 
 	public async stop() {
 		return this.connection.then(conn => conn.close().then(() => this.redisClient.disconnect()));

@@ -7,8 +7,10 @@ import { ResponseStatus, ServiceResponse, ServiceResponseList } from '@server/ut
 import type { ERequest } from '!server/E_Express';
 
 import adminModel from '&common/user';
-import { rolesManagerService } from '@server/services';
+import { emailQueueService, rolesManagerService } from '@server/services';
+import EmailQueueService from '@server/services/EmailQueue';
 import { generatePassword } from '@server/utils/password';
+import { getRequestLanguage } from '@server/utils/request';
 
 export const getAdminById = async (
 	req: ERequest<null, { adminId: string }, ResponseI<PublicAdminI>>,
@@ -79,7 +81,10 @@ export const createAdmin = async (
 		const newAdmin: UserI = { ...req.body, password };
 		// Update the DB
 		const adminD = await adminModel.create(newAdmin);
-
+		// todo: send email with key
+		await emailQueueService.sendEmail(
+			EmailQueueService.WelcomeAdminEmail(adminD.toNecessaryUser(false), getRequestLanguage(req), password)
+		);
 		handleServiceResponse(
 			new ServiceResponse<PublicAdminI>(
 				ResponseStatus.Success,
@@ -112,6 +117,32 @@ export const updateAdmin = async (
 
 		await adminFound.save();
 
+		handleServiceResponse(
+			new ServiceResponse<null>(ResponseStatus.Success, 'Admin created successfully', null, StatusCodes.OK),
+			res
+		);
+	} catch (e) {
+		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't create admin", e, res);
+	}
+};
+export const resetAdminPassword = async (
+	req: ERequest<UserDocumentI, { adminId: string }, ResponseI<null>>,
+	res: Response<ResponseI<null>>
+) => {
+	// const user = req.records!.user!;
+	try {
+		const adminFound = await adminModel.findById(req.params.adminId);
+		if (!adminFound) throw new Error('Admin not found');
+
+		const password = generatePassword();
+
+		// Form a DB payload
+		adminFound.password = password;
+
+		await adminFound.save();
+		await emailQueueService.sendEmail(
+			EmailQueueService.ResetedPasswordEmail(adminFound.toNecessaryUser(false), getRequestLanguage(req), password)
+		);
 		handleServiceResponse(
 			new ServiceResponse<null>(ResponseStatus.Success, 'Admin created successfully', null, StatusCodes.OK),
 			res

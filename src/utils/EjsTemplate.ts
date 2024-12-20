@@ -32,7 +32,8 @@ export default class EjsTemplate<T extends EmailTemplates = EmailTemplates> {
 	public async loadTemplate(language: LanguagesI) {
 		return readTextFile(`templates/${this.name}/${language.toUpperCase()}.ejs`);
 	}
-	public async render(context: EmailContexts, language: LanguagesI = 'fr') {
+	public async render(context: EmailContexts[T]) {
+		const language: LanguagesI = context.language || 'fr';
 		return this.templates[language].then(template => {
 			return ejs.render(template, { ...this.additionalContext, ...context });
 		});
