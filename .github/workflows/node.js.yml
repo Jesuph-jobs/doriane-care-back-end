@@ -41,6 +41,7 @@ jobs:
                 FY_MONGODB_DB_USERNAME: ${{ secrets.FY_MONGODB_DB_USERNAME }}
                 FY_MONGODB_DB_PASSWORD: ${{ secrets.FY_MONGODB_DB_PASSWORD }}
                 FY_MONGODB_DB_DATABASE: ${{ secrets.FY_MONGODB_DB_DATABASE }}
+                FY_REDIS_DB_PASSWORD: ${{ secrets.FY_REDIS_DB_PASSWORD }}
                 FY_JWT_SECRET: ${{ secrets.FY_JWT_SECRET }}
                 FY_LOGS_DIR: ${{ secrets.FY_LOGS_DIR }}
                 FY_PUBLIC_DIR: ${{ secrets.FY_PUBLIC_DIR }}

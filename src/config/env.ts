@@ -133,8 +133,8 @@ const env = cleanEnv(
 		}), */
 		// Redis Configuration
 		FY_REDIS_DB_HOST: host({
-			default: 'localhost',
-			devDefault: 'localhost',
+			default: '127.0.0.1',
+			devDefault: '127.0.0.1',
 			desc: 'The host of the Redis database.',
 			docs: 'https://www.npmjs.com/package/redis',
 			example: 'localhost',
@@ -147,8 +147,6 @@ const env = cleanEnv(
 			example: '6379',
 		}),
 		FY_REDIS_DB_PASSWORD: str({
-			default: undefined,
-			devDefault: undefined,
 			desc: 'The password of the Redis database.',
 			docs: 'https://www.npmjs.com/package/redis',
 			example: 'root',
