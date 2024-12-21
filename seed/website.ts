@@ -1,15 +1,15 @@
+import webSiteModel from '&common/WebSite';
 import { ProductAdditionalEnums } from '@common/data/enums/ProductAdditionalEnums';
 import { WebsiteFeaturesFlagsEnums } from '@common/data/enums/WebsiteFeaturesFlagsEnums';
 import { faker } from '@faker-js/faker';
 import { Types } from 'mongoose';
-import webSiteModel from '#common/WebSite';
 export const websites = [
 	new Types.ObjectId('672e626d22d00e6bfea3821d'), // main one
 	new Types.ObjectId('674b7fb77bb4d56ad4b90d6b'),
 ];
 export const website: WebSiteI = {
 	FY_ID: 'doriane-care-2',
-	banners: [],
+
 	services: Array.from({ length: 4 }, () => ({
 		title: { en: faker.lorem.sentence(), fr: faker.lorem.sentence(), ar: faker.lorem.sentence() },
 		description: { en: faker.lorem.paragraph(), fr: faker.lorem.paragraph(), ar: faker.lorem.paragraph() },

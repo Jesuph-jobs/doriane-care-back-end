@@ -1,8 +1,8 @@
+import productModel from '&common/Product';
 import { productLabelsEnums } from '@common/data/enums/generalEnums';
 import { faker } from '@faker-js/faker';
 import _ from 'lodash';
 import type { Types } from 'mongoose';
-import productModel from '#common/Product';
 import { admins } from './admin';
 import { toLanguagesContent } from './utils';
 
