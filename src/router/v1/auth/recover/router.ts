@@ -5,7 +5,7 @@ import {
 	ResetPasswordRequestSchema,
 	SendOTPSessionGetSchema,
 	//SendOTPSessionSchema,
-} from '^common/requests/otpSession';
+} from '^server/requests/otpSession';
 
 import { createRecoveringSession, getOTPSession, resetPassword } from '@server/handlers/otpSession';
 import { validateRequest } from '@server/utils/httpHandlers';

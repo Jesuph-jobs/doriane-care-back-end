@@ -1,6 +1,6 @@
+import collectionModel from '&common/Collection';
 import { faker } from '@faker-js/faker';
 import type { Types } from 'mongoose';
-import collectionModel from '#common/Collection';
 import { getRandomBlogsIds } from './blogs';
 import { getRandomProductsIds } from './seedProducts';
 import { toLanguagesContent } from './utils';

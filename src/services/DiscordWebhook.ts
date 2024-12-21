@@ -1,6 +1,5 @@
 import { cLogger } from '$server/console';
-
-import Service from './Service';
+import Service from '@common/services/Service';
 
 /* service details */
 const defaultId = 'DiscordWebhookService';

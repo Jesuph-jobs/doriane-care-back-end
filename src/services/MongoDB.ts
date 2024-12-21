@@ -10,8 +10,7 @@ import {
 	FY_MONGODB_DB_USERNAME,
 	isDev,
 } from '&server/env';
-
-import Service from './Service';
+import Service from '@common/services/Service';
 
 mongoose.set('debug', isDev);
 

@@ -18,7 +18,7 @@ import {
 	updateProductState,
 } from '@server/handlers/products';
 import { validateRequest } from '@server/utils/httpHandlers';
-import { UpdateProductInformationShape } from '^common/requests/products';
+import { UpdateProductInformationShape } from '^server/requests/products';
 
 const productsRouter = Router();
 

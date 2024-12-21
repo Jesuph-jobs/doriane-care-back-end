@@ -7,8 +7,8 @@ import { cLogger } from '$server/console';
 import { FY_EMAIL_QUEUE_NAME } from '&server/env';
 import { emailsAccounts } from '@server/utils/emailsAccounts';
 
+import Service from '@common/services/Service';
 import { emailService, templatesManager } from '.';
-import Service from './Service';
 
 const id = 'BulletMQService';
 class BullMQService extends Service<Worker<QueuedEmail>> {

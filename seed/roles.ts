@@ -1,8 +1,8 @@
+import roleModel from '&common/Role';
 import { PermissionsIds } from '@common/permissions/Permissions';
 import { faker } from '@faker-js/faker';
 import _ from 'lodash';
 import { Types } from 'mongoose';
-import roleModel from '#common/Role';
 import { rolesManagerService } from './services';
 export const mainRole = new Types.ObjectId('6733948a43c3d1936a7cb948');
 const role = (

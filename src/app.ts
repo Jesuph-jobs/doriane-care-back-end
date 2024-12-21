@@ -26,6 +26,7 @@ app.use(
 		immutable: true,
 	})
 );
+app.get('/favicon.ico', (_req, res) => res.sendFile(path.join(__dirname, './public/favicon.ico')));
 
 // Middlewares
 if (isDev || isTest) {

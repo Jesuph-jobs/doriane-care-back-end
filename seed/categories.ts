@@ -1,6 +1,7 @@
+import categoryModel from '&common/Category';
 import { faker } from '@faker-js/faker';
+import _ from 'lodash';
 import type { Types } from 'mongoose';
-import categoryModel from '#common/Category';
 import { seedBlog } from './blogs';
 import { seedProducts } from './seedProducts';
 import { toLanguagesContent } from './utils';
@@ -31,6 +32,8 @@ const category = (
 		height: 300,
 		width: 300,
 	},
+	isPublished: true,
+	label: _.sample(['featured', 'new', 'onSale']),
 });
 
 export async function seedCategory(

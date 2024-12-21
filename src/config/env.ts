@@ -132,9 +132,9 @@ const env = cleanEnv(
 			example: 'private-key',
 		}), */
 		// Redis Configuration
-		/* FY_REDIS_DB_HOST: host({
-			default: 'localhost',
-			devDefault: 'localhost',
+		FY_REDIS_DB_HOST: host({
+			default: '127.0.0.1',
+			devDefault: '127.0.0.1',
 			desc: 'The host of the Redis database.',
 			docs: 'https://www.npmjs.com/package/redis',
 			example: 'localhost',
@@ -147,12 +147,10 @@ const env = cleanEnv(
 			example: '6379',
 		}),
 		FY_REDIS_DB_PASSWORD: str({
-			default: undefined,
-			devDefault: undefined,
 			desc: 'The password of the Redis database.',
 			docs: 'https://www.npmjs.com/package/redis',
 			example: 'root',
-		}), */
+		}),
 		// Cloudinary
 		/* 	FY_CLOUDINARY_CLOUD_NAME: str({
 			desc: 'The cloud name of the cloudinary account.',
@@ -362,9 +360,9 @@ export const {
 	FY_MONGODB_ATLAS_PRODJECT_ID,
 	FY_MONGODB_ATLAS_PUBLIC_KEY, */
 	// Redist
-	/* FY_REDIS_DB_HOST,
+	FY_REDIS_DB_HOST,
 	FY_REDIS_DB_PORT,
-	FY_REDIS_DB_PASSWORD, */
+	FY_REDIS_DB_PASSWORD,
 	/* 	FY_CLOUDINARY_API_KEY,
 	FY_CLOUDINARY_API_SECRET,
 	FY_CLOUDINARY_CLOUD_NAME, */

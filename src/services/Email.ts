@@ -6,8 +6,7 @@ import { cLogger } from '$server/console';
 
 // import { fLogger } from '$server/file';
 import { FY_EMAIL_HOST, FY_EMAIL_PASSWORD, FY_EMAIL_PORT, FY_EMAIL_SECURE, FY_EMAIL_USERNAME } from '&server/env';
-
-import Service from './Service';
+import Service from '@common/services/Service';
 
 /* service details */
 const id = 'EmailService';

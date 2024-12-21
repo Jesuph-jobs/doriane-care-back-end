@@ -1,4 +1,4 @@
-import { google, type oauth2_v2 } from 'googleapis';
+/* import { google, type oauth2_v2 } from 'googleapis';
 
 import { cLogger } from '$server/console';
 
@@ -74,3 +74,4 @@ export default class GoogleOAuth2Service {
 		return Promise.resolve();
 	}
 }
+ */

@@ -8,14 +8,15 @@ import type { ERequest } from '!server/E_Express';
 import customerModel from '&common/Customer';
 
 import baseCustomerModel from '&common/BaseCustomer';
+import { generatePassword } from '@server/utils/password';
 
 export const getCustomerById = async (
-	req: ERequest<null, { customerId: string }, ResponseI<PublicBaseCustomerI>>,
-	res: Response<ResponseI<PublicBaseCustomerI>>
+	req: ERequest<null, { customerId: string }, ResponseI<CustomerTableDataI>>,
+	res: Response<ResponseI<CustomerTableDataI>>
 ) => {
 	const customerId = req.params.customerId;
 	try {
-		const customer = await baseCustomerModel.findById(customerId);
+		const customer = await baseCustomerModel.findById(customerId).select('-password');
 
 		if (!customer)
 			return handleErrorResponse(
@@ -26,7 +27,7 @@ export const getCustomerById = async (
 			);
 
 		handleServiceResponse(
-			new ServiceResponse<PublicBaseCustomerI>(
+			new ServiceResponse<CustomerTableDataI>(
 				ResponseStatus.Success,
 				'Customer fetched successfully',
 				customer.toOptimizedObject(),
@@ -127,17 +128,31 @@ export const getGuests = async (
 };
 
 export const createCustomer = async (
-	req: ERequest<WebSiteDocumentI & UserDocumentI, any, ResponseI<NecessaryCustomerI>, CustomerRegisterI>,
+	req: ERequest<
+		WebSiteDocumentI & UserDocumentI,
+		any,
+		ResponseI<NecessaryCustomerI>,
+		Omit<CustomerRegisterI, 'password'>
+	>,
 	res: Response<ResponseI<NecessaryCustomerI>>
 ) => {
 	const website = req.records!.website!;
 	// const user = req.records!.user!;
 	try {
-		const customer = req.body;
-		const customerD = await customerModel.create({
-			...customer,
-			website: website._id,
-		});
+		const { personalInformation, phone, email } = req.body;
+		const password = generatePassword();
+		const customerFound = await customerModel.exists({ email, website: website._id });
+		if (customerFound) throw new Error('Email already exists!');
+
+		// Form a DB payload
+		const newCustomer: CustomerRegisterI = {
+			personalInformation,
+			phone,
+			email,
+			password,
+		};
+		// Update the DB
+		const customerD = await customerModel.create({ ...newCustomer, website: website._id });
 
 		handleServiceResponse(
 			new ServiceResponse<NecessaryCustomerI>(
@@ -179,7 +194,7 @@ export const updateCustomerState = async (
 			res
 		);
 	} catch (e) {
-		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't update product", e, res);
+		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't update customer", e, res);
 	}
 };
 

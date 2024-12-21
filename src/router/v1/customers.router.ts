@@ -13,8 +13,8 @@ import {
 const customersRouter = Router();
 
 customersRouter.route('/').get(getBaseCustomers).post(createCustomer).delete(deleteCustomers);
-customersRouter.route('/customers').get(getCustomers);
-customersRouter.route('/guests').get(getGuests);
+customersRouter.route('/customer').get(getCustomers);
+customersRouter.route('/guest').get(getGuests);
 customersRouter.route('/:customerId/state').put(updateCustomerState);
 customersRouter.route('/:customerId').get(getCustomerById);
 
