@@ -3,6 +3,8 @@ import {
 	getWebsites,
 	updateWebsiteFaq,
 	updateWebsiteInformation,
+	updateWebsiteNavigation,
+	updateWebsitePolicies,
 	updateWebsiteServices,
 	updateWebsiteState,
 	updateWebsiteTestimonials,
@@ -15,6 +17,8 @@ const websitesRouter = Router();
 websitesRouter.route('/').get(getWebsites);
 websitesRouter.route('/:websiteId/state').put(updateWebsiteState);
 websitesRouter.route('/:websiteId/information').put(updateWebsiteInformation);
+websitesRouter.route('/:websiteId/navigation').put(updateWebsiteNavigation);
+websitesRouter.route('/:websiteId/policies').put(updateWebsitePolicies);
 websitesRouter.route('/:websiteId/services').put(updateWebsiteServices);
 websitesRouter.route('/:websiteId/testimonials').put(updateWebsiteTestimonials);
 websitesRouter.route('/:websiteId/faq').put(updateWebsiteFaq);
