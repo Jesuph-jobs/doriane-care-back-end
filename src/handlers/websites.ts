@@ -88,6 +88,41 @@ export const updateWebsiteInformation = async (
 		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't update website", e, res);
 	}
 };
+export const updateWebsiteNavigation = async (
+	req: ERequest<null, { websiteId: string }, ResponseI<null>, NavigationSettingsI>,
+	res: Response<ResponseI<null>>
+) => {
+	try {
+		const website = websitesManagerService.getWebsite(req.params.websiteId);
+		if (!website) throw new Error('Website not found');
+		website.navigations = req.body.navigations;
+		website.links = req.body.links;
+		await website.save();
+		handleServiceResponse(
+			new ServiceResponse<null>(ResponseStatus.Success, 'Website updated successfully', null, StatusCodes.OK),
+			res
+		);
+	} catch (e) {
+		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't update website", e, res);
+	}
+};
+export const updateWebsitePolicies = async (
+	req: ERequest<null, { websiteId: string }, ResponseI<null>, WebsitePoliciesI>,
+	res: Response<ResponseI<null>>
+) => {
+	try {
+		const website = websitesManagerService.getWebsite(req.params.websiteId);
+		if (!website) throw new Error('Website not found');
+		website.policies = req.body;
+		await website.save();
+		handleServiceResponse(
+			new ServiceResponse<null>(ResponseStatus.Success, 'Website updated successfully', null, StatusCodes.OK),
+			res
+		);
+	} catch (e) {
+		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't update website", e, res);
+	}
+};
 // content settings
 export const updateWebsiteServices = async (
 	req: ERequest<null, { websiteId: string }, ResponseI<null>, ServicesSettingsFromI>,
