@@ -1,8 +1,10 @@
 import {
 	getWebsiteById,
 	getWebsites,
+	updateHomeContent,
 	updateWebsiteFaq,
 	updateWebsiteInformation,
+	updateWebsiteIntegration,
 	updateWebsiteNavigation,
 	updateWebsitePolicies,
 	updateWebsiteServices,
@@ -19,6 +21,8 @@ websitesRouter.route('/:websiteId/state').put(updateWebsiteState);
 websitesRouter.route('/:websiteId/information').put(updateWebsiteInformation);
 websitesRouter.route('/:websiteId/navigation').put(updateWebsiteNavigation);
 websitesRouter.route('/:websiteId/policies').put(updateWebsitePolicies);
+websitesRouter.route('/:websiteId/integration').put(updateWebsiteIntegration);
+websitesRouter.route('/:websiteId/pages/home').put(updateHomeContent);
 websitesRouter.route('/:websiteId/services').put(updateWebsiteServices);
 websitesRouter.route('/:websiteId/testimonials').put(updateWebsiteTestimonials);
 websitesRouter.route('/:websiteId/faq').put(updateWebsiteFaq);

@@ -41,7 +41,42 @@ export const getCategoryById = async (
 		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't fetch category", e, res);
 	}
 };
-
+const SimpleCategorySelection: Record<keyof TableSimpleCategoryI, 1> = {
+	_id: 1,
+	avatar: 1,
+	for: 1,
+	isPublished: 1,
+	name: 1,
+	slug: 1,
+};
+export const getSimpleCategories = async (
+	req: ERequest<WebSiteDocumentI, any, ResponseI<TableSimpleCategoryI[]>, any>,
+	res: Response<ResponseI<TableSimpleCategoryI[]>>
+) => {
+	const website = req.records!.website!;
+	try {
+		const categories = await categoryModel
+			.find({
+				enabled: true,
+				isPublished: true,
+				for: req.query.type || 'p',
+				website: website._id,
+			})
+			.select(SimpleCategorySelection)
+			.lean();
+		handleServiceResponse(
+			new ServiceResponse<TableSimpleCategoryI[]>(
+				ResponseStatus.Success,
+				'Categories fetched successfully',
+				categories as TableSimpleCategoryI<Types.ObjectId>[] as unknown as TableSimpleCategoryI[],
+				StatusCodes.OK
+			),
+			res
+		);
+	} catch (e) {
+		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't fetch categories", e, res);
+	}
+};
 export const getCategories = async (
 	req: ERequest<
 		WebSiteDocumentI,

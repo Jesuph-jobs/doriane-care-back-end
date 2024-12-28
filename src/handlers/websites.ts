@@ -6,7 +6,7 @@ import { ResponseStatus, ServiceResponse, ServiceResponseList } from '@server/ut
 
 import type { ERequest } from '!server/E_Express';
 import { websitesManagerService } from '@server/services';
-import type { Types } from 'mongoose';
+import { Types } from 'mongoose';
 
 export const getWebsites = async (
 	req: ERequest<
@@ -114,6 +114,54 @@ export const updateWebsitePolicies = async (
 		const website = websitesManagerService.getWebsite(req.params.websiteId);
 		if (!website) throw new Error('Website not found');
 		website.policies = req.body;
+		await website.save();
+		handleServiceResponse(
+			new ServiceResponse<null>(ResponseStatus.Success, 'Website updated successfully', null, StatusCodes.OK),
+			res
+		);
+	} catch (e) {
+		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't update website", e, res);
+	}
+};
+export const updateWebsiteIntegration = async (
+	req: ERequest<null, { websiteId: string }, ResponseI<null>, AnalyticsIntegrationI>,
+	res: Response<ResponseI<null>>
+) => {
+	try {
+		const website = websitesManagerService.getWebsite(req.params.websiteId);
+		if (!website) throw new Error('Website not found');
+		website.integrations = req.body;
+		await website.save();
+		handleServiceResponse(
+			new ServiceResponse<null>(ResponseStatus.Success, 'Website updated successfully', null, StatusCodes.OK),
+			res
+		);
+	} catch (e) {
+		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't update website", e, res);
+	}
+};
+export const updateHomeContent = async (
+	req: ERequest<null, { websiteId: string }, ResponseI<null>, PageContentI>,
+	res: Response<ResponseI<null>>
+) => {
+	try {
+		const website = websitesManagerService.getWebsite(req.params.websiteId);
+		if (!website) throw new Error('Website not found');
+		const pageContentWithoutT = req.body;
+		const pageContent: PageContentI<Types.ObjectId, Types.ObjectId> = {
+			blogs: {
+				categories: pageContentWithoutT.blogs.categories.map(category => new Types.ObjectId(category)),
+				collections: pageContentWithoutT.blogs.collections.map(collections => new Types.ObjectId(collections)),
+			},
+			products: {
+				categories: pageContentWithoutT.products.categories.map(category => new Types.ObjectId(category)),
+				collections: pageContentWithoutT.products.collections.map(
+					collections => new Types.ObjectId(collections)
+				),
+			},
+		};
+		if (!website.pagesContent) website.pagesContent = { home: pageContent };
+		else website.pagesContent.home = pageContent;
 		await website.save();
 		handleServiceResponse(
 			new ServiceResponse<null>(ResponseStatus.Success, 'Website updated successfully', null, StatusCodes.OK),
