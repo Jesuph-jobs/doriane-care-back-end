@@ -9,7 +9,6 @@ const user = (roles: Types.ObjectId[]): Omit<UserDocumentI<Types.ObjectId>, 'app
 		firstName: faker.person.firstName(),
 		lastName: faker.person.lastName(),
 		birthday: faker.date.birthdate().toISOString(),
-		honorific: faker.person.prefix() as HonorificsTypes,
 		note: faker.person.bio(),
 	};
 	const email = faker.internet.email({
@@ -25,9 +24,8 @@ const user = (roles: Types.ObjectId[]): Omit<UserDocumentI<Types.ObjectId>, 'app
 		password: faker.internet.password(),
 		phone,
 		personalInformation,
-		profilePicture: faker.image.avatar(),
 		contactInformation: {
-			phones: [{ number: phone }],
+			phones: [phone],
 			emails: [email],
 			validatedEmails: [email],
 			socialMediaUrls: {},

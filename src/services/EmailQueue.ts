@@ -15,7 +15,7 @@ const defaultId = 'EmailService';
 class EmailQueueService extends Service<Queue<QueuedEmail>> {
 	name = 'Email queue service';
 	category = 'Email';
-	description = "Service d'email pour la mise en file d'attente des courriels";
+	description = 'Email queuing service';
 
 	redisClient: IORedis;
 
@@ -23,7 +23,7 @@ class EmailQueueService extends Service<Queue<QueuedEmail>> {
 		super(id, EmailQueueService.connect(Promise.resolve(redisClient)));
 		this.redisClient = redisClient;
 		this.connection.then(() => {
-			cLogger.info("📬 Le service de file d'attente pour les e-mails est prêt");
+			cLogger.info('📬 Email queuing service ready to go');
 		});
 	}
 

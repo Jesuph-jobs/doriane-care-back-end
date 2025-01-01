@@ -9,6 +9,7 @@ import {
 	getCategoryById,
 	getDisabledCategories,
 	getDraftCategories,
+	getSimpleCategories,
 	updateCategoryImages,
 	updateCategoryInformation,
 	updateCategoryLabels,
@@ -22,6 +23,7 @@ categoriesRouter.route('/').get(getCategories).post(createCategory).delete(delet
 categoriesRouter.route('/basics').get(getBasicCategories);
 categoriesRouter.route('/drafts').get(getDraftCategories);
 categoriesRouter.route('/disabled').get(getDisabledCategories);
+categoriesRouter.route('/simple').get(getSimpleCategories);
 categoriesRouter.route('/slug').get(checkCategorySlug);
 categoriesRouter.route('/:categoryId/state').put(updateCategoryState);
 categoriesRouter.route('/:categoryId/labels').put(updateCategoryLabels);

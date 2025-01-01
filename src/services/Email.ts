@@ -43,11 +43,11 @@ class EmailService extends Service<Transporter<SMTPTransport.SentMessageInfo>> {
 			transporter
 				.verify()
 				.then(() => {
-					cLogger.info("📬 Le service d'email est prêt");
+					cLogger.info('📬 The email service is ready');
 					resolve(transporter);
 				})
 				.catch(error => {
-					cLogger.error(`📭 Erreur dans le service d'email ${error}`);
+					cLogger.error(`📭 Error in Email Service ${error}`);
 					// fLogger.error(`📭 Error in Email Service ${error}`);
 					reject(error);
 				});

@@ -83,8 +83,7 @@ export const updateMainContact =
 				if (!user.contactInformation.emails.includes(value)) throw new Error('Email not found');
 				user.email = value;
 			} else {
-				if (!user.contactInformation.phones.map(p => p.number).includes(value))
-					throw new Error('Phone not found');
+				if (!user.contactInformation.phones.map(p => p).includes(value)) throw new Error('Phone not found');
 				user.phone = value;
 			}
 			await user.save();
@@ -119,7 +118,7 @@ export const updatePassword = async (
 		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Password couldn't be updated", e, res);
 	}
 };
-export const updatePicture = async (
+/* export const updatePicture = async (
 	req: ERequest<UserDocumentI, any, ResponseI<OptimizedUserI>, { profilePicture?: string }>,
 	res: Response<ResponseI<OptimizedUserI>>
 ) => {
@@ -141,3 +140,4 @@ export const updatePicture = async (
 		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Picture couldn't be updated", e, res);
 	}
 };
+ */

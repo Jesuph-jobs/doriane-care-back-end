@@ -4,11 +4,11 @@ import { WebsiteFeaturesFlagsEnums } from '@common/data/enums/WebsiteFeaturesFla
 import { faker } from '@faker-js/faker';
 import { Types } from 'mongoose';
 export const websites = [
-	new Types.ObjectId('672e626d22d00e6bfea3821d'), // main one
-	new Types.ObjectId('674b7fb77bb4d56ad4b90d6b'),
+	new Types.ObjectId(''), // main one
+	new Types.ObjectId(''),
 ];
 export const website: WebSiteI = {
-	FY_ID: 'doriane-care-2',
+	FY_ID: '',
 
 	services: Array.from({ length: 4 }, () => ({
 		title: { en: faker.lorem.sentence(), fr: faker.lorem.sentence(), ar: faker.lorem.sentence() },
@@ -52,11 +52,7 @@ export const website: WebSiteI = {
 		],
 		contactInformation: {
 			emails: ['doriane.care@gmail.com'],
-			phones: [
-				{
-					number: '09123456789',
-				},
-			],
+			phones: ['09123456789'],
 			websites: ['https://doriane.care'],
 			socialMediaUrls: {
 				facebook: 'https://facebook.com/doriane.care',
@@ -111,63 +107,169 @@ export const website: WebSiteI = {
 				ar: 'نحن نقبل الاستردادات خلال 30 يومًا من الشراء. يرجى الاتصال بنا على البريد الإلكتروني support@example.com لمزيد من المعلومات.',
 			},
 		},
+		cookies: {
+			rules: [
+				{
+					question: {
+						en: 'What is your return policy?',
+						fr: 'Quelle est votre politique de retour?',
+						ar: 'ما هي سياسة الاسترداد الخاصة بك؟',
+					},
+					answer: {
+						en: 'We accept returns within 30 days of purchase. Please contact us at support@example.com for more information.',
+						fr: "Nous acceptons les retours dans les 30 jours suivant l'achat. Veuillez nous contacter à l'adresse support@example.com pour plus d'informations.",
+						ar: 'نحن نقبل الاستردادات خلال 30 يومًا من الشراء. يرجى الاتصال بنا على البريد الإلكتروني support@example.com لمزيد من المعلومات.',
+					},
+				},
+			],
+			description: {
+				en: 'We accept returns within 30 days of purchase. Please contact us at support@example.com for more information.',
+				fr: "Nous acceptons les retours dans les 30 jours suivant l'achat. Veuillez nous contacter à l'adresse support@example.com pour plus d'informations.",
+				ar: 'نحن نقبل الاستردادات خلال 30 يومًا من الشراء. يرجى الاتصال بنا على البريد الإلكتروني support@example.com لمزيد من المعلومات.',
+			},
+		},
+		termsOfService: {
+			rules: [
+				{
+					question: {
+						en: 'What is your return policy?',
+						fr: 'Quelle est votre politique de retour?',
+						ar: 'ما هي سياسة الاسترداد الخاصة بك؟',
+					},
+					answer: {
+						en: 'We accept returns within 30 days of purchase. Please contact us at support@example.com for more information.',
+						fr: "Nous acceptons les retours dans les 30 jours suivant l'achat. Veuillez nous contacter à l'adresse support@example.com pour plus d'informations.",
+						ar: 'نحن نقبل الاستردادات خلال 30 يومًا من الشراء. يرجى الاتصال بنا على البريد الإلكتروني support@example.com لمزيد من المعلومات.',
+					},
+				},
+			],
+			description: {
+				en: 'We accept returns within 30 days of purchase. Please contact us at support@example.com for more information.',
+				fr: "Nous acceptons les retours dans les 30 jours suivant l'achat. Veuillez nous contacter à l'adresse support@example.com pour plus d'informations.",
+				ar: 'نحن نقبل الاستردادات خلال 30 يومًا من الشراء. يرجى الاتصال بنا على البريد الإلكتروني support@example.com لمزيد من المعلومات.',
+			},
+		},
 	},
-	mainCategories: [],
-	productsLists: [],
-	quickLinks: [
-		{
-			label: {
-				en: 'Home',
-				ar: 'الرئيسية',
-				fr: 'Accueil',
-			},
-			href: '/home',
-		},
-		{
-			label: {
-				en: 'Benefits',
-				ar: 'فوائد',
-				fr: 'Bienfaits',
-			},
-			href: '/home#benefits',
-		},
-		{
-			label: {
-				en: 'Products',
-				ar: 'المنتجات',
-				fr: 'Produits',
-			},
-			href: '/products',
-		},
-		{
-			label: {
-				en: 'Tips',
-				ar: 'نصائح',
-				fr: 'Conseils',
-			},
-			href: '/blogs',
-		},
-		{
-			label: {
-				en: 'FAQs',
-				ar: 'الأسئلة الشائعة',
-				fr: 'FAQ',
-			},
-			href: '/home#faqs',
-		},
-		{
-			label: {
-				en: 'Contact',
-				ar: 'تواصل معنا',
-				fr: 'Contact',
-			},
-			href: '/home#contact',
-		},
-	],
+
 	links: [],
+	enabled: true,
+	integrations: {},
+	navigations: {
+		navbar: {
+			left: [
+				{
+					label: {
+						en: 'Home',
+						ar: 'الرئيسية',
+						fr: 'Accueil',
+					},
+					href: '/home',
+				},
+				{
+					label: {
+						en: 'Benefits',
+						ar: 'فوائد',
+						fr: 'Bienfaits',
+					},
+					href: '/home#benefits',
+				},
+				{
+					label: {
+						en: 'Products',
+						ar: 'المنتجات',
+						fr: 'Produits',
+					},
+					href: '/products',
+				},
+				{
+					label: {
+						en: 'Tips',
+						ar: 'نصائح',
+						fr: 'Conseils',
+					},
+					href: '/blogs',
+				},
+				{
+					label: {
+						en: 'FAQs',
+						ar: 'الأسئلة الشائعة',
+						fr: 'FAQ',
+					},
+					href: '/home#faqs',
+				},
+				{
+					label: {
+						en: 'Contact',
+						ar: 'تواصل معنا',
+						fr: 'Contact',
+					},
+					href: '/home#contact',
+				},
+			],
+			right: [],
+		},
+		footer: [
+			{
+				label: {
+					en: 'Home',
+					ar: 'الرئيسية',
+					fr: 'Accueil',
+				},
+				href: '/home',
+			},
+			{
+				label: {
+					en: 'Benefits',
+					ar: 'فوائد',
+					fr: 'Bienfaits',
+				},
+				href: '/home#benefits',
+			},
+			{
+				label: {
+					en: 'Products',
+					ar: 'المنتجات',
+					fr: 'Produits',
+				},
+				href: '/products',
+			},
+			{
+				label: {
+					en: 'Tips',
+					ar: 'نصائح',
+					fr: 'Conseils',
+				},
+				href: '/blogs',
+			},
+			{
+				label: {
+					en: 'FAQs',
+					ar: 'الأسئلة الشائعة',
+					fr: 'FAQ',
+				},
+				href: '/home#faqs',
+			},
+			{
+				label: {
+					en: 'Contact',
+					ar: 'تواصل معنا',
+					fr: 'Contact',
+				},
+				href: '/home#contact',
+			},
+		],
+	},
+	pagesContent: {
+		home: {
+			blogs: { categories: [], collections: [] },
+			products: { categories: [], collections: [] },
+		},
+	},
 };
 
-export async function seedWebsite() {
+export async function seedWebsite(websiteID?: string) {
+	website.FY_ID = websiteID || 'NEW_WEBSITE';
 	const websiteDoc = await webSiteModel.create(website);
 	console.log({ websiteDoc });
+	return websiteDoc;
 }

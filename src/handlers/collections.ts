@@ -173,6 +173,44 @@ export const getDisabledCollections = async (
 		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't fetch collections", e, res);
 	}
 };
+const SimpleCategorySelection: Record<keyof SimpleCollectionI, 1> = {
+	_id: 1,
+	avatar: 1,
+	for: 1,
+	isPublished: 1,
+	name: 1,
+	slug: 1,
+	isPublic: 1,
+};
+export const getSimpleCollections = async (
+	req: ERequest<WebSiteDocumentI, any, ResponseI<SimpleCollectionI[]>, any, { type: PublishableContentTypeI }>,
+	res: Response<ResponseI<SimpleCollectionI[]>>
+) => {
+	const website = req.records!.website!;
+	try {
+		const collections = await collectionModel
+			.find({
+				enabled: true,
+				isPublic: true,
+				isPublished: true,
+				for: req.query.type || 'p',
+				website: website._id,
+			})
+			.select(SimpleCategorySelection)
+			.lean();
+		handleServiceResponse(
+			new ServiceResponse<SimpleCollectionI[]>(
+				ResponseStatus.Success,
+				'Collections fetched successfully',
+				collections as SimpleCollectionI<Types.ObjectId>[] as unknown as SimpleCollectionI[],
+				StatusCodes.OK
+			),
+			res
+		);
+	} catch (e) {
+		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't fetch collections", e, res);
+	}
+};
 export const createCollection = async (
 	req: ERequest<WebSiteDocumentI & UserDocumentI, any, ResponseI<PublicCollectionI>, CollectionInformationI>,
 	res: Response<ResponseI<PublicCollectionI>>
@@ -351,6 +389,67 @@ export const updateCollectionImages = async (
 			new ServiceResponse<null>(ResponseStatus.Success, 'Collection updated successfully', null, StatusCodes.OK),
 			res
 		);
+	} catch (e) {
+		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't update collection", e, res);
+	}
+};
+export const addCollectionProduct = async (
+	req: ERequest<WebSiteDocumentI, { collectionId: string }, ResponseI<null>, { productsId: string[] }>,
+	res: Response<ResponseI<null>>
+) => {
+	const website = req.records!.website!;
+	try {
+		const collection = await collectionModel.findOne({
+			website: website._id,
+			_id: req.params.collectionId,
+		});
+
+		if (!collection) throw new Error('Collection not found');
+		const productsId = req.body.productsId;
+		if (!productsId) throw new Error("Ids wasn't provided");
+		if (!Array.isArray(productsId)) throw new Error('Ids is supposed to be an array');
+
+		const idsNotAlreadyExists = productsId.filter(
+			productId => !collection.publishables.some(p => p.equals(productId))
+		);
+		const message =
+			idsNotAlreadyExists.length !== productsId.length
+				? 'Some Ids already exists'
+				: 'Collection updated successfully';
+		idsNotAlreadyExists.forEach(id => {
+			collection.publishables.push(new Types.ObjectId(id));
+		});
+		await collection.save();
+		handleServiceResponse(new ServiceResponse<null>(ResponseStatus.Success, message, null, StatusCodes.OK), res);
+	} catch (e) {
+		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't update collection", e, res);
+	}
+};
+export const deleteCollectionProduct = async (
+	req: ERequest<WebSiteDocumentI, { collectionId: string }, ResponseI<null>, { productsId: string[] }>,
+	res: Response<ResponseI<null>>
+) => {
+	const website = req.records!.website!;
+	try {
+		const collection = await collectionModel.findOne({
+			website: website._id,
+			_id: req.params.collectionId,
+		});
+
+		if (!collection) throw new Error('Collection not found');
+		const productsId = req.body.productsId;
+		if (!productsId) throw new Error("Ids wasn't provided");
+		if (!Array.isArray(productsId)) throw new Error('Ids is supposed to be an array');
+		let count = 0;
+		collection.publishables = collection.publishables.filter(publishable => {
+			const exist = productsId.some(productId => publishable.equals(productId));
+			if (exist) count++;
+			return !exist;
+		});
+		const message = count !== productsId.length ? "Some Ids didn't exists" : 'Collection updated successfully';
+
+		await collection.save();
+		handleServiceResponse(new ServiceResponse<null>(ResponseStatus.Success, message, null, StatusCodes.OK), res);
 	} catch (e) {
 		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't update collection", e, res);
 	}
