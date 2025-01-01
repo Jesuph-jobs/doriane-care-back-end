@@ -1,9 +1,18 @@
 import { resolvePath } from '@server/utils/resolvePath';
 import dotenv from 'dotenv';
-import { url, bool, cleanEnv, email, host, num, port, str } from 'envalid';
+import { url, bool, cleanEnv, email, host, makeValidator, num, port, str } from 'envalid';
+import { Types, isObjectIdOrHexString } from 'mongoose';
 import { cleanOptions, displayEnvironments } from '../utils/env';
 
 dotenv.config();
+
+const mongoIdValidator = makeValidator(input => {
+	if (!isObjectIdOrHexString(input)) {
+		throw new Error('Invalid MongoDB ObjectId');
+	}
+	return new Types.ObjectId(input); // Return the validated ObjectId as a string
+});
+
 const env = cleanEnv(
 	process.env,
 	{
@@ -19,6 +28,10 @@ const env = cleanEnv(
 			desc: 'The maximum time in milliseconds to wait for the server to close all connections before it is forcefully shutdown.',
 			docs: 'https://nodejs.org/api/http.html#http_server_close_callback',
 			example: '10000',
+		}),
+		FY_DEV_ROLE_ID: mongoIdValidator({
+			desc: 'The id of the dev role that can manage the website and the server deployed',
+			example: '677000000000000000000000',
 		}),
 		FY_COOKIES_EXPIRE_IN: num({
 			default: 1000 * 60 * 60 * 24 * 15, // 15 days
@@ -340,6 +353,7 @@ export const FY_LOGS_DIR = resolvePath(env.FY_LOGS_DIR);
 export const {
 	NODE_ENV,
 	FY_SHUTDOWN_TIMEOUT,
+	FY_DEV_ROLE_ID,
 	FY_COOKIES_EXPIRE_IN,
 	FY_HOST,
 	PORT,

@@ -21,16 +21,16 @@ async function seed() {
 
 	console.time('seeding');
 	console.timeLog('seeding', 'started');
-	//await seedWebsite();
+	// const web = await seedWebsite();
 	/* await Promise.all([
 		//seedCollectionsWithPublishable(website, 'b'),
 		seedCategoriesWithPublishable(website, 'b'),
 		//seedCollectionsWithPublishable(website, 'p'),
 		seedCategoriesWithPublishable(website, 'p'),
 	]); */
-	//await Promise.all([seedRoles(undefined, 1, ['admin:super'])]);
+	//await Promise.all([seedRoles(web._id, 3, ['admin:super']), seedRoles(undefined, 3, ['admin:super'])]);
 
-	const roles = await Promise.all([getRandomRoles(), getRandomRoles(websites[0]), getRandomRoles(websites[1])]);
+	const roles = await Promise.all([getRandomRoles(), getRandomRoles(websites[0])]);
 	const user = await seedUsers(roles.flat(1).map(r => r._id));
 	console.log({ user });
 	console.timeLog('seeding', 'ended');

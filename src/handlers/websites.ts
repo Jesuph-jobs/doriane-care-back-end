@@ -30,7 +30,7 @@ export const getWebsites = async (
 			res
 		);
 	} catch (e) {
-		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't fetch products", e, res);
+		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't fetch website settings", e, res);
 	}
 };
 export const getWebsiteById = async (
@@ -50,7 +50,7 @@ export const getWebsiteById = async (
 			res
 		);
 	} catch (e) {
-		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't fetch order", e, res);
+		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't fetch website settings", e, res);
 	}
 };
 
