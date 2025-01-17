@@ -10,11 +10,41 @@ import { rolesManagerService } from '@server/services';
 import { Types, isObjectIdOrHexString } from 'mongoose';
 
 export const getRoles = async (
-	req: ERequest<WebSiteDocumentI, any, ResponseI<SimpleRoleI[]>>,
-	res: Response<ResponseI<SimpleRoleI[]>>
+	req: ERequest<WebSiteDocumentI, any, ResponseI<BaseRoleI[]>>,
+	res: Response<ResponseI<BaseRoleI[]>>
 ) => {
 	const website = req.records!.website!;
 	const roles = rolesManagerService.getRoles(website._id);
+
+	try {
+		handleServiceResponse(
+			new ServiceResponse<BaseRoleI[]>(
+				ResponseStatus.Success,
+				'Roles fetched successfully',
+				roles.map(r => r.toBaseObject()),
+				StatusCodes.OK
+			),
+			res
+		);
+	} catch (e) {
+		console.error(e);
+		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't fetch roles", e, res);
+	}
+};
+export const getSimpleRoles = async (
+	req: ERequest<
+		WebSiteDocumentI,
+		any,
+		ResponseI<SimpleRoleI[]>,
+		{
+			isGlobal: string;
+		}
+	>,
+	res: Response<ResponseI<SimpleRoleI[]>>
+) => {
+	const website = req.records!.website!;
+	const isGlobal = Boolean(req.query.isGlobal);
+	const roles = rolesManagerService.getRoles(isGlobal ? undefined : website._id);
 
 	try {
 		handleServiceResponse(
@@ -32,17 +62,17 @@ export const getRoles = async (
 	}
 };
 export const getGlobalRoles = async (
-	_req: ERequest<WebSiteDocumentI, any, ResponseI<SimpleRoleI[]>>,
-	res: Response<ResponseI<SimpleRoleI[]>>
+	_req: ERequest<WebSiteDocumentI, any, ResponseI<BaseRoleI[]>>,
+	res: Response<ResponseI<BaseRoleI[]>>
 ) => {
 	const roles = rolesManagerService.getRoles();
 
 	try {
 		handleServiceResponse(
-			new ServiceResponse<SimpleRoleI[]>(
+			new ServiceResponse<BaseRoleI[]>(
 				ResponseStatus.Success,
 				'Roles fetched successfully',
-				roles.map(r => r.toSimpleObject()),
+				roles.map(r => r.toBaseObject()),
 				StatusCodes.OK
 			),
 			res
@@ -54,7 +84,7 @@ export const getGlobalRoles = async (
 };
 
 export const createRole = async (
-	req: ERequest<WebSiteDocumentI | UserDocumentI, any, ResponseI<PublicRoleI>, SimpleRoleI>,
+	req: ERequest<WebSiteDocumentI | UserDocumentI, any, ResponseI<PublicRoleI>, BaseRoleI>,
 	res: Response<ResponseI<PublicRoleI>>
 ) => {
 	const role = req.body;
@@ -71,6 +101,7 @@ export const createRole = async (
 		if (!hasPermission) throw new Error(`Can not create ${role.website ? '' : 'global '}role`);
 
 		const newRole = await roleModel.create(req.body);
+		rolesManagerService.roles.set(newRole._id.toString(), newRole);
 
 		handleServiceResponse(
 			new ServiceResponse<PublicRoleI>(

@@ -114,7 +114,7 @@ export default class RolesManagerService extends Service<RoleHydratedDocument[]>
 	}
 	getRoles(website?: Types.ObjectId): RoleHydratedDocument[] {
 		return Array.from(this.roles.values()).filter(role => {
-			if (!website) return role.permissions.includes('dev:super') ? false : !role.website;
+			if (!website) return role._id.equals(FY_DEV_ROLE_ID) ? false : !role.website;
 			return role.website?.equals(website);
 		});
 	}
