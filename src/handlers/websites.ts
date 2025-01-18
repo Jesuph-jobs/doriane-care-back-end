@@ -177,7 +177,7 @@ export const updateSecondaryContent = async (
 		{ websiteId: string; page: SecondaryPagesTypes },
 		ResponseI<null>,
 		{
-			cover: ImageI;
+			cover: CaptionedImageI;
 		}
 	>,
 	res: Response<ResponseI<null>>
