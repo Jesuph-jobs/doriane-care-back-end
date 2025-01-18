@@ -19,6 +19,9 @@ if (!fs.existsSync(FY_PUBLIC_DIR)) {
 if (!fs.existsSync(imageDir)) {
 	fs.mkdirSync(imageDir);
 }
+if (!fs.existsSync(otherFilesDir)) {
+	fs.mkdirSync(otherFilesDir);
+}
 /* cloudinaryService.cloudinaryStorage
 	? multer({ storage: cloudinaryService.cloudinaryStorage })
 	: null; */
@@ -88,7 +91,7 @@ export const uploadOtherMulter = multer({
 			cb(null, `${uniqueSuffix}-${file.originalname.replaceAll(' ', '-')}`);
 		},
 		destination: (_req, _file, cb) => {
-			cb(null, imageDir);
+			cb(null, otherFilesDir);
 		},
 	}),
 });
