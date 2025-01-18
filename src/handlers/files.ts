@@ -91,7 +91,7 @@ export const uploadOtherMulter = multer({
 			cb(null, `${uniqueSuffix}-${file.originalname.replaceAll(' ', '-')}`);
 		},
 		destination: (_req, _file, cb) => {
-			cb(null, imageDir);
+			cb(null, otherFilesDir);
 		},
 	}),
 });
