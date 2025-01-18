@@ -19,6 +19,9 @@ if (!fs.existsSync(FY_PUBLIC_DIR)) {
 if (!fs.existsSync(imageDir)) {
 	fs.mkdirSync(imageDir);
 }
+if (!fs.existsSync(otherFilesDir)) {
+	fs.mkdirSync(otherFilesDir);
+}
 /* cloudinaryService.cloudinaryStorage
 	? multer({ storage: cloudinaryService.cloudinaryStorage })
 	: null; */
