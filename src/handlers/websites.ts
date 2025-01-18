@@ -171,6 +171,33 @@ export const updateHomeContent = async (
 		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't update website", e, res);
 	}
 };
+export const updateSecondaryContent = async (
+	req: ERequest<
+		null,
+		{ websiteId: string; page: SecondaryPagesTypes },
+		ResponseI<null>,
+		{
+			cover: ImageI;
+		}
+	>,
+	res: Response<ResponseI<null>>
+) => {
+	try {
+		const website = websitesManagerService.getWebsite(req.params.websiteId);
+		if (!website) throw new Error('Website not found');
+		const pageContentWithoutT = req.body;
+		if (req.params.page !== 'auth' && req.params.page !== 'products') throw new Error('page not found');
+		if (!website.pagesContent) website.pagesContent = { [req.params.page]: pageContentWithoutT };
+		else website.pagesContent[req.params.page] = pageContentWithoutT;
+		await website.save();
+		handleServiceResponse(
+			new ServiceResponse<null>(ResponseStatus.Success, 'Website updated successfully', null, StatusCodes.OK),
+			res
+		);
+	} catch (e) {
+		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't update website", e, res);
+	}
+};
 export const updateLoyaltyProgram = async (
 	req: ERequest<null, { websiteId: string }, ResponseI<null>, LoyaltyProgramSettingsI>,
 	res: Response<ResponseI<null>>
