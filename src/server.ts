@@ -22,6 +22,7 @@ async function listen() {
 		if (!isTest)
 			BoxConsole([
 				`🌐 Server (${NODE_ENV}) running`,
+				`⌛ Server started at ${new Date().toLocaleString('en-UK')}`,
 				`⌛ Server was up in ${process.uptime()} seconds`,
 				`🚪 PORT: ${PORT}`,
 				isDev ? `🖥️  HOST: http://${FY_HOST}:${PORT}/docs/v1` : '',

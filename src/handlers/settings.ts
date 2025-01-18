@@ -23,6 +23,6 @@ export const getWebsiteSettings = async (
 			res
 		);
 	} catch (e) {
-		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't fetch order", e, res);
+		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't fetch website settings", e, res);
 	}
 };

@@ -20,7 +20,7 @@ class BullMQService extends Service<Worker<QueuedEmail>> {
 		super(id, BullMQService.connect(Promise.resolve(redisClient)));
 		this.redisClient = redisClient;
 		this.connection.then(() => {
-			cLogger.info("📬 Le service de gestion des files d'attente est prêt");
+			cLogger.info('📬 The queue management service is ready');
 		});
 	}
 	public static async connect(connection: Promise<IORedis>): Promise<Worker<QueuedEmail>> {
@@ -49,18 +49,18 @@ class BullMQService extends Service<Worker<QueuedEmail>> {
 				.then(info => {
 					if (info) {
 						info.rejected?.forEach(recipient => {
-							cLogger.error(`📧 Email ${job.id || 'unknown'} à ${recipient} rejetée`);
+							cLogger.error(`📧 Email ${job.id || 'unknown'} à ${recipient} rejected`);
 						});
 						info.accepted.forEach(recipient => {
-							cLogger.info(`📧 Email ${job.id || 'unknown'} à ${recipient} acceptée`);
+							cLogger.info(`📧 Email ${job.id || 'unknown'} à ${recipient} accepted`);
 						});
 					} else {
-						cLogger.warn(`📧 Email ${job.id || 'unknown'}  ete annule`);
+						cLogger.warn(`📧 Email ${job.id || 'unknown'}  was cancelled`);
 						// job.moveToDelayed()
 					}
 				})
 				.catch(error => {
-					cLogger.error(`📧 Email ${job.id || 'unknown'} à ${job.data.to} a échoué avec ${error}`);
+					cLogger.error(`📧 Email ${job.id || 'unknown'} à ${job.data.to} failed because of : ${error}`);
 				});
 		});
 	};

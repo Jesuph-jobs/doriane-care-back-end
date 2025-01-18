@@ -1,5 +1,5 @@
 import roleModel from '&common/Role';
-import { PermissionsIds } from '@common/permissions/Permissions';
+import { BasePermissionsIds } from '@common/permissions/Permissions';
 import { faker } from '@faker-js/faker';
 import _ from 'lodash';
 import { Types } from 'mongoose';
@@ -12,7 +12,10 @@ const role = (
 	return {
 		name: faker.person.jobTitle(),
 		description: faker.person.jobDescriptor(),
-		permissions: [...containsPermissions, ..._.sampleSize(PermissionsIds, faker.number.int({ min: 1, max: 10 }))],
+		permissions: [
+			...containsPermissions,
+			..._.sampleSize(BasePermissionsIds, faker.number.int({ min: 1, max: 10 })),
+		],
 		website,
 	};
 };

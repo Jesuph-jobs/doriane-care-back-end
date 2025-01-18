@@ -179,6 +179,64 @@ export const updateAdminState = async (
 		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't update admin", e, res);
 	}
 };
+export const assignRoleToAdmin = async (
+	req: ERequest<null, { adminId: string }, ResponseI<null>, { roleId: string }>,
+	res: Response<ResponseI<null>>
+) => {
+	try {
+		const admin = await adminModel
+			.updateOne(
+				{
+					_id: req.params.adminId,
+				},
+				{
+					// push to roles roleId make sure to not make duplicates
+					$addToSet: { roles: req.body.roleId },
+				},
+				{
+					new: true,
+				}
+			)
+			.lean();
+		if (admin.modifiedCount === 0) throw new Error('Admin not found');
+		handleServiceResponse(
+			new ServiceResponse<null>(ResponseStatus.Success, 'Role assigned successfully', null, StatusCodes.OK),
+			res
+		);
+	} catch (e) {
+		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't assign role to admin", e, res);
+	}
+};
+export const unassignRoleFromAdmin = async (
+	req: ERequest<null, { adminId: string }, ResponseI<null>, { roleId: string }>,
+	res: Response<ResponseI<null>>
+) => {
+	try {
+		const admin = await adminModel
+			.updateOne(
+				{
+					_id: req.params.adminId,
+				},
+				{
+					// Remove the specified roleId from roles array
+					$pull: { roles: req.body.roleId },
+				},
+				{
+					new: true, // No effect in updateOne, kept for symmetry
+				}
+			)
+			.lean();
+
+		if (admin.modifiedCount === 0) throw new Error('Admin not found or role not removed');
+
+		handleServiceResponse(
+			new ServiceResponse<null>(ResponseStatus.Success, 'Role unassigned successfully', null, StatusCodes.OK),
+			res
+		);
+	} catch (e) {
+		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't unassign role from admin", e, res);
+	}
+};
 
 export const deleteAdmins = async (
 	req: ERequest<null, any, ResponseI<null>, { adminIds: string[] }>,

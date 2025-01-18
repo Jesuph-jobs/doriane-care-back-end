@@ -13,6 +13,7 @@ import ordersRouter from './orders.router';
 import productsRouter from './products.router';
 import profileRouter from './profile/router';
 import reviewsRouter from './reviews.router';
+import rolesRouter from './roles.router';
 import settingsRouter from './settings.router';
 import websitesRouter from './websites.router';
 
@@ -24,6 +25,7 @@ v1Router.use('/upload', uploadRouter);
 v1Router.use('/profile', profileRouter);
 v1Router.use(checkConfiguration, isLoggedInAndWebsite);
 v1Router.use('/settings', settingsRouter);
+v1Router.use('/roles', rolesRouter);
 v1Router.use('/websites', websitesRouter);
 v1Router.use('/websites', settingsRouter);
 v1Router.use('/products', productsRouter);
