@@ -5,9 +5,9 @@ import { handleErrorResponse, handleServiceResponse } from '@server/utils/httpHa
 import { ResponseStatus, ServiceResponse, ServiceResponseList } from '@server/utils/serviceResponse';
 
 import type { ERequest } from '!server/E_Express';
-import guestModel from '&common/Guest';
+/* import guestModel from '&common/Guest'; */
 import orderModel, { adminOrderPipeline, customerOrderPipeline } from '&common/Order';
-import { CalculateOrder, createOrder } from '@common/actions/server/checkout';
+import { CalculateOrder /* createOrder */ } from '@common/actions/server/orders';
 import { Types, isObjectIdOrHexString } from 'mongoose';
 
 export const getOrderById = async (
@@ -119,7 +119,7 @@ export const getCustomerOrders = async (
 		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't fetch orders", e, res);
 	}
 };
-
+/* 
 export const createGuestOrder = async (
 	req: ERequest<WebSiteDocumentI & UserDocumentI, any, ResponseI<PublicOrderI>, CheckoutAsGuestI>,
 	res: Response<ResponseI<PublicOrderI>>
@@ -132,7 +132,7 @@ export const createGuestOrder = async (
 			...guest,
 			website: website._id,
 		});
-		const orderD = await createOrder(checkout, website.toOptimizedObject(), guestD._id);
+		const [orderD] = await createOrder(checkout, website.toOptimizedObject(), guestD._id);
 
 		handleServiceResponse(
 			new ServiceResponse<PublicOrderI>(
@@ -146,7 +146,7 @@ export const createGuestOrder = async (
 	} catch (e) {
 		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't create order", e, res);
 	}
-};
+}; */
 const allowedStatusChanges: Record<OrderStatusTypes, OrderStatusTypes[]> = {
 	pending: ['confirmed', 'cancelled'],
 	confirmed: ['shipped', 'cancelled'],

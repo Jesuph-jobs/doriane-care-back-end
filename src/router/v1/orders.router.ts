@@ -1,7 +1,6 @@
 import { Router } from 'express';
 
 import {
-	createGuestOrder,
 	deleteOrders,
 	getCustomerOrders,
 	getOrderById,
@@ -17,7 +16,10 @@ import {
 
 const ordersRouter = Router();
 
-ordersRouter.route('/').get(getOrders).post(createGuestOrder).delete(deleteOrders);
+ordersRouter
+	.route('/')
+	.get(getOrders) /* .post(createGuestOrder) */
+	.delete(deleteOrders);
 ordersRouter.route('/customer/:customerId').get(getCustomerOrders);
 ordersRouter.route('/:orderId/state').put(updateOrderState);
 ordersRouter.route('/:orderId/delivery').put(updateOrderDeliveryInformation);

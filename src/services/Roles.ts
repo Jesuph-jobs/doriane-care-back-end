@@ -145,7 +145,12 @@ export default class RolesManagerService extends Service<RoleHydratedDocument[]>
 			})
 			.filter(role => role !== null);
 		let websitesMap: Map<string, BasicWebSiteI>;
-		if (roles.some(role => role._id.equals(FY_DEV_ROLE_ID))) {
+		if (
+			roles.some(
+				role =>
+					role._id.equals(FY_DEV_ROLE_ID) || role.permissions.some(permission => permission === 'admin:super')
+			)
+		) {
 			websitesMap = websitesManagerService.getBasicWebsites(websitesManagerService.websites.keys().toArray());
 		} else
 			websitesMap = websitesManagerService.getBasicWebsites(
