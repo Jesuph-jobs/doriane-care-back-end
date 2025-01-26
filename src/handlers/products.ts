@@ -153,6 +153,7 @@ export const createProduct = async (
 			isPublished: false,
 			enabled: true,
 			createdBy: user._id,
+			pricePriority: [],
 		};
 		const product = (await productModel.create(newProduct)).toOptimizedObject();
 		handleServiceResponse(
@@ -377,7 +378,15 @@ export const checkProductSlug = async (
 };
 // ProductAdditionalI;
 export const updateProductAdditional = async (
-	req: ERequest<WebSiteDocumentI, { productId: string }, ResponseI<null>, ProductAdditionalI>,
+	req: ERequest<
+		WebSiteDocumentI,
+		{ productId: string },
+		ResponseI<null>,
+		{
+			additional: PublicProductI['additional'];
+			pricePriority: PublicProductI['pricePriority'];
+		}
+	>,
 	res: Response<ResponseI<null>>
 ) => {
 	const website = req.records!.website!;
@@ -390,7 +399,8 @@ export const updateProductAdditional = async (
 				},
 				{
 					$set: {
-						additional: req.body,
+						additional: req.body.additional,
+						pricePriority: req.body.pricePriority,
 					},
 				},
 				{
