@@ -8,6 +8,7 @@ import type { ERequest } from '!server/E_Express';
 /* import guestModel from '&common/Guest'; */
 import orderModel, { adminOrderPipeline, customerOrderPipeline } from '&common/Order';
 import { CalculateOrder /* createOrder */ } from '@common/actions/server/orders';
+import { hashProductCart } from '@common/utils/global/hasProductCart';
 import { Types, isObjectIdOrHexString } from 'mongoose';
 
 export const getOrderById = async (
@@ -280,20 +281,17 @@ export const updateOrderProductPrice = async (
 		if (!order) throw new Error('Order not found');
 		if (!updateAllowedStatus.includes(order.status))
 			throw new Error(`You can't update order if status is ${order.status}.`);
-		const { price, productId, variantId } = req.body;
-		const productIndex = order.products.findIndex(productItem => {
-			if (productItem.product.productId.equals(productId)) {
-				if (variantId) {
-					return !!(productItem.product.variant as VariantI & { _id: Types.ObjectId })._id?.equals(variantId);
-				}
-				return true;
-			}
-			return false;
-		});
-		if (productIndex === -1) throw new Error('Product not found in this order.');
-		order.products[productIndex].product.price = price;
-		const subTotal = order.products.reduce((acc, p) => acc + p.count * p.product.price, 0);
+		const { price, productHash } = req.body;
+		const productsMap = new Map(
+			order.products.map(p => [hashProductCart(p.product.productId.toString(), p.variants), p])
+		);
+		const currentProduct = productsMap.get(productHash);
+		if (!currentProduct) throw new Error('Product not found in this order.');
+		currentProduct.product.price = price;
+		const products = [...productsMap.values()];
+		const subTotal = products.reduce((acc, p) => acc + p.count * p.product.price, 0);
 		order.totalPrice = subTotal + order.delivery.cost;
+		order.products = products;
 		await order.save();
 		handleServiceResponse(
 			new ServiceResponse<null>(ResponseStatus.Success, 'Order updated successfully', null, StatusCodes.OK),
@@ -316,20 +314,17 @@ export const updateOrderProductCount = async (
 		if (!order) throw new Error('Order not found');
 		if (!updateAllowedStatus.includes(order.status))
 			throw new Error(`You can't update order if status is ${order.status}.`);
-		const { count, productId, variantId } = req.body;
-		const productIndex = order.products.findIndex(productItem => {
-			if (productItem.product.productId.equals(productId)) {
-				if (variantId) {
-					return !!(productItem.product.variant as VariantI & { _id: Types.ObjectId })._id?.equals(variantId);
-				}
-				return true;
-			}
-			return false;
-		});
-		if (productIndex === -1) throw new Error('Product not found in this order.');
-		order.products[productIndex].count = count;
-		const subTotal = order.products.reduce((acc, p) => acc + p.count * p.product.price, 0);
+		const { count, productHash } = req.body;
+		const productsMap = new Map(
+			order.products.map(p => [hashProductCart(p.product.productId.toString(), p.variants), p])
+		);
+		const currentProduct = productsMap.get(productHash);
+		if (!currentProduct) throw new Error('Product not found in this order.');
+		currentProduct.count = count;
+		const products = [...productsMap.values()];
+		const subTotal = products.reduce((acc, p) => acc + p.count * p.product.price, 0);
 		order.totalPrice = subTotal + order.delivery.cost;
+		order.products = products;
 		await order.save();
 		handleServiceResponse(
 			new ServiceResponse<null>(ResponseStatus.Success, 'Order updated successfully', null, StatusCodes.OK),
