@@ -9,7 +9,32 @@ export const websites = [
 ];
 export const website: WebSiteI = {
 	FY_ID: '',
-
+	loyaltyProgram: {
+		bonuses: {
+			accountCreation: 0,
+			newsletterSignup: 0,
+		},
+		conversionRate: 0.01,
+		expirationOnMonths: 12,
+		multipliers: {
+			promotion: 2,
+		},
+		tiers: {
+			bronze: {
+				min: 0,
+				max: 100,
+			},
+			silver: {
+				min: 101,
+				max: 500,
+			},
+			gold: {
+				min: 501,
+				max: 1000,
+			},
+		},
+	},
+	pricePriority: [],
 	services: Array.from({ length: 4 }, () => ({
 		title: { en: faker.lorem.sentence(), fr: faker.lorem.sentence(), ar: faker.lorem.sentence() },
 		description: { en: faker.lorem.paragraph(), fr: faker.lorem.paragraph(), ar: faker.lorem.paragraph() },
