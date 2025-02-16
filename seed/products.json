@@ -1,0 +1,872 @@
+[
+	{
+		"label": {
+			"en": "CARAMEL BROWN",
+			"fr": "MARRON CARAMEL",
+			"ar": "بني كراميل"
+		},
+		"available": true,
+		"value": "6.77.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "INTENSE CARAMEL BROWN",
+			"fr": "MARRON CARAMEL INTENSE",
+			"ar": "بني كراميل مكثف"
+		},
+		"available": true,
+		"value": "5.77.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "MOCHA BROWN",
+			"fr": "MARRON MOCHA",
+			"ar": "بني موكا"
+		},
+		"available": true,
+		"value": "8.74.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "HOT COCOA",
+			"fr": "CHOCOLAT CHAUD",
+			"ar": "كوكو ساخن"
+		},
+		"available": true,
+		"value": "7.74.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "NUTSHELL",
+			"fr": "COQUILLE DE NOIX",
+			"ar": "قشرة جوز"
+		},
+		"available": true,
+		"value": "6.74.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "LIGHT CAPPUCCINO BROWN",
+			"fr": "MARRON CAPPUCCINO CLAIR",
+			"ar": "بني كابوتشينو فاتح"
+		},
+		"available": true,
+		"value": "8.73.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "CAPPUCCINO BROWN",
+			"fr": "MARRON CAPPUCCINO",
+			"ar": "بني كابوتشينو"
+		},
+		"available": true,
+		"value": "7.73.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "DARK CAPPUCCINO BROWN",
+			"fr": "MARRON CAPPUCCINO FONCÉ",
+			"ar": "بني كابوتشينو داكن"
+		},
+		"available": true,
+		"value": "6.73.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "ASH PEARLY BLONDE",
+			"fr": "BLOND CENDRÉ PERLE",
+			"ar": "بلوند رمادي لؤلؤي"
+		},
+		"available": true,
+		"value": "9.21.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "LIGHT ASH BEIGE AUBURN",
+			"fr": "AUBURN CLAIR CENDRÉ BEIGE",
+			"ar": "بندقي فاتح رمادي بيج"
+		},
+		"available": true,
+		"value": "8.21.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "ASH BEIGE AUBURN",
+			"fr": "AUBURN CENDRÉ BEIGE",
+			"ar": "بندقي رمادي بيج"
+		},
+		"available": true,
+		"value": "7.21.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "LIGHT BROWN",
+			"fr": "MARRON CLAIR",
+			"ar": "بني فاتح"
+		},
+		"available": true,
+		"value": "8.71.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "NATURAL ASH BROWN",
+			"fr": "MARRON CENDRÉ NATUREL",
+			"ar": "بني رمادي طبيعي"
+		},
+		"available": true,
+		"value": "7.71.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "DARK ASH BROWN",
+			"fr": "MARRON CENDRÉ FONCÉ",
+			"ar": "بني رمادي داكن"
+		},
+		"available": true,
+		"value": "6.71.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "ASH BEIGE BLONDE",
+			"fr": "BLOND CENDRÉ BEIGE",
+			"ar": "بلوند رمادي بيج"
+		},
+		"available": true,
+		"value": "9.12.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "FROSTY BEIGE LIGHT AUBURN",
+			"fr": "AUBURN CLAIR BEIGE GLACÉ",
+			"ar": "بندقي فاتح بيج مثلج"
+		},
+		"available": true,
+		"value": "8.12.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "FROSTY BEIGE AUBURN",
+			"fr": "AUBURN BEIGE GLACÉ",
+			"ar": "بندقي بيج مثلج"
+		},
+		"available": true,
+		"value": "7.12.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "LIGHT COPPER AUBURN",
+			"fr": "AUBURN CLAIR COPPER",
+			"ar": "بندقي فاتح نحاسي"
+		},
+		"available": true,
+		"value": "8.34.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "LIGHT COPPER BROWN",
+			"fr": "MARRON CLAIR COPPER",
+			"ar": "بني فاتح نحاسي"
+		},
+		"available": true,
+		"value": "7.34.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "COPPER BROWN",
+			"fr": "MARRON COPPER",
+			"ar": "بني نحاسي"
+		},
+		"available": true,
+		"value": "6.34.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "DARK COPPER BROWN",
+			"fr": "MARRON COPPER FONCÉ",
+			"ar": "بني نحاسي داكن"
+		},
+		"available": true,
+		"value": "5.34.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "LIGHT COPPER",
+			"fr": "COPPER CLAIR",
+			"ar": "نحاسي فاتح"
+		},
+		"available": true,
+		"value": "8.4.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "COPPER",
+			"fr": "COPPER",
+			"ar": "نحاسي"
+		},
+		"available": true,
+		"value": "7.4.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "DARK COPPER",
+			"fr": "COPPER FONCÉ",
+			"ar": "نحاسي داكن"
+		},
+		"available": true,
+		"value": "6.4.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "LIGHT INTENSE COPPER",
+			"fr": "COPPER INTENSE CLAIR",
+			"ar": "نحاسي مكثف فاتح"
+		},
+		"available": true,
+		"value": "8.44.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "INTENSE COPPER",
+			"fr": "COPPER INTENSE",
+			"ar": "نحاسي مكثف"
+		},
+		"available": true,
+		"value": "7.44.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "DARK INTENSE COPPER",
+			"fr": "COPPER INTENSE FONCÉ",
+			"ar": "نحاسي مكثف داكن"
+		},
+		"available": true,
+		"value": "6.44.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "CONTRAST GARNET",
+			"fr": "GARNET CONTRASTÉ",
+			"ar": "غارنيت متناقض"
+		},
+		"available": true,
+		"value": "8.66.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "CONTRAST LOVE FIRE",
+			"fr": "AMOUR DE FEU CONTRASTÉ",
+			"ar": "حب النار المتناقض"
+		},
+		"available": true,
+		"value": "7.65.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "CONTRAST RUBY",
+			"fr": "RUBIS CONTRASTÉ",
+			"ar": "روبي متناقض"
+		},
+		"available": true,
+		"value": "6.65.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "FIRE RED",
+			"fr": "ROUGE FEU",
+			"ar": "أحمر نار"
+		},
+		"available": true,
+		"value": "7.6.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "INTENSE RED",
+			"fr": "ROUGE INTENSE",
+			"ar": "أحمر مكثف"
+		},
+		"available": true,
+		"value": "6.6.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "LIGHT VIOLET",
+			"fr": "VIOLET CLAIR",
+			"ar": "بنفسجي فاتح"
+		},
+		"available": true,
+		"value": "7.22.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "PERIWINKLE",
+			"fr": "VIOLET CIEL",
+			"ar": "بنفسجي السماء"
+		},
+		"available": true,
+		"value": "6.22.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "EGGPLANT PURPLE",
+			"fr": "VIOLET AUBERGINE",
+			"ar": "باذنجان بنفسجي"
+		},
+		"available": true,
+		"value": "5.22.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "WINE RED",
+			"fr": "ROUGE VIN",
+			"ar": "أحمر نبيذ"
+		},
+		"available": true,
+		"value": "5.6.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "EXTRA ASH BLONDE",
+			"fr": "BLOND CENDRÉ EXTRA",
+			"ar": "بلوند رمادي إضافي"
+		},
+		"available": true,
+		"value": "12.81.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "BEIGE BLONDE",
+			"fr": "BLOND BEIGE",
+			"ar": "بلوند بيج"
+		},
+		"available": true,
+		"value": "12.19.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "PLATINUM GOLD",
+			"fr": "PLATINE DORÉ",
+			"ar": "بلاتيني ذهبي"
+		},
+		"available": true,
+		"value": "12.03.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "EXTRA LIGHT ASH BLONDE",
+			"fr": "EXTRA BLOND CENDRÉ CLAIR",
+			"ar": "بلوند رمادي إضافي فاتح"
+		},
+		"available": true,
+		"value": "12.01.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "EXTRA PLATIN BLONDE",
+			"fr": "EXTRA BLOND PLATINE",
+			"ar": "بلوند بلاتيني إضافي"
+		},
+		"available": true,
+		"value": "12.00.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "RED",
+			"fr": "ROUGE",
+			"ar": "أحمر"
+		},
+		"available": true,
+		"value": "RED",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "BLUE",
+			"fr": "BLEU",
+			"ar": "أزرق"
+		},
+		"available": true,
+		"value": "BLUE",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "ORANGE",
+			"fr": "ORANGE",
+			"ar": "برتقالي"
+		},
+		"available": true,
+		"value": "ORANGE",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "NEUTRAL",
+			"fr": "NEUTRE",
+			"ar": "محايد"
+		},
+		"available": true,
+		"value": "NEUTRAL",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "GREY",
+			"fr": "GRIS",
+			"ar": "رمادي"
+		},
+		"available": true,
+		"value": "GREY",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "LILAC",
+			"fr": "LILA",
+			"ar": "أرجواني"
+		},
+		"available": true,
+		"value": "LILAC",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "YELLOW",
+			"fr": "JAUNE",
+			"ar": "أصفر"
+		},
+		"available": true,
+		"value": "YELLOW",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "GREEN",
+			"fr": "VERT",
+			"ar": "أخضر"
+		},
+		"available": true,
+		"value": "GREEN",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "INTENSE LIGHT AUBURN",
+			"fr": "AUBURN CLAIR INTENSE",
+			"ar": "بندقي فاتح مكثف"
+		},
+		"available": true,
+		"value": "8s.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "INTENSE AUBURN",
+			"fr": "AUBURN INTENSE",
+			"ar": "بندقي مكثف"
+		},
+		"available": true,
+		"value": "7s.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "INTENSE DARK AUBURN",
+			"fr": "AUBURN FONCÉ INTENSE",
+			"ar": "بندقي داكن مكثف"
+		},
+		"available": true,
+		"value": "6s.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "LIGHT BROWN",
+			"fr": "MARRON CLAIR",
+			"ar": "بني فاتح"
+		},
+		"available": true,
+		"value": "5.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "BROWN",
+			"fr": "MARRON",
+			"ar": "بني"
+		},
+		"available": true,
+		"value": "4.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "DARK BROWN",
+			"fr": "MARRON FONCÉ",
+			"ar": "بني داكن"
+		},
+		"available": true,
+		"value": "3.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "EXTRA BLONDE",
+			"fr": "EXTRA BLOND",
+			"ar": "بلوند إضافي"
+		},
+		"available": true,
+		"value": "12.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "PLATINUM BLONDE",
+			"fr": "BLOND PLATINE",
+			"ar": "بلوند بلاتيني"
+		},
+		"available": true,
+		"value": "10.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "LIGHT BLONDE",
+			"fr": "BLOND CLAIR",
+			"ar": "بلوند فاتح"
+		},
+		"available": true,
+		"value": "9.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "LIGHT AUBURN",
+			"fr": "AUBURN CLAIR",
+			"ar": "بندقي فاتح"
+		},
+		"available": true,
+		"value": "8.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "LIGHT DORE BROWN",
+			"fr": "MARRON DORE CLAIR",
+			"ar": "بني ذهبي فاتح"
+		},
+		"available": true,
+		"value": "5.3.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "DARK AUBURN DORE",
+			"fr": "AUBURN DORE FONCÉ",
+			"ar": "بندقي ذهبي داكن"
+		},
+		"available": true,
+		"value": "6.3.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "BLACK",
+			"fr": "NOIR",
+			"ar": "أسود"
+		},
+		"available": true,
+		"value": "1.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "BLUE BLACK",
+			"fr": "NOIR BLEU",
+			"ar": "أسود أزرق"
+		},
+		"available": true,
+		"value": "1.1.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "DARK AUBURN",
+			"fr": "AUBURN FONCÉ",
+			"ar": "بندقي داكن"
+		},
+		"available": true,
+		"value": "6.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "EXTRA MATTE ASH BLONDE",
+			"fr": "BLOND CENDRÉ EXTRA MAT",
+			"ar": "بلوند رمادي مات إضافي"
+		},
+		"available": true,
+		"value": "9.111.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "EXTRA MATTE LIGHT ASH AUBURN",
+			"fr": "AUBURN CLAIR CENDRÉ EXTRA MAT",
+			"ar": "بندقي فاتح رمادي مات إضافي"
+		},
+		"available": true,
+		"value": "8.111.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "EXTRA MATTE ASH AUBURN",
+			"fr": "AUBURN INTENSE CENDRÉ EXTRA MAT",
+			"ar": "بندقي مكثف رمادي مات إضافي"
+		},
+		"available": true,
+		"value": "7.111.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "EXTRA MATTE DARK ASH AUBURN",
+			"fr": "AUBURN FONCÉ CENDRÉ EXTRA MAT",
+			"ar": "بندقي داكن رمادي مات إضافي"
+		},
+		"available": true,
+		"value": "6.111.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "INTENSE ASH BLONDE",
+			"fr": "BLOND CENDRÉ INTENSE",
+			"ar": "بلوند رمادي مكثف"
+		},
+		"available": true,
+		"value": "9.11.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "INTENSE LIGHT ASH AUBURN",
+			"fr": "AUBURN CLAIR CENDRÉ INTENSE",
+			"ar": "بندقي فاتح رمادي مكثف"
+		},
+		"available": true,
+		"value": "8.11.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "INTENSE ASH AUBURN",
+			"fr": "AUBURN CENDRÉ INTENSE",
+			"ar": "بندقي رمادي مكثف"
+		},
+		"available": true,
+		"value": "7.11.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "INTENSE DARK ASH AUBURN",
+			"fr": "AUBURN FONCÉ CENDRÉ INTENSE",
+			"ar": "بندقي داكن رمادي مكثف"
+		},
+		"available": true,
+		"value": "6.11.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "INTENSE LIGHT ASH BROWN",
+			"fr": "MARRON CLAIR CENDRÉ INTENSE",
+			"ar": "بني فاتح رمادي مكثف"
+		},
+		"available": true,
+		"value": "5.11.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "ASH BLONDE",
+			"fr": "BLOND CENDRÉ",
+			"ar": "بلوند رمادي"
+		},
+		"available": true,
+		"value": "9.1.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "LIGHT ASH AUBURN",
+			"fr": "AUBURN CLAIR CENDRÉ",
+			"ar": "بندقي فاتح رمادي"
+		},
+		"available": true,
+		"value": "8.1.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "ASH AUBURN",
+			"fr": "AUBURN CENDRÉ",
+			"ar": "بندقي رمادي"
+		},
+		"available": true,
+		"value": "7.1.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "DARK ASH AUBURN",
+			"fr": "AUBURN FONCÉ CENDRÉ",
+			"ar": "بندقي داكن رمادي"
+		},
+		"available": true,
+		"value": "6.1.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "LIGHT BLONDE DORE",
+			"fr": "BLOND CLAIR DORE",
+			"ar": "بلوند فاتح ذهبي"
+		},
+		"available": true,
+		"value": "9.3.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "LIGHT AUBURN DORE",
+			"fr": "AUBURN CLAIR DORE",
+			"ar": "بندقي فاتح ذهبي"
+		},
+		"available": true,
+		"value": "8.3.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "AUBURN DORE",
+			"fr": "AUBURN DORE",
+			"ar": "بندقي ذهبي"
+		},
+		"available": true,
+		"value": "7.3.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "EXTRA PLATINUM DORE",
+			"fr": "EXTRA BLOND DORE",
+			"ar": "بلوند إضافي ذهبي"
+		},
+		"available": true,
+		"value": "11.3.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "PLATINUM BLONDE DORE",
+			"fr": "BLOND PLATINE DORE",
+			"ar": "بلوند بلاتيني ذهبي"
+		},
+		"available": true,
+		"value": "10.3.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "LIGHT CHOCOLATE BROWN",
+			"fr": "MARRON CHOCOLAT CLAIR",
+			"ar": "بني شوكولاتة فاتح"
+		},
+		"available": true,
+		"value": "8.35.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "HOT CHOCOLATE BROWN",
+			"fr": "MARRON CHOCOLAT FORT",
+			"ar": "بني شوكولاتة حار"
+		},
+		"available": true,
+		"value": "7.35.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "INTENSE CHOCOLATE BROWN",
+			"fr": "MARRON CHOCOLAT INTENSE",
+			"ar": "بني شوكولاتة مكثف"
+		},
+		"available": true,
+		"value": "6.35.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "HONEY BUBBLE",
+			"fr": "MIEL BUBBLE",
+			"ar": "عسل فقاعات"
+		},
+		"available": true,
+		"value": "8.77.",
+		"imagesIndex": []
+	},
+	{
+		"label": {
+			"en": "HOT CARAMEL BROWN",
+			"fr": "MARRON CARAMEL FORT",
+			"ar": "بني كراميل حار"
+		},
+		"available": true,
+		"value": "7.77.",
+		"imagesIndex": []
+	}
+]

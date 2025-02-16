@@ -16,6 +16,7 @@ import profileRouter from './profile/router';
 import reviewsRouter from './reviews.router';
 import rolesRouter from './roles.router';
 import settingsRouter from './settings.router';
+import supportsRouter from './support.router';
 import websitesRouter from './websites.router';
 
 const v1Router = Router();
@@ -28,7 +29,8 @@ v1Router.use(checkConfiguration, isLoggedInAndWebsite);
 v1Router.use('/settings', settingsRouter);
 v1Router.use('/roles', rolesRouter);
 v1Router.use('/websites', websitesRouter);
-v1Router.use('/newsletters', newsletterRouter);
+v1Router.use('/newsletter', newsletterRouter);
+v1Router.use('/supports', supportsRouter);
 v1Router.use('/products', productsRouter);
 v1Router.use('/customers', customersRouter);
 v1Router.use('/admins', adminsRouter);

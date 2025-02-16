@@ -15,6 +15,13 @@ async function start() {
 	if (manager == null) manager = Promise.all(services.map(service => service.Connection));
 	await manager.then(listen);
 	//await userModel.createUser(generateRandomUser());
+	/* const c = await emailService.sendEmail({
+		to: 'tahher@live.fr',
+		from: FY_EMAIL_USERNAME,
+		subject: 'test',
+		html: '<h1>Test</h1>',
+	});
+	console.log({ c }); */
 }
 async function listen() {
 	serverListener = app.listen(PORT, () => {

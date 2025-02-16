@@ -1,0 +1,305 @@
+## NS NATURAL SERIES
+- 1
+  - FR: Noir
+  - AR: اسود
+- 1.1
+  - FR: Noir BLEUTE
+  - AR: اسود مزرق
+- 3
+  - FR: CHATAIN FONCÉ
+  - AR: كستنائي داكن
+- 4
+  - FR: CHATAIN
+  - AR: كستنائي
+- 5
+  - FR: CHATAIN CLAIR
+  - AR: كستنائي فاتح
+- 6
+  - FR: BLOND FONCÉ
+  - AR: اشقر داكن
+- 7
+  - FR: BLOND
+  - AR: اشقر
+- 8
+  - FR: BLOND CLAIR
+  - AR: اشقر فاتح
+- 9
+  - FR: BLOND TRÈS CLAIR
+  - AR: اشقر جدا فاتح
+- 10
+  - FR: BLOND TRÈS TRÈS CLAIR
+  - AR: اشقر جدا جدا فاتح
+- 12
+  - FR: BLOND EXTRA
+  - AR: اشقر إكسترا
+
+## NS ASH SERIES
+- 5.11
+  - FR: CHATAIN CLAIR CENDRE INTENSE
+  - AR: كستنائي فاتح رمادي غامق
+- 6.11
+  - FR: BLOND FONCÉ CENDRE INTENSE
+  - AR: اشقر داكن رمادي غامق
+- 7.11
+  - FR: BLOND CENDRE INTENSE
+  - AR: اشقر رمادي غامق
+- 8.11
+  - FR: BLOND CLAIR CENDRE INTENSE
+  - AR: اشقر فاتح رمادي غامق
+- 9.11
+  - FR: BLOND TRÈS CLAIR CENDRE INTENSE
+  - AR: اشقر جدا فاتح رمادي غامق
+- 11.11
+  - FR: SUPER BLOND CENDRE INTENSE
+  - AR: اشقر إكسترا رمادي غامق
+- 6.111
+  - FR: BRUN CENDRÉ FONCÉ EXTRA MAT
+  - AR: اشقر داكن رمادي غامق غير لامع
+- 7.111
+  - FR: BRUN CENDRÉ EXTRA MAT
+  - AR: اشقر رمادي غامق غير لامع
+- 8.111
+  - FR: BRUN CENDRÉ CLAIR EXTRA MAT
+  - AR: اشقر فاتح رمادي غامق غير لامع
+- 9.111
+  - FR: BLOND CENDRE EXTRA MAT
+  - AR: اشقر رمادي غامق غير لامع
+
+## INTENSE AUBIRN
+- 6S
+  - FR: BLOND FONCÉ NATUREL
+  - AR: اشقر داكن طبيعي
+- 7S
+  - FR: BLOND NATUREL
+  - AR: اشقر طبيعي
+- 8S
+  - FR: BLOND CLAIR NATUREL
+  - AR: اشقر فاتح طبيعي
+- 6.1
+  - FR: BLOND FONCÉ CENDRE
+  - AR: اشقر داكن رمادي
+- 7.1
+  - FR: BLOND CENDRE
+  - AR: اشقر رمادي
+- 8.1
+  - FR: BLOND CLAIR CENDRE
+  - AR: اشقر فاتح رمادي
+- 9.1
+  - FR: BLOND TRÈS CLAIR CENDRE
+  - AR: اشقر جدا فاتح رمادي
+
+## NS GOLD SERIES
+- 5.3
+  - FR: CHATAIN CLAIR DORE
+  - AR: كستنائي فاتح ذهبي
+- 6.3
+  - FR: BLOND FONCÉ DORE
+  - AR: اشقر داكن ذهبي
+- 7.3
+  - FR: BLOND DORÉ
+  - AR: اشقر ذهبي
+- 8.3
+  - FR: BLOND CLAIR DORE
+  - AR: اشقر فاتح ذهبي
+- 9.3
+  - FR: BLOND TRÈS CLAIR DORE
+  - AR: اشقر جدا فاتح ذهبي
+- 10.3
+  - FR: BLOND TRÈS TRÈS CLAIR DORE
+  - AR: اشقر جدا جدا فاتح ذهبي
+- 11.3
+  - FR: SUPER BLOND DORE
+  - AR: اشقر إكسترا ذهبي
+- 12.3
+  - FR: BLOND EXTRA PLATINE DORÉ
+  - AR: اشقر إكسترا بلاتين ذهبي
+
+## CS COPPER SERIES
+- 5.34
+  - FR: CHATAIN CLAIR DORÉ CUIVRE
+  - AR: كستنائي فاتح ذهبي نحاسي
+- 6.34
+  - FR: BLOND FONCÉ DORÉ CUIVRE
+  - AR: اشقر داكن ذهبي نحاسي
+- 7.34
+  - FR: BLOND DORÉ CUIVRE
+  - AR: اشقر ذهبي نحاسي
+- 8.34
+  - FR: BLOND CLAIR DORÉ CUIVRE
+  - AR: اشقر فاتح ذهبي نحاسي
+- 9.34
+  - FR: BLOND TRÈS CLAIR DORÉ CUIVRE
+  - AR: اشقر جدا فاتح ذهبي نحاسي
+- 5.22
+  - FR: CHATAIN CLAIR VIOLET INTENSE
+  - AR: كستنائي فاتح بنفسجي غامق
+- 6.22
+  - FR: BLOND FONCÉ VIOLET INTENSE
+  - AR: اشقر داكن بنفسجي غامق
+- 7.22
+  - FR: BLOND VIOLET INTENSE
+  - AR: اشقر بنفسجي غامق
+- 6.4
+  - FR: CHATAIN CLAIR MARRON CUIVRE
+  - AR: كستنائي فاتح بني نحاسي
+- 7.4
+  - FR: BLOND MARRON CUIVRE
+  - AR: اشقر بني نحاسي
+- 8.4
+  - FR: BLOND CLAIR MARRON CUIVRE
+  - AR: اشقر فاتح بني نحاسي
+- 6.44
+  - FR: BLOND FONCÉ CUIVRE INTENSE
+  - AR: اشقر داكن نحاسي مكثف
+- 7.44
+  - FR: BLOND CUIVRE INTENSE
+  - AR: اشقر نحاسي مكثف
+- 8.44
+  - FR: BLOND CLAIR CUIVRE INTENSE
+  - AR: اشقر فاتح نحاسي مكثف
+
+##  EBS EXTRA BLEACHING SERIES
+- 12.00
+  - FR: BLOND EXTRA PLATINE NATUREL
+  - AR: اشقر إكسترا بلاتين طبيعي
+- 12.01
+  - FR: BLOND EXTRA PLATINE CENDRE
+  - AR: اشقر إكسترا بلاتين رمادي
+- 12.03
+  - FR: BLOND EXTRA PLATINE DORE
+  - AR: اشقر إكسترا بلاتين ذهبي
+- 12.19
+  - FR: BLOND EXTRA PLATINE BEIGE
+  - AR: اشقر إكسترا بلاتين بيج
+- 12.81
+  - FR: BLOND EXTRA CENDRE 
+  - AR: اشقر إكسترا رمادي
+
+## BROWN SERIES
+- 6.73
+  - FR: BLOND FONCÉ MARRON DORÉ
+  - AR: اشقر داكن بني ذهبي
+- 7.73
+  - FR: BLOND MARRON DORE
+  - AR: اشقر بني ذهبي
+- 8.73
+  - FR: BLOND CLAIR MARRON DORE
+  - AR: اشقر فاتح بني ذهبي
+- 6.74
+  - FR: BLOND FONCÉ MARRON CUIVRE
+  - AR: اشقر داكن بني نحاسي
+- 7.74
+  - FR: BLOND MARRON CUIVRE
+  - AR: اشقر بني نحاسي
+- 8.74
+  - FR: BLOND CLAIR MARRON CUIVRE
+  - AR: اشقر فاتح بني نحاسي
+- 5.35
+  - FR: CHATAIN CLAIR DORÉ ACAJOU
+  - AR: كستنائي فاتح ذهبي اكاجو
+- 6.35
+  - FR: BLOND FONCÉ DORÉ ACAJOU
+  - AR: اشقر داكن ذهبي اكاجو
+- 7.35
+  - FR: BLOND DORÉ ACAJOU
+  - AR: اشقر ذهبي اكاجو
+- 8.35
+  - FR: BLOND CLAIR DORÉ ACAJOU
+  - AR: اشقر فاتح ذهبي اكاجو
+- 5.77
+  - FR: CHATAIN CLAIR MARRON INTENSE
+  - AR: كستنائي فاتح بني مكثف
+- 6.77
+  - FR: BLOND FONCÉ MARRON INTENSE
+  - AR: اشقر داكن بني مكثف
+- 7.77
+  - FR: BLOND MARRON INTENSE
+  - AR: اشقر بني مكثف
+- 8.77
+  - FR: BLOND CLAIR MARRON INTENSE
+  - AR: اشقر فاتح بني مكثف
+- 6.71
+  - FR: BLOND FONCÉ MARRON CENDRE
+  - AR: اشقر داكن بني رمادي
+- 7.71
+  - FR: BLOND MARRON CENDRE
+  - AR: اشقر بني رمادي
+- 8.71
+  - FR: BLOND CLAIR MARRON CENDRE
+  - AR: اشقر فاتح بني رمادي
+- 7.72
+  - FR: BRUN IRISÉ INTENSE
+  - AR: اشقر بني قزحي غامق
+- 8.72
+  - FR: BRUN IRISÉ MARRON CLAIR
+  - AR: اشقر بني قزحي فاتح
+- 9.72
+  - FR: BRUN IRISÉ DORÉ (JAUNE)
+  - AR: اشقر بني قزحي ذهبي
+- 7.12
+  - FR: BLOND IRISÉ CENDRÉ
+  - AR: اشقر بني رمادي قزحي
+- 8.12
+  - FR: BLOND CLAIR IRISÉ CENDRÉ
+  - AR: اشقر فاتح بني رمادي قزحي
+- 9.12
+  - FR: BLOND TRÈS CLAIR IRISÉ CENDRÉ
+  - AR: اشقر جدا فاتح بني رمادي قزحي
+- 7.21
+  - FR: BLOND CENDRÉ DORE
+  - AR: اشقر رمادي ذهبي
+- 8.21
+  - FR: BLOND CLAIR CENDRÉ DORE
+  - AR: اشقر فاتح رمادي ذهبي
+- 9.21
+  - FR: BLOND (JAUNE) CENDRÉ IRISÉ
+  - AR: اشقر قزحي رمادي
+
+## RS RED SERIES
+- 5.6
+  - FR: CHATAIN CLAIR ROUGE
+  - AR: كستنائي فاتح أحمر
+- 6.6
+  - FR: BLOND FONCÉ ROUGE
+  - AR: اشقر داكن أحمر
+- 7.6
+  - FR: BLOND ROUGE
+  - AR: اشقر أحمر
+
+## KS CONTAST SERIES
+- 6.65
+  - FR: BLOND FONCÉ ROUGE ACAJOU
+  - AR: اشقر داكن أحمر اكاجو
+- 7.65
+  - FR: BLOND ROUGE ACAJOU
+  - AR: اشقر أحمر اكاجو
+- 8.66
+  - FR: BLOND CLAIR ROUGE INTENSE
+  - AR: اشقر فاتح أحمر مكثف
+
+## MS MIX SERIES
+- JAUNE
+  - FR: JAUNE
+  - AR: اشعر
+- ORANGE
+  - FR: ORANGE
+  - AR: برتقالي
+- ROUGE
+  - FR: ROUGE
+  - AR: أحمر
+- BLEU
+  - FR: BLEU
+  - AR: أزرق
+- VERT
+  - FR: VERT
+  - AR: أخضر
+- GRIS
+  - FR: GRIS
+  - AR: رمادي
+- LILAS
+  - FR: LILAS
+  - AR: ليلكي(ارجواني)
+- NEUTRE 
+  - FR: NEUTRE
+  - AR: محايد
+
