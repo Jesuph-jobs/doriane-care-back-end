@@ -20,7 +20,7 @@ export const CheckUsernameShapeSchema = z.object<MyZodType<CheckUsernameShapeI>>
 		message: 'Query must be empty',
 	}),
 	params: z.object({
-		username: usernameSchema(),
+		username: usernameSchema('en'),
 	}),
 });
 
@@ -32,7 +32,7 @@ export const CheckEmailShapeSchema = z.object<MyZodType<CheckEmailShapeI>>({
 		message: 'Query must be empty',
 	}),
 	params: z.object({
-		email: emailSchema(),
+		email: emailSchema('en'),
 	}),
 });
 

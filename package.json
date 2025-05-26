@@ -4,8 +4,8 @@
 	},
 	"dependencies": {
 		"@asteasolutions/zod-to-openapi": "^7.3.2",
+		"@commitlint/types": "^19.8.1",
 		"bcrypt": "^6.0.0",
-		"box-console": "^2.0.0",
 		"bullmq": "^5.53.0",
 		"cookie-parser": "^1.4.7",
 		"cors": "^2.8.5",
@@ -47,6 +47,7 @@
 		"@types/morgan": "^1.9.9",
 		"@types/multer": "^1.4.12",
 		"@types/nodemailer": "^6.4.17",
+		"@types/qs": "^6.9.18",
 		"@types/supertest": "^6.0.3",
 		"@types/swagger-ui-express": "^4.1.8",
 		"cross-env": "^7.0.3",
@@ -54,9 +55,10 @@
 		"lint-staged": "^16.0.0",
 		"lodash": "^4.17.21",
 		"pino-pretty": "^13.0.0",
+		"qs": "^6.14.0",
 		"rimraf": "^6.0.1",
 		"supertest": "^7.1.1",
-		"tsup": "^8.5.0",
+		"tsc-alias": "1.8.16",
 		"tsx": "^4.19.4",
 		"typescript": "^5.8.3",
 		"vite-tsconfig-paths": "^5.1.4",
@@ -64,33 +66,31 @@
 	},
 	"license": "MIT",
 	"lint-staged": {
-		"*.{js,ts,cjs,mjs,d.cts,d.mts,json,jsonc}": ["biome check --apply --no-errors-on-unmatched"]
+		"*.{js,ts,cjs,mjs,d.cts,d.mts,json,jsonc}": [
+			"biome check --apply --no-errors-on-unmatched"
+		]
 	},
-	"main": "src/index.ts",
+	"main": "dist/src/index.js",
 	"name": "doriane-care-back-end",
 	"private": true,
 	"repository": "Jesuph-jobs/doriane-care-back-end",
 	"scripts": {
-		"build": "tsup",
+		"build": "tsc --project ./tsconfig.app.json && tsc-alias -p ./tsconfig.app.json",
+		"build:windows": "tsc --project ./tsconfig.app.json & tsc-alias -p ./tsconfig.app.json",
 		"clean": "rimraf dist coverage",
-		"dev": "chcp 65001 && cross-env NODE_ENV=development tsx watch --clear-screen=false src/index.ts | pino-pretty",
-		"dev:linux": "NODE_ENV=development tsx watch --clear-screen=false src/index.ts | pino-pretty",
-		"start": "node dist/index.js ",
+		"dev": "chcp 65001 && cross-env NODE_ENV=development nodemon --ext .ts,.tsx --exec \"pnpm run build:windows & node . | pino-pretty\"",
+		"dev:linux": "NODE_ENV=development nodemon --ext .ts,.tsx --exec \"pnpm run build && node . | pino-pretty\"",
 		"format": "biome format",
 		"format:fix": "biome format --write",
 		"lint": "biome check",
 		"lint:fix": "biome check --fix",
 		"lint:fix-unsafe": "biome check --fix --unsafe",
 		"prepare": "husky",
-		"test": "vitest run",
-		"seed": "chcp 65001 && tsx seed/index.ts"
+		"seed": "chcp 65001 && tsx --tsconfig ./tsconfig.seed.json seed/index.ts",
+		"start": "node .",
+		"test": "vitest run"
 	},
-	"tsup": {
-		"clean": true,
-		"entry": ["!src/**/*.test.*", "!src/**/__tests__/**", "src"],
-		"sourcemap": true,
-		"splitting": false
-	},
+	"type": "commonjs",
 	"version": "0.0.1",
 	"packageManager": "pnpm@10.11.0+sha512.6540583f41cc5f628eb3d9773ecee802f4f9ef9923cc45b69890fb47991d4b092964694ec3a4f738a420c918a333062c8b925d312f42e4f0c263eb603551f977"
 }

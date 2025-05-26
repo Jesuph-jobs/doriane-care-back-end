@@ -5,7 +5,7 @@ import { ProductInformationISchema } from '^common/models/products';
 
 export const GetProductsShape = z.object<MyZodType<GetProductsShapeI>>({
 	// body must be empty
-	body: SortableQuerySearchSchema(productSortableFields as unknown as MyEnum<ProductSortableFields>),
+	body: SortableQuerySearchSchema(productSortableFields as unknown as MyEnum<ProductSortableFields>, 'en'),
 	query: z.any().refine(query => !query || Object.keys(query).length === 0, {
 		message: 'Query must be empty',
 	}),
@@ -24,7 +24,7 @@ export const GetProductShape = z.object<MyZodType<GetProductShapeI>>({
 });
 
 export const UpdateProductInformationShape = z.object<MyZodType<UpdateProductInformationShapeI>>({
-	body: ProductInformationISchema(),
+	body: ProductInformationISchema('en'),
 	query: z.any().refine(query => !query || Object.keys(query).length === 0, {
 		message: 'Query must be empty',
 	}),

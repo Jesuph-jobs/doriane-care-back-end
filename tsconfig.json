@@ -1,35 +1,8 @@
 {
-	"compilerOptions": {
-		"baseUrl": ".",
-		"esModuleInterop": true,
-		"forceConsistentCasingInFileNames": true,
-		"importsNotUsedAsValues": "remove",
-		"module": "CommonJS",
-		"moduleResolution": "Node",
-		"outDir": "dist",
-		"paths": {
-			/* common */
-			"&common/*": ["common/models/*"],
-			"$common/*": ["common/schemas/*"],
-			"^common/*": ["common/validations/*"],
-			"!common/*": ["common/types/*"],
-			"~common/*": ["common/lib/*"],
-			"@common/*": ["common/*"],
-			/* server */
-			"^server/*": ["src/validations/*"],
-			"!server/*": ["src/types/*"],
-			"#server/*": ["src/models/*"],
-			"~server/*": ["src/docs/*"],
-			"&server/*": ["src/config/*"],
-			"$server/*": ["src/log/*"],
-			"@server/*": ["src/*"]
-		},
-		"resolveJsonModule": true,
-		"skipLibCheck": true,
-		"strict": true,
-		"target": "ESNext",
-		"types": ["vitest/globals"]
-	},
-	"exclude": ["node_modules", "common/lib", "common/actions/server/register.ts", "common/actions/client"],
-	"include": ["src/**/*", "common/**/*", "cli/**/*", "seed/**/*"]
+	"files": [],
+	"references": [
+		{ "path": "./tsconfig.app.json" },
+		{ "path": "./tsconfig.seed.json" },
+		{ "path": "./tsconfig.test.json" }
+	]
 }
