@@ -454,6 +454,65 @@ export const deleteCollectionProduct = async (
 		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't update collection", e, res);
 	}
 };
+export const addCollectionBlog = async (
+	req: ERequest<WebSiteDocumentI, { collectionId: string }, ResponseI<null>, { blogsId: string[] }>,
+	res: Response<ResponseI<null>>
+) => {
+	const website = req.records!.website!;
+	try {
+		const collection = await collectionModel.findOne({
+			website: website._id,
+			_id: req.params.collectionId,
+		});
+
+		if (!collection) throw new Error('Collection not found');
+		const blogsId = req.body.blogsId;
+		if (!blogsId) throw new Error("Ids wasn't provided");
+		if (!Array.isArray(blogsId)) throw new Error('Ids is supposed to be an array');
+
+		const idsNotAlreadyExists = blogsId.filter(blogId => !collection.publishables.some(p => p.equals(blogId)));
+		const message =
+			idsNotAlreadyExists.length !== blogsId.length
+				? 'Some Ids already exists'
+				: 'Collection updated successfully';
+		idsNotAlreadyExists.forEach(id => {
+			collection.publishables.push(new Types.ObjectId(id));
+		});
+		await collection.save();
+		handleServiceResponse(new ServiceResponse<null>(ResponseStatus.Success, message, null, StatusCodes.OK), res);
+	} catch (e) {
+		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't update collection", e, res);
+	}
+};
+export const deleteCollectionBlog = async (
+	req: ERequest<WebSiteDocumentI, { collectionId: string }, ResponseI<null>, { blogsId: string[] }>,
+	res: Response<ResponseI<null>>
+) => {
+	const website = req.records!.website!;
+	try {
+		const collection = await collectionModel.findOne({
+			website: website._id,
+			_id: req.params.collectionId,
+		});
+
+		if (!collection) throw new Error('Collection not found');
+		const blogsId = req.body.blogsId;
+		if (!blogsId) throw new Error("Ids wasn't provided");
+		if (!Array.isArray(blogsId)) throw new Error('Ids is supposed to be an array');
+		let count = 0;
+		collection.publishables = collection.publishables.filter(publishable => {
+			const exist = blogsId.some(blogId => publishable.equals(blogId));
+			if (exist) count++;
+			return !exist;
+		});
+		const message = count !== blogsId.length ? "Some Ids didn't exists" : 'Collection updated successfully';
+
+		await collection.save();
+		handleServiceResponse(new ServiceResponse<null>(ResponseStatus.Success, message, null, StatusCodes.OK), res);
+	} catch (e) {
+		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't update collection", e, res);
+	}
+};
 
 export const updateCollectionInformation = async (
 	req: ERequest<WebSiteDocumentI, { collectionId: string }, ResponseI<null>, CollectionInformationI>,
