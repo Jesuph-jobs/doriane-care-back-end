@@ -59,7 +59,7 @@ appsRegistry.registerPath({
 		},
 		{
 			statusCode: StatusCodes.BAD_REQUEST,
-			schema: errorSchema({ message: { description: 'Invalid credentials' } }),
+			schema: errorSchema('en'),
 			description: 'Invalid credentials',
 		},
 	]),

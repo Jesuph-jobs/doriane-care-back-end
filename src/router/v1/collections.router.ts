@@ -1,9 +1,11 @@
 import { Router } from 'express';
 
 import {
+	addCollectionBlog,
 	addCollectionProduct,
 	checkCollectionSlug,
 	createCollection,
+	deleteCollectionBlog,
 	deleteCollectionProduct,
 	deleteCollections,
 	getBasicCollections,
@@ -31,6 +33,7 @@ collectionsRouter.route('/:collectionId/state').put(updateCollectionState);
 collectionsRouter.route('/:collectionId/labels').put(updateCollectionLabels);
 collectionsRouter.route('/:collectionId/category').put(updateCollectionParentCollection);
 collectionsRouter.route('/:collectionId/product').put(addCollectionProduct).delete(deleteCollectionProduct);
+collectionsRouter.route('/:collectionId/blog').put(addCollectionBlog).delete(deleteCollectionBlog);
 collectionsRouter.route('/:collectionId/images').put(updateCollectionImages);
 collectionsRouter.route('/:collectionId/information').put(updateCollectionInformation);
 collectionsRouter.route('/:collectionId').get(getCollectionById);

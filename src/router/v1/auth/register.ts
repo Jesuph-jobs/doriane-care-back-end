@@ -23,12 +23,12 @@ authRegistry.registerPath({
 		},
 		{
 			statusCode: StatusCodes.UNAUTHORIZED,
-			schema: nullElementSchema({ description: "User is null because it isn't logged in" }),
+			schema: nullElementSchema('en'),
 			description: "User isn't logged in",
 		},
 		{
 			statusCode: StatusCodes.BAD_REQUEST,
-			schema: errorSchema(),
+			schema: errorSchema('en'),
 			description: 'Invalid Token',
 		},
 	]),
@@ -43,7 +43,7 @@ authRegistry.registerPath({
 	responses: createApiResponses([
 		{
 			statusCode: StatusCodes.OK,
-			schema: nullElementSchema({ description: 'User is logged out' }),
+			schema: nullElementSchema('en'),
 			description: 'User is logged out',
 		},
 	]),
@@ -87,7 +87,7 @@ authRegistry.registerPath({
 		},
 		{
 			statusCode: StatusCodes.BAD_REQUEST,
-			schema: errorSchema({ message: { description: 'Invalid credentials' } }),
+			schema: errorSchema('en'),
 			description: 'Invalid credentials',
 		},
 	]),

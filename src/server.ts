@@ -1,5 +1,4 @@
 import type * as http from 'node:http';
-import BoxConsole from 'box-console';
 
 //import { generateRandomUser } from 'tests/tools/generateRandomUser';
 //import userModel from '#server/user';
@@ -10,7 +9,13 @@ import services /* , { discordWebhookService } */ from './services';
 
 let manager: Promise<any[]> | null = null;
 let serverListener: http.Server | null = null;
-
+function BoxConsole(messages: string[]) {
+	const max = messages.reduce((max, message) => Math.max(max, message.length), 0);
+	const border = `+${'-'.repeat(max + 2)}+`;
+	console.log(border);
+	messages.forEach(message => console.log(`| ${message.padEnd(max)} |`));
+	console.log(border);
+}
 async function start() {
 	if (manager == null) manager = Promise.all(services.map(service => service.Connection));
 	await manager.then(listen);
@@ -32,7 +37,7 @@ async function listen() {
 				`⌛ Server started at ${new Date().toLocaleString('en-UK')}`,
 				`⌛ Server was up in ${process.uptime()} seconds`,
 				`🚪 PORT: ${PORT}`,
-				isDev ? `🖥️  HOST: http://${FY_HOST}:${PORT}/docs/v1` : '',
+				...(isDev ? [`🖥️  HOST: http://${FY_HOST}:${PORT}/docs/v1`] : []),
 			]);
 	});
 

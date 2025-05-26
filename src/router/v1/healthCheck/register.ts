@@ -11,7 +11,7 @@ healthCheckRegistry.registerPath({
 	path: '/health-check',
 	tags: ['Health Check'],
 	request: createApiRequest({}),
-	responses: createApiResponse(nullElementSchema(), 'Success'),
+	responses: createApiResponse(nullElementSchema('en'), 'Success'),
 });
 
 export default healthCheckRegistry;
