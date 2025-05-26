@@ -4,59 +4,61 @@
 name: Node.js CI
 
 on:
-    push:
-        branches: [production]
-    pull_request:
-        branches: [production]
+  push:
+    branches: [production]
+  pull_request:
+    branches: [production]
 
 jobs:
-    build:
-        runs-on: self-hosted
+  build:
+    runs-on: self-hosted
 
-        strategy:
-            matrix:
-                node-version: [22.x]
+    strategy:
+      matrix:
+        node-version: [22.x]
 
-        steps:
-            - uses: actions/checkout@v3
-              with:
-                submodules: recursive
-                token: ${{ secrets.PAT_FOR_COMMON_REPOS }}
-            - name: Use Node.js ${{ matrix.node-version }}
-              uses: actions/setup-node@v3
-              with:
-                  node-version: ${{ matrix.node-version }}
-                  cache: "npm"
-            - name: Install packages
-              run: npm ci
-            - name: build the application
-              run: npm run build
-            - name: Delete old serve
-              run: pm2 delete ecosystem.config.cjs || true
-            - name: Start new serve
-              run: pm2 start ecosystem.config.cjs
-              env:
-                FY_CORS_ORIGIN: ${{ secrets.FY_CORS_ORIGIN }}
-                FY_MONGODB_DB_URI_WITHOUT_CREDENTIALS: ${{ secrets.FY_MONGODB_DB_URI_WITHOUT_CREDENTIALS }}
-                FY_MONGODB_DB_USERNAME: ${{ secrets.FY_MONGODB_DB_USERNAME }}
-                FY_MONGODB_DB_PASSWORD: ${{ secrets.FY_MONGODB_DB_PASSWORD }}
-                FY_MONGODB_DB_DATABASE: ${{ secrets.FY_MONGODB_DB_DATABASE }}
-                FY_DEV_ROLE_ID: ${{ secrets.FY_DEV_ROLE_ID }}
-                FY_REDIS_DB_PASSWORD: ${{ secrets.FY_REDIS_DB_PASSWORD }}
-                FY_JWT_SECRET: ${{ secrets.FY_JWT_SECRET }}
-                FY_LOGS_DIR: ${{ secrets.FY_LOGS_DIR }}
-                FY_PUBLIC_DIR: ${{ secrets.FY_PUBLIC_DIR }}
-                FY_PUBLIC_CASH_AGE: ${{ vars.FY_PUBLIC_CASH_AGE }}
-                FY_PUBLIC_FILES_DOMAIN: ${{ vars.FY_PUBLIC_FILES_DOMAIN }}
-                FY_DOMAIN: ${{ vars.FY_DOMAIN }}
-                FY_BACK_DOMAIN: ${{ vars.FY_BACK_DOMAIN }}
-                FY_NOREPLY_EMAIL: ${{ vars.FY_NOREPLY_EMAIL }}
-                FY_EMAIL_PASSWORD: ${{ secrets.FY_EMAIL_PASSWORD }}
-                FY_EMAIL_USERNAME: ${{ secrets.FY_EMAIL_USERNAME }}
-                FY_EMAIL_HOST: ${{ vars.FY_EMAIL_HOST }}
-                FY_EMAIL_PORT: ${{ vars.FY_EMAIL_PORT }}
-                FY_EMAIL_SECURE: ${{ vars.FY_EMAIL_SECURE }}
-            - name: Save PM2 list
-              run: pm2 save
-            - name: Restart ngnix
-              run: sudo service nginx restart
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          token: ${{ secrets.PAT_FOR_COMMON_REPOS }}
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+      - name: Install pnpm
+        run: npm install -g pnpm
+      - name: Install packages
+        run: pnpm install --frozen-lockfile
+      - name: build the application
+        run: pnpm run build
+      - name: Delete old serve
+        run: pm2 delete ecosystem.config.cjs || true
+      - name: Start new serve
+        run: pm2 start ecosystem.config.cjs
+        env:
+          FY_CORS_ORIGIN: ${{ secrets.FY_CORS_ORIGIN }}
+          FY_MONGODB_DB_URI_WITHOUT_CREDENTIALS: ${{ secrets.FY_MONGODB_DB_URI_WITHOUT_CREDENTIALS }}
+          FY_MONGODB_DB_USERNAME: ${{ secrets.FY_MONGODB_DB_USERNAME }}
+          FY_MONGODB_DB_PASSWORD: ${{ secrets.FY_MONGODB_DB_PASSWORD }}
+          FY_MONGODB_DB_DATABASE: ${{ secrets.FY_MONGODB_DB_DATABASE }}
+          FY_DEV_ROLE_ID: ${{ secrets.FY_DEV_ROLE_ID }}
+          FY_REDIS_DB_PASSWORD: ${{ secrets.FY_REDIS_DB_PASSWORD }}
+          FY_JWT_SECRET: ${{ secrets.FY_JWT_SECRET }}
+          FY_LOGS_DIR: ${{ secrets.FY_LOGS_DIR }}
+          FY_PUBLIC_DIR: ${{ secrets.FY_PUBLIC_DIR }}
+          FY_PUBLIC_CASH_AGE: ${{ vars.FY_PUBLIC_CASH_AGE }}
+          FY_PUBLIC_FILES_DOMAIN: ${{ vars.FY_PUBLIC_FILES_DOMAIN }}
+          FY_DOMAIN: ${{ vars.FY_DOMAIN }}
+          FY_BACK_DOMAIN: ${{ vars.FY_BACK_DOMAIN }}
+          FY_NOREPLY_EMAIL: ${{ vars.FY_NOREPLY_EMAIL }}
+          FY_EMAIL_PASSWORD: ${{ secrets.FY_EMAIL_PASSWORD }}
+          FY_EMAIL_USERNAME: ${{ secrets.FY_EMAIL_USERNAME }}
+          FY_EMAIL_HOST: ${{ vars.FY_EMAIL_HOST }}
+          FY_EMAIL_PORT: ${{ vars.FY_EMAIL_PORT }}
+          FY_EMAIL_SECURE: ${{ vars.FY_EMAIL_SECURE }}
+      - name: Save PM2 list
+        run: pm2 save
+      - name: Restart ngnix
+        run: sudo service nginx restart

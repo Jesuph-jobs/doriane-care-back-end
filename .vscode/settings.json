@@ -42,5 +42,8 @@
 	},
 	"peacock.color": "#215732",
 	"cSpell.words": ["cloudinary", "maxlength", "openapi", "originalname", "publishables", "reseted"],
-	"cSpell.language": "en,fr"
+	"cSpell.language": "en,fr",
+	"[github-actions-workflow]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	}
 }
