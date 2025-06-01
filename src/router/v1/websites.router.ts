@@ -4,6 +4,7 @@ import {
 	updateHomeContent,
 	updateLoyaltyProgram,
 	updateSecondaryContent,
+	updateWebsiteBanners,
 	updateWebsiteDeliverySettings,
 	updateWebsiteFaq,
 	updateWebsiteInformation,
@@ -31,6 +32,7 @@ websitesRouter.route('/:websiteId/loyalty').put(updateLoyaltyProgram);
 websitesRouter.route('/:websiteId/services').put(updateWebsiteServices);
 websitesRouter.route('/:websiteId/testimonials').put(updateWebsiteTestimonials);
 websitesRouter.route('/:websiteId/faq').put(updateWebsiteFaq);
+websitesRouter.route('/:websiteId/banners').put(updateWebsiteBanners);
 websitesRouter.route('/:websiteId/delivery').put(updateWebsiteDeliverySettings);
 websitesRouter.route('/:websiteId').get(getWebsiteById);
 

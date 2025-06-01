@@ -270,6 +270,28 @@ export const updateWebsiteFaq = async (
 		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't update website", e, res);
 	}
 };
+export const updateWebsiteBanners = async (
+	req: ERequest<null, { websiteId: string }, ResponseI<null>, BannerSettingsFromI>,
+	res: Response<ResponseI<null>>
+) => {
+	try {
+		const website = websitesManagerService.getWebsite(req.params.websiteId);
+		if (!website) throw new Error('Website not found');
+		website.banners = req.body.banners;
+		await website.save();
+		handleServiceResponse(
+			new ServiceResponse<null>(
+				ResponseStatus.Success,
+				'Website banners updated successfully',
+				null,
+				StatusCodes.OK
+			),
+			res
+		);
+	} catch (e) {
+		handleErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, "Couldn't update website's banners", e, res);
+	}
+};
 export const updateWebsiteDeliverySettings = async (
 	req: ERequest<null, { websiteId: string }, ResponseI<null>, DeliverySettingsI>,
 	res: Response<ResponseI<null>>
