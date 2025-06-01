@@ -3,7 +3,7 @@ import { BasePermissionsIds } from '@common/permissions/Permissions';
 import { faker } from '@faker-js/faker';
 import _ from 'lodash';
 import { Types } from 'mongoose';
-import { rolesManagerService } from './services';
+
 export const mainRole = new Types.ObjectId('6733948a43c3d1936a7cb948');
 const role = (
 	website: Types.ObjectId | undefined = undefined,
@@ -33,6 +33,6 @@ export async function seedRoles(
 	);
 }
 
-export async function getRandomRoles(website?: Types.ObjectId, size = 10) {
+/* export async function getRandomRoles(website?: Types.ObjectId, size = 10) {
 	return _.sampleSize(await rolesManagerService.getRoles(website), size);
-}
+} */
