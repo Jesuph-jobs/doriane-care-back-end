@@ -9,6 +9,7 @@ import customerModel from '&common/Customer';
 
 import baseCustomerModel from '&common/BaseCustomer';
 import { generatePassword } from '@server/utils/password';
+import { Types } from 'mongoose';
 
 export const getCustomerById = async (
 	req: ERequest<null, { customerId: string }, ResponseI<CustomerTableDataI>>,
@@ -207,7 +208,7 @@ export const deleteCustomers = async (
 		const customers = await customerModel.deleteMany({
 			website: website._id,
 			_id: {
-				$in: req.body.customerIds,
+				$in: req.body.customerIds.map(id => new Types.ObjectId(id)),
 			},
 			status: 'pending',
 		});
