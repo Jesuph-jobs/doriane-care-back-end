@@ -210,7 +210,6 @@ export const deleteCustomers = async (
 			_id: {
 				$in: req.body.customerIds.map(id => new Types.ObjectId(id)),
 			},
-			status: 'pending',
 		});
 		if (customers.deletedCount === 0) throw new Error('Customers not found');
 		if (customers.deletedCount !== req.body.customerIds.length)
